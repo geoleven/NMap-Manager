@@ -1,27 +1,38 @@
 package sa;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class SAProperties {
 	public int oneTimeJobThreadsNumber = 0;
+	
+	public void readOneTimeThreadNumberFromFile(){
+		readOneTimeThreadNumberFromFile(Globals.pathName + "threadNum");
+	}
 	public void readOneTimeThreadNumberFromFile(String filename) {
 		
-		BufferedReader br = null;
-		try {
-			String threadNumberString;
-			br = new BufferedReader(new FileReader(filename));
-			if((threadNumberString = br.readLine()) != null) {
-				oneTimeJobThreadsNumber = Integer.parseInt(threadNumberString);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
+		File myPath = new File(filename);
+		if (!myPath.exists()) {
+			System.err.println("No file for thread number initialization exist, assuming 5!");
+			oneTimeJobThreadsNumber = 5;
+		} else {
+			BufferedReader br = null;
 			try {
-				if (br != null)br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
+				String threadNumberString;
+				br = new BufferedReader(new FileReader(filename));
+				if((threadNumberString = br.readLine()) != null) {
+					oneTimeJobThreadsNumber = Integer.parseInt(threadNumberString);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (br != null)br.close();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
 	}
