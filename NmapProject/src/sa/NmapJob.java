@@ -21,8 +21,8 @@ public class NmapJob {
 		String result = "";
 		try {
 			if(Globals.verbose)
-				System.err.println("sudo nmap -oX - " + this.parameters);
-			Process proc = Runtime.getRuntime().exec("sudo nmap -oX - " + this.parameters);
+				System.err.println("nmap -oX - " + this.parameters);
+			Process proc = Runtime.getRuntime().exec("nmap -oX - " + this.parameters);
 			BufferedReader stdInput = new BufferedReader(new 
 				     InputStreamReader(proc.getInputStream()));
 
@@ -44,5 +44,9 @@ public class NmapJob {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	public void print(){
+		System.out.println("[ "+id+" , "+parameters+" , "+periodic+" , "+period+" ]");
 	}
 }

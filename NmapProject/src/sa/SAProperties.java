@@ -15,7 +15,7 @@ public class SAProperties {
 		
 		File myPath = new File(filename);
 		if (!myPath.exists()) {
-			System.err.println("No file for thread number initialization exist, assuming 5!");
+			System.err.println("No file \"threadNum\" in \"~/.myNmap/\"  , assuming 5 threads");
 			oneTimeJobThreadsNumber = 5;
 		} else {
 			BufferedReader br = null;
