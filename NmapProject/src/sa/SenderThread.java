@@ -2,16 +2,31 @@ package sa;
 
 
 public class SenderThread implements Runnable {
-
-	Thread runner;
-	public SenderThread() {
-		
+	
+	ResultQueue queue;
+	
+	public SenderThread(ResultQueue q) {
+		queue = q;
 	}
 	
 	@Override
 	public void run() {
-		System.out.println("I am now sending the harvested XMLs!");
-		
+		try{
+			printResult();
+			Thread.sleep(100);
+			
+		} catch (InterruptedException e) {
+			System.out.println("OneTimeJobThread interrupted");
+		} catch (Exception e) {
+			System.err.println("Unexpected exception "+e.getMessage());
+		}		
 	}
-
+	
+	private void printResult(){
+		Result res = queue.getResult();
+		if(res != null){
+			res.print();
+		}
+	}
+	
 }
