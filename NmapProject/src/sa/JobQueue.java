@@ -12,6 +12,7 @@ public class JobQueue {
 	
 	synchronized public void addJob(NmapJob job){
 		queue.add(job);
+		notify();
 	}
 	
 	synchronized public NmapJob getJob(){

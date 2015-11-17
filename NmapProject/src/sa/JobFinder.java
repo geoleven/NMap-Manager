@@ -5,7 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Random;	
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicReference;	
 
 public class JobFinder implements Runnable {
 	
@@ -17,20 +18,25 @@ public class JobFinder implements Runnable {
 	
 	private ArrayList<String> fileHistory;
 	
+	//private AtomicReference<Boolean>finish;
+	
+	private final Object lock = new Object();
+	
 	public JobFinder(JobQueue q){
 		queue = q;
 		openedFile = null;
 		rand = new Random();
 		fileHistory = new ArrayList<String>();
+	
 	}
 	
 	@Override
 	public void run(){
 		try {
-			while(true){
+			while(Globals.finish.get() == false){
 				readJobs();
-				Thread.sleep((rand.nextInt(3)+1)*1000);
 			}
+			System.out.println("im GTFOing");
 		} catch (InterruptedException e) {
 			System.out.println("JobFinder interrupted");
 		} catch (Exception e) {
@@ -39,6 +45,7 @@ public class JobFinder implements Runnable {
 	}
 	
 	private void readJobs() throws Exception{
+		
 		if(openedFile == null){
 			openfile();
 		}

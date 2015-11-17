@@ -4,7 +4,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		try{
-			Globals.verbose = false;
+			Globals.verbose = true;
 			if(!MySystemFiles.checkProgramPathExists()) {
 				return;
 			}
@@ -13,15 +13,19 @@ public class Main {
 			//System.out.println(myp.oneTimeJobThreadsNumber);
 			
 			JobQueue jQ = new JobQueue();
-			ResultQueue rQ = new ResultQueue();
+			//ResultQueue rQ = new ResultQueue();
 			
 			Thread jF = new Thread(new JobFinder(jQ));
-			Thread sT = new Thread(new SenderThread(rQ));
-			Thread oneTime = new Thread(new OneTimeJobThread(jQ , rQ));
+			//Thread sT = new Thread(new SenderThread(rQ));
+			//Thread oneTime = new Thread(new OneTimeJobThread(jQ , rQ));
 			
 			jF.start();
-			sT.start();
-			oneTime.start();
+			//sT.start();
+			//oneTime.start();
+			
+			Thread.sleep(2*1000);
+			System.out.println("GTFO");
+			Globals.finish.set(true);
 			
 		}
 		catch (Exception e){
