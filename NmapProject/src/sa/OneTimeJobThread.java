@@ -3,9 +3,7 @@ package sa;
 public class OneTimeJobThread implements Runnable {
 	
 	JobQueue inQueue;
-	
 	ResultQueue outQueue;
-	
 	NmapJob job;
 
 	public OneTimeJobThread(JobQueue in, ResultQueue out) {
@@ -21,14 +19,17 @@ public class OneTimeJobThread implements Runnable {
 				if (getJob())
 					executeJob();
 				else {
-					wait();
+					synchronized(Globals.oneTimeJoblock){
+						Globals.oneTimeJoblock.wait();
+					}
 				}
 			}
 
 		} catch (InterruptedException e) {
 			System.out.println("OneTimeJobThread interrupted. Exiting.");
 		} catch (Exception e) {
-			System.err.println("Unexpected exception " + e.getMessage());
+			System.err.println("Unexpected exception " + e.getMessage() + " @OneTimeJobThread.run");
+			e.printStackTrace();
 		}
 	}
 	

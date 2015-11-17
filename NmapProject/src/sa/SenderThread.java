@@ -12,21 +12,22 @@ public class SenderThread implements Runnable {
 	@Override
 	public void run() {
 		try{
-			printResult();
-			Thread.sleep(100);
-			
+			if (!printResult())
+				wait();	
 		} catch (InterruptedException e) {
 			System.out.println("OneTimeJobThread interrupted");
 		} catch (Exception e) {
-			System.err.println("Unexpected exception "+e.getMessage());
+			System.err.println("Unexpected exception "+e.getMessage() + " @SenderThread.run");
 		}		
 	}
 	
-	private void printResult(){
+	private boolean printResult(){
 		Result res = queue.getResult();
 		if(res != null){
 			res.print();
+			return true;
 		}
+		return false;
 	}
 	
 }
