@@ -25,7 +25,8 @@ public class Main {
 			
 			Thread.sleep(2*1000);
 			System.out.println("GTFO");
-			Globals.finish.set(true);
+			jF.interrupt();
+//			Globals.finish.set(true);
 			
 		}
 		catch (Exception e){

@@ -7,24 +7,28 @@ public class OneTimeJobThread implements Runnable {
 	ResultQueue outQueue;
 	
 	NmapJob job;
-	
-	public OneTimeJobThread(JobQueue in , ResultQueue out ){
+
+	public OneTimeJobThread(JobQueue in, ResultQueue out) {
 		inQueue = in;
 		outQueue = out;
 		job = null;
 	}
-	
+
 	@Override
 	public void run() {
-		try{
-			if(getJob())
-				executeJob();
-			Thread.sleep(100);
-			
+		try {
+			while (true) {
+				if (getJob())
+					executeJob();
+				else {
+					wait();
+				}
+			}
+
 		} catch (InterruptedException e) {
-			System.out.println("OneTimeJobThread interrupted");
+			System.out.println("OneTimeJobThread interrupted. Exiting.");
 		} catch (Exception e) {
-			System.err.println("Unexpected exception "+e.getMessage());
+			System.err.println("Unexpected exception " + e.getMessage());
 		}
 	}
 	

@@ -11,10 +11,11 @@ public class ResultQueue {
 	
 	synchronized public void addResult(Result res){
 		queue.add(res);
+		notify();
 	}
 	
-	synchronized public void addResult(NmapJob job , String res){
-		queue.add(new Result(job , res));
+	public void addResult(NmapJob job , String res){
+		addResult(new Result(job , res));
 	}
 	
 	synchronized public Result getResult(){

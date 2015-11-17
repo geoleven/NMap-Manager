@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicReference;	
 
 public class JobFinder implements Runnable {
 	
@@ -20,7 +19,7 @@ public class JobFinder implements Runnable {
 	
 	//private AtomicReference<Boolean>finish;
 	
-	private final Object lock = new Object();
+//	private final Object lock = new Object();
 	
 	public JobFinder(JobQueue q){
 		queue = q;
@@ -33,10 +32,11 @@ public class JobFinder implements Runnable {
 	@Override
 	public void run(){
 		try {
-			while(Globals.finish.get() == false){
+//			while(Globals.finish.get() == false){
+			while(true) {
 				readJobs();
+				Thread.sleep(2000);
 			}
-			System.out.println("im GTFOing");
 		} catch (InterruptedException e) {
 			System.out.println("JobFinder interrupted");
 		} catch (Exception e) {
