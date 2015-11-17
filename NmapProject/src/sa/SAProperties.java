@@ -8,10 +8,10 @@ import java.io.IOException;
 public class SAProperties {
 	public int oneTimeJobThreadsNumber = 0;
 	
-	public void readOneTimeThreadNumberFromFile(){
-		readOneTimeThreadNumberFromFile(Globals.pathName + "threadNum");
+	public void readThreadNum(){
+		readThreadNum(Globals.pathName + "threadNum");
 	}
-	public void readOneTimeThreadNumberFromFile(String filename) {
+	public void readThreadNum(String filename) {
 		
 		File myPath = new File(filename);
 		if (!myPath.exists()) {

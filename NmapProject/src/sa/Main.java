@@ -9,7 +9,7 @@ public class Main {
 				return;
 			}
 			SAProperties myp = new SAProperties();
-			myp.readOneTimeThreadNumberFromFile();
+			myp.readThreadNum();
 			//System.out.println(myp.oneTimeJobThreadsNumber);
 			
 			JobQueue jQ = new JobQueue();
