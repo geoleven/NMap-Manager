@@ -11,21 +11,21 @@ public class ResultQueue {
 	
 	synchronized public void addResult(Result res){
 		queue.add(res);
-		notify();
+//		notify();
 	}
 	
 	public void addResult(NmapJob job , String res){
 		addResult(new Result(job , res));
 	}
 	
-	synchronized public Result getResult(){
+	synchronized public Result getResult() throws Exception {
 		if(queue.size() > 0){
 			Result j = queue.get(0);
 			queue.remove(0);
-			
 			return j;
 		}
 		else{
+//			wait();
 			return null;
 		}
 	}

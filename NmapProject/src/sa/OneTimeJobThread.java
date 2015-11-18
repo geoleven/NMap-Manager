@@ -19,12 +19,11 @@ public class OneTimeJobThread implements Runnable {
 				if (getJob())
 					executeJob();
 				else {
-					synchronized(Globals.oneTimeJoblock){
-						Globals.oneTimeJoblock.wait();
+					synchronized (inQueue) {
+						inQueue.wait();
 					}
 				}
 			}
-
 		} catch (InterruptedException e) {
 			System.out.println("OneTimeJobThread interrupted. Exiting.");
 		} catch (Exception e) {
@@ -33,7 +32,7 @@ public class OneTimeJobThread implements Runnable {
 		}
 	}
 	
-	public boolean getJob(){
+	public boolean getJob() throws Exception {
 		if((job = inQueue.getJob())!= null){
 			return true;
 		}
@@ -43,6 +42,9 @@ public class OneTimeJobThread implements Runnable {
 	public void executeJob(){
 		String out = job.runJob();
 		outQueue.addResult(job , out);
+		synchronized (outQueue) {
+			outQueue.notify();
+		}
 	}
 	
 }

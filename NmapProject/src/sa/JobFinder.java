@@ -13,10 +13,12 @@ public class JobFinder implements Runnable {
 	public BufferedReader openedFile;
 	private Random rand;
 	private ArrayList<String> fileHistory;
+	private String openedFileName;
 
 	public JobFinder(JobQueue q) {
 		queue = q;
 		openedFile = null;
+		openedFileName = null;
 		rand = new Random();
 		fileHistory = new ArrayList<String>();
 
@@ -27,17 +29,17 @@ public class JobFinder implements Runnable {
 		try {
 			// while(Globals.finish.get() == false){
 			while (true) {
-				readJobs();
+				aquireJobs();
 				Thread.sleep(2000);
 			}
 		} catch (InterruptedException e) {
-			System.out.println("JobFinder interrupted");
+			System.out.println("JobFinder interrupted.");
 		} catch (Exception e) {
 			System.err.println("Unexpected exception " + e.getMessage() + " @Jobfinder.run");
 		}
 	}
 
-	private void readJobs() throws Exception {
+	private void aquireJobs() throws Exception {
 
 		if (openedFile == null) {
 			openfile();
@@ -45,30 +47,31 @@ public class JobFinder implements Runnable {
 		if (openedFile != null) {
 			int num = rand.nextInt(10) + 1;
 			if (Globals.verbose)
-				System.out.println("reading " + num + " jobs from file");
+				System.out.println("Reading " + num + " jobs from file " + openedFileName + ".");
 			readJobsFromFile(num);
 			checkFileEmpty();
 		}
 	}
 
 	private void openfile() throws Exception {
-		if (Globals.verbose)
-			System.out.println("Searching for new File");
+		// if (Globals.verbose)
+		// System.out.println("Searching for new File");
 
 		File folder = new File(Globals.pathName);
 		File[] listOfFiles = folder.listFiles();
 
 		for (int i = 0; i < listOfFiles.length; i++) {
-			if (listOfFiles[i].isFile() && listOfFiles[i].getName().equals("threadNum") == false
+			if (listOfFiles[i].isFile() && listOfFiles[i].getName().equals("properties") == false
 					&& fileHistory.contains(listOfFiles[i].getName()) == false) {
 
 				if (Globals.verbose)
-					System.out.println("Found File: " + listOfFiles[i].getName());
+					System.out.println("Found file: " + listOfFiles[i].getName() + ".");
 
 				fileHistory.add(listOfFiles[i].getName());
 
 				openedFile = new BufferedReader(
 						new InputStreamReader(new FileInputStream(Globals.pathName + listOfFiles[i].getName())));
+				openedFileName = Globals.pathName + listOfFiles[i].getName();
 
 				break;
 
@@ -92,23 +95,26 @@ public class JobFinder implements Runnable {
 		String[] split = line.split(",");
 
 		if (split.length == 4) {
-			NmapJob job = new NmapJob(Integer.parseInt(split[0]), split[1], Boolean.parseBoolean(split[2]),
+			NmapJob currentJob = new NmapJob(Integer.parseInt(split[0]), split[1].replaceAll("-oX - ", ""), Boolean.parseBoolean(split[2]),
 					Integer.parseInt(split[3]));
 
 			if (Globals.verbose)
-				job.print();
+				currentJob.print();
 
-			queue.addJob(job);
+			queue.addJob(currentJob);
+			synchronized (queue) {
+				queue.notify();
+			}
 		} else {
 			if (Globals.verbose)
-				System.out.println("Bad Job Format");
+				System.err.println("Job in file is not formatted correctly.");
 		}
 	}
 
 	private void checkFileEmpty() throws Exception {
 		if (!openedFile.ready()) {
 			if (Globals.verbose)
-				System.out.println("Closing empty File");
+				System.err.println("Closing empty file.");
 			closeFile();
 		}
 	}

@@ -6,24 +6,29 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class SAProperties {
-	public int oneTimeJobThreadsNumber = 0;
 	
 	public void readThreadNum(){
-		readThreadNum(Globals.pathName + "threadNum");
+		readThreadNum(Globals.pathName + "properties");
 	}
 	public void readThreadNum(String filename) {
 		
 		File myPath = new File(filename);
 		if (!myPath.exists()) {
-			System.err.println("No file \"threadNum\" in \"~/.myNmap/\"  , assuming 5 threads");
-			oneTimeJobThreadsNumber = 5;
+			System.err.println("No file \"properties\" in \"~/.myNmap/\"  , assuming 5 threads");
+			Globals.oneTimeJobThreadsNumber = 5;
 		} else {
 			BufferedReader br = null;
 			try {
 				String threadNumberString;
 				br = new BufferedReader(new FileReader(filename));
 				if((threadNumberString = br.readLine()) != null) {
-					oneTimeJobThreadsNumber = Integer.parseInt(threadNumberString);
+					if (threadNumberString.contains("Number of threads="))
+						Globals.oneTimeJobThreadsNumber = Integer.parseInt(threadNumberString.substring(threadNumberString.lastIndexOf('=')+1));
+					if (Globals.verbose)
+						System.err.println("Using " + Globals.oneTimeJobThreadsNumber + " threads.");
+				} else {
+					System.err.println("Number of threads is not specified in property file , assuming 5 threads");
+					Globals.oneTimeJobThreadsNumber = 5;
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

@@ -12,10 +12,9 @@ public class JobQueue {
 	
 	synchronized public void addJob(NmapJob job) {
 		queue.add(job);
-		notify();
 	}
 	
-	synchronized public NmapJob getJob() {
+	synchronized public NmapJob getJob() throws Exception {
 		if(queue.size() > 0){
 			NmapJob j = queue.get(0);
 			queue.remove(0);

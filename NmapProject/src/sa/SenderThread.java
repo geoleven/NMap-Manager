@@ -1,33 +1,36 @@
 package sa;
 
-
 public class SenderThread implements Runnable {
-	
+
 	ResultQueue queue;
-	
+
 	public SenderThread(ResultQueue q) {
 		queue = q;
 	}
-	
+
 	@Override
 	public void run() {
-		try{
-			if (!printResult())
-				wait();	
+		try {
+			while (true) {
+				printResult();
+				synchronized (queue) {
+					queue.wait();
+				}
+			}
 		} catch (InterruptedException e) {
-			System.out.println("OneTimeJobThread interrupted");
+			System.out.println("SenderThread interrupted. Exiting.");
 		} catch (Exception e) {
-			System.err.println("Unexpected exception "+e.getMessage() + " @SenderThread.run");
-		}		
+			System.err.println("Unexpected exception " + e.getMessage() + " @SenderThread.run");
+		}
 	}
-	
-	private boolean printResult(){
+
+	private boolean printResult() throws Exception {
 		Result res = queue.getResult();
-		if(res != null){
+		if (res != null) {
 			res.print();
 			return true;
 		}
 		return false;
 	}
-	
+
 }

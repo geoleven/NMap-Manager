@@ -23,7 +23,7 @@ public class Main {
 			sT.start();
 			oneTime.start();
 
-			Thread.sleep(5 * 1000);
+			Thread.sleep(20 * 1000);
 			System.out.println("GTFO");
 			jF.interrupt();
 			sT.interrupt();
