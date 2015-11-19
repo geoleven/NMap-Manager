@@ -32,6 +32,8 @@ public class Main {
 //			sT.stopSendingResults();
 //			otj.stopThreads();
 //			pj.stopThreads();
+			Stopper stopper = new Stopper(jf, otj, pj, sT);
+			stopper.attachShutDownHook();
 
 		} catch (Exception e) {
 			e.printStackTrace();

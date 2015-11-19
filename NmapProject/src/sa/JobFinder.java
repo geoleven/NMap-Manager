@@ -32,7 +32,7 @@ public class JobFinder implements Runnable {
 			// while(Globals.finish.get() == false){
 			while (true) {
 				aquireJobs();
-				Thread.sleep(2000);
+				Thread.sleep(3000);
 			}
 		} catch (InterruptedException e) {
 			System.out.println("JobFinder interrupted.");

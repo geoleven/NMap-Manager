@@ -20,9 +20,10 @@ public class OneTimeJobs {
 			this.results = results;			
 	}
 	
-	public void stopThreads() {
+	public void stopThreads() throws InterruptedException {
 		for(int c = 0; c < Globals.oneTimeJobThreadsNumber; c++) {
-			OneTimeJobsThreadList.removeLast().interrupt();
+			OneTimeJobsThreadList.getLast().interrupt();
+			OneTimeJobsThreadList.removeLast().join();
 		}
 	}
 	

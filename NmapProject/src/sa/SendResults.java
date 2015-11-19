@@ -16,8 +16,9 @@ public class SendResults {
 		senderThread.start();
 	}
 	
-	public void stopSendingResults() {
+	public void stopSendingResults() throws InterruptedException {
 		senderThread.interrupt();
+		senderThread.join();
 	}
 	
 }

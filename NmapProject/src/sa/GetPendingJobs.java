@@ -14,7 +14,8 @@ public class GetPendingJobs {
 		jobFinderThread.start();
 	}
 	
-	public void stopGettingNewJobs() {
+	public void stopGettingNewJobs() throws InterruptedException {
 		jobFinderThread.interrupt();
+		jobFinderThread.join();
 	}
 }

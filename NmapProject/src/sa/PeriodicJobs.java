@@ -15,9 +15,10 @@ public class PeriodicJobs {
 			this.results = results;			
 	}
 	
-	public void stopThreads() {
+	public void stopThreads() throws InterruptedException {
 		for(int c = 0; c < PeriodicJobsThreadList.size(); c++) {
-			PeriodicJobsThreadList.removeLast().interrupt();
+			PeriodicJobsThreadList.getLast().interrupt();
+			PeriodicJobsThreadList.removeLast().join();
 		}
 	}
 	
