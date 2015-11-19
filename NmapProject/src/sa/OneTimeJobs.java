@@ -26,7 +26,7 @@ public class OneTimeJobs {
 		}
 	}
 	
-	public void createThreads(){
+	public void start(){
 		if (Globals.verbose)
 			System.err.println("Starting " + Globals.oneTimeJobThreadsNumber + " one time job threads.");
 		for(int c = 0; c < Globals.oneTimeJobThreadsNumber; c++) {

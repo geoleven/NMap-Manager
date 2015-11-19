@@ -15,25 +15,23 @@ public class Main {
 			JobQueue jQ = new JobQueue();
 			ResultQueue rQ = new ResultQueue();
 			PeriodicJobs pj = new PeriodicJobs(rQ);
-
-			Thread jF = new Thread(new JobFinder(jQ, pj));
-			Thread sT = new Thread(new SenderThread(rQ));
-			//Thread oneTime = new Thread(new OneTimeJobThread(jQ, rQ));
+			GetPendingJobs jf = new GetPendingJobs(jQ, pj);
+			SendResults sT = new SendResults(rQ);
 			OneTimeJobs otj = new OneTimeJobs(jQ, rQ);
-			otj.createThreads();
 			
-
-			jF.start();
+			
+			otj.start();
+			jf.start();
 			sT.start();
-			//oneTime.start();
 
 			Thread.sleep(20 * 1000);
-			System.out.println("GTFO");
-			jF.interrupt();
-			sT.interrupt();
-			//oneTime.interrupt();
-			otj.stopThreads();
-			pj.stopThreads();
+			
+//			System.out.println("Exiting now.");
+//			
+//			jf.stopGettingNewJobs();
+//			sT.stopSendingResults();
+//			otj.stopThreads();
+//			pj.stopThreads();
 
 		} catch (Exception e) {
 			e.printStackTrace();
