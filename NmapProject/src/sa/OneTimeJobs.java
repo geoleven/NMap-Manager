@@ -4,13 +4,29 @@ import java.util.LinkedList;
 
 public class OneTimeJobs {
 	
-	private LinkedList<Thread> OneTimeJobsThreadList = null;
+	private LinkedList<Thread> OneTimeJobsThreadList;
+	private JobQueue pendingJobsQueue;
+	private ResultQueue results;
 	
-	public void stopThreads() {
-		return;
+	public OneTimeJobs(JobQueue pendingJobsQueue, ResultQueue results) {
+		OneTimeJobsThreadList = new LinkedList<Thread>();
+		if (pendingJobsQueue == null)
+			pendingJobsQueue = new JobQueue();
+		else
+			this.pendingJobsQueue = pendingJobsQueue;
+		if (results == null)
+			results = new ResultQueue();
+		else
+			this.results = results;			
 	}
 	
-	public void createThreads(JobQueue pendingJobsQueue, ResultQueue results){
+	public void stopThreads() {
+		for(int c = 0; c < Globals.oneTimeJobThreadsNumber; c++) {
+			OneTimeJobsThreadList.removeLast().interrupt();
+		}
+	}
+	
+	public void createThreads(){
 		if (Globals.verbose)
 			System.err.println("Starting " + Globals.oneTimeJobThreadsNumber + " one time job threads.");
 		for(int c = 0; c < Globals.oneTimeJobThreadsNumber; c++) {

@@ -25,7 +25,8 @@ public class OneTimeJobThread implements Runnable {
 				}
 			}
 		} catch (InterruptedException e) {
-			System.out.println("OneTimeJobThread interrupted. Exiting.");
+			if (Globals.verbose)
+				System.err.println("OneTimeJobThread interrupted. Exiting.");
 		} catch (Exception e) {
 			System.err.println("Unexpected exception " + e.getMessage() + " @OneTimeJobThread.run");
 			e.printStackTrace();

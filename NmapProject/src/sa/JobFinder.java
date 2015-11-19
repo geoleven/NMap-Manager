@@ -9,14 +9,16 @@ import java.util.Random;
 
 public class JobFinder implements Runnable {
 
-	public JobQueue queue;
-	public BufferedReader openedFile;
+	private JobQueue OneTimeJobsQueue;
+	private PeriodicJobs myPeriodicJobs;
+	private BufferedReader openedFile;
 	private Random rand;
 	private ArrayList<String> fileHistory;
 	private String openedFileName;
 
-	public JobFinder(JobQueue q) {
-		queue = q;
+	public JobFinder(JobQueue jq, PeriodicJobs pj) {
+		OneTimeJobsQueue = jq;
+		myPeriodicJobs = pj;
 		openedFile = null;
 		openedFileName = null;
 		rand = new Random();
@@ -95,15 +97,27 @@ public class JobFinder implements Runnable {
 		String[] split = line.split(",");
 
 		if (split.length == 4) {
-			NmapJob currentJob = new NmapJob(Integer.parseInt(split[0]), split[1].replaceAll("-oX - ", ""), Boolean.parseBoolean(split[2]),
-					Integer.parseInt(split[3]));
+			try {
+				int id = Integer.parseInt(split[0]);
+				String parameter = split[1].replaceAll("-oX - ", "");
+				boolean isPeriodic = Boolean.parseBoolean(split[2]);
+				int period = Integer.parseInt(split[3]);
+				NmapJob currentJob = new NmapJob(id, parameter, isPeriodic, period);
 
-			if (Globals.verbose)
-				currentJob.print();
-
-			queue.addJob(currentJob);
-			synchronized (queue) {
-				queue.notify();
+				if (Globals.verbose)
+					currentJob.print();
+				
+				if (isPeriodic) {
+					myPeriodicJobs.addToPeriodicJobs(currentJob);
+				} else {
+					OneTimeJobsQueue.addJob(currentJob);
+					synchronized (OneTimeJobsQueue) {
+						OneTimeJobsQueue.notify();
+					}
+				}
+			} catch (Exception e) {
+				if (Globals.verbose)
+					System.err.println("Job in file is not formatted correctly.\n(" + e.getMessage() + ")");
 			}
 		} else {
 			if (Globals.verbose)
