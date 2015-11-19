@@ -18,7 +18,7 @@ public class SenderThread implements Runnable {
 				}
 			}
 		} catch (InterruptedException e) {
-			System.out.println("SenderThread interrupted. Exiting.");
+			System.err.println("SenderThread interrupted. Exiting.");
 		} catch (Exception e) {
 			System.err.println("Unexpected exception " + e.getMessage() + " @SenderThread.run");
 		}

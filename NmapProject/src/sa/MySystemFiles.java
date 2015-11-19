@@ -10,14 +10,14 @@ public class MySystemFiles {
 			return true;
 		}
 		else if(path.exists() && !path.isDirectory()){
-			//System.err.println("mple");
+			//System.err.println("The path exists but is not a directory.");
 			return false;
 		} 
 		else {
 			if (path.mkdir()) {
 				return true;
 			} else {
-				//System.err.println("kokkino");
+				//System.err.println("Although the path didn't exist, it could not be created");
 				return false;
 			}
 		}

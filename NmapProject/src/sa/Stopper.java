@@ -19,12 +19,13 @@ public class Stopper {
 			@Override
 			public void run() {
 					if (Globals.verbose)
-						System.out.println("Trying to do a clean exit.");
+						System.err.println("Trying to do a clean exit.");
 					try {
 						oneTimeJobs.stopThreads();
 						periodicJobs.stopThreads();
 						getPendingJobs.stopGettingNewJobs();
 						sendResults.stopSendingResults();
+						System.err.println("Threads terminated normally. Shutting down.");
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

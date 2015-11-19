@@ -6,10 +6,12 @@ public class Main {
 		try {
 			Globals.verbose = true;
 			if (!MySystemFiles.checkProgramPathExists()) {
+				if (Globals.verbose)
+					System.err.println("The deamon cannot run without its directory '~/.myNmap'");
 				return;
 			}
-			SAProperties myp = new SAProperties();
-			myp.readThreadNum();
+			SAProperties myProperties = new SAProperties();
+			myProperties.readThreadNum();
 			// System.out.println(myp.oneTimeJobThreadsNumber);
 
 			JobQueue jQ = new JobQueue();
@@ -18,22 +20,13 @@ public class Main {
 			GetPendingJobs jf = new GetPendingJobs(jQ, pj);
 			SendResults sT = new SendResults(rQ);
 			OneTimeJobs otj = new OneTimeJobs(jQ, rQ);
-			
+
+			Stopper stopper = new Stopper(jf, otj, pj, sT);
+			stopper.attachShutDownHook();
 			
 			otj.start();
 			jf.start();
-			sT.start();
-
-			Thread.sleep(20 * 1000);
-			
-//			System.out.println("Exiting now.");
-//			
-//			jf.stopGettingNewJobs();
-//			sT.stopSendingResults();
-//			otj.stopThreads();
-//			pj.stopThreads();
-			Stopper stopper = new Stopper(jf, otj, pj, sT);
-			stopper.attachShutDownHook();
+			sT.start();			
 
 		} catch (Exception e) {
 			e.printStackTrace();

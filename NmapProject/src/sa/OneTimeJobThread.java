@@ -31,6 +31,7 @@ public class OneTimeJobThread implements Runnable {
 			System.err.println("Unexpected exception " + e.getMessage() + " @OneTimeJobThread.run");
 			e.printStackTrace();
 		}
+		return;
 	}
 	
 	public boolean getJob() throws Exception {

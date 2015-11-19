@@ -35,7 +35,7 @@ public class JobFinder implements Runnable {
 				Thread.sleep(3000);
 			}
 		} catch (InterruptedException e) {
-			System.out.println("JobFinder interrupted.");
+			System.err.println("JobFinder interrupted. Exiting.");
 		} catch (Exception e) {
 			System.err.println("Unexpected exception " + e.getMessage() + " @Jobfinder.run");
 		}
