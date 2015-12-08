@@ -27,7 +27,8 @@ public class Main {
 			otj.start();
 			jf.start();
 			sT.start();			
-
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

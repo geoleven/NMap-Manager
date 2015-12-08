@@ -25,7 +25,7 @@ public class PeriodicJobThread implements Runnable {
 				}
 			} catch (InterruptedException e) {
 				if (Globals.verbose)
-					System.err.println("PeriodicJobThread interrupted. Exiting.");
+					System.err.println("PeriodicJobThread interrupted. Exiting " + myJob.id + ".");
 			} catch (Exception e) {
 				System.err.println("Unexpected exception " + e.getMessage() + " @PeriodicJobThread.run");
 				e.printStackTrace();
