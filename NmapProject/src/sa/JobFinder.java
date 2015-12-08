@@ -26,7 +26,6 @@ public class JobFinder implements Runnable {
 
 	}
 
-	@Override
 	public void run() {
 		try {
 			// while(Globals.finish.get() == false){

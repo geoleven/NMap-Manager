@@ -8,7 +8,6 @@ public class SenderThread implements Runnable {
 		queue = q;
 	}
 
-	@Override
 	public void run() {
 		try {
 			while (true) {

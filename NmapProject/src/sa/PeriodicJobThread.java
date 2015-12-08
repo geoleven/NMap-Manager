@@ -12,7 +12,6 @@ public class PeriodicJobThread implements Runnable {
 		singleJobResults = null;
 	}
 	
-	@Override
 	public void run() {
 		if(myJob.periodic && myJob.period > 0) {
 			try {

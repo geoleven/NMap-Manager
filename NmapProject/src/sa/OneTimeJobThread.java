@@ -12,7 +12,6 @@ public class OneTimeJobThread implements Runnable {
 		job = null;
 	}
 
-	@Override
 	public void run() {
 		try {
 			while (true) {
