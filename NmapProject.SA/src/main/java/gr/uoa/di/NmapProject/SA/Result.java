@@ -1,4 +1,4 @@
-package sa;
+package gr.uoa.di.NmapProject.SA;
 
 public class Result {
 	
