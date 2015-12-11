@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>gr.uoa.di</groupId>
-  <artifactId>NmapProject.MA</artifactId>
+  <artifactId>NmapProject.AM</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>NmapProject.MA</name>
+  <name>NmapProject.AM</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -36,7 +36,7 @@
 				</execution>
 			</executions>
 			<configuration>
-				<mainClass>gr.uoa.di.NmapProject.MA.Main</mainClass>
+				<mainClass>gr.uoa.di.NmapProject.AM.Main</mainClass>
 			</configuration>
 		</plugin>
     </plugins>

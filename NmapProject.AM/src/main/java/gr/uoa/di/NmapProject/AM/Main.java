@@ -1,4 +1,4 @@
-package gr.uoa.di.NmapProject.MA;
+package gr.uoa.di.NmapProject.AM;
 
 /**
  * Hello world!
