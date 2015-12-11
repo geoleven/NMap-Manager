@@ -4,6 +4,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		try {
+			
+			Registration myr = new Registration();
+			
+			
 			Globals.verbose = true;
 			if (!MySystemFiles.checkProgramPathExists()) {
 				if (Globals.verbose)
