@@ -36,7 +36,7 @@
 				</execution>
 			</executions>
 			<configuration>
-				<mainClass>gr.uoa.di.NmapProject.AM.Main</mainClass>
+				<mainClass>main.java.gr.uoa.di.NmapProject.AM.Main</mainClass>
 			</configuration>
 		</plugin>
     </plugins>
@@ -47,6 +47,21 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.glassfish.jersey.core</groupId>
+    	<artifactId>jersey-server</artifactId>
+    	<version>LATEST</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.glassfish.jersey.containers</groupId>
+    	<artifactId>jersey-container-grizzly2-http</artifactId>
+    	<version>LATEST</version>
+    </dependency>
+    <dependency>
+    	<groupId>com.googlecode.json-simple</groupId>
+    	<artifactId>json-simple</artifactId>
+    	<version>LATEST</version>
     </dependency>
   </dependencies>
 </project>
