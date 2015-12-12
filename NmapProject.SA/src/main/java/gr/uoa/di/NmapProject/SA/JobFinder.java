@@ -1,4 +1,4 @@
-package main.java.gr.uoa.di.NmapProject.SA;
+package gr.uoa.di.NmapProject.SA;
 
 import java.io.BufferedReader;
 import java.io.File;

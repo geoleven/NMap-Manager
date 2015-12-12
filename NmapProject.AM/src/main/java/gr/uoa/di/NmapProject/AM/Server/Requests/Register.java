@@ -1,4 +1,4 @@
-package main.java.gr.uoa.di.NmapProject.AM.Server.Requests;
+package gr.uoa.di.NmapProject.AM.Server.Requests;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;

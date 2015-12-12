@@ -1,4 +1,4 @@
-package main.java.gr.uoa.di.NmapProject.AM.DB;
+package gr.uoa.di.NmapProject.AM.DB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
