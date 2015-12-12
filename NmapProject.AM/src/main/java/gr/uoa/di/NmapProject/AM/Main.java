@@ -1,14 +1,11 @@
 package main.java.gr.uoa.di.NmapProject.AM;
 
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.server.ResourceConfig;
-
 import java.io.IOException;
 import java.net.URI;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.server.ResourceConfig;
 
 /**
  * Main class.
@@ -28,13 +25,11 @@ public class Main {
 		// create a resource config that scans for JAX-RS resources and
 		// providers
 		// in gr.uoa.di.server.jersey_server package
-		final ResourceConfig rc = new ResourceConfig()
-				.packages("gr.uoa.di.NmapProject.AM");
+		final ResourceConfig rc = new ResourceConfig().packages("main.java.gr.uoa.di.NmapProject.AM");
 
 		// create and start a new instance of grizzly http server
 		// exposing the Jersey application at BASE_URI
-		return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI),
-				rc);
+		return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI),rc);
 	}
 
 

@@ -25,9 +25,9 @@ public class Music {
     @Path("/get")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getIt() {
-    	  JSONObject obj=new JSONObject();
-    	  obj.put("name","foo");
-    	  System.out.print(obj);
+    	JSONObject obj=new JSONObject();
+    	obj.put("name","foo");
+    	System.out.print(obj);
 		return Response.status(200).entity(obj.toJSONString()).build();
     }
 }

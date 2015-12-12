@@ -12,22 +12,8 @@ public class Main {
 			
 //			Registration myr = new Registration();
 			
-			Client client = Client.create();
-            WebResource webResource = client
-                    .resource("http://localhost:8080/myapp/music/get");
-
-            ClientResponse response = webResource
-                    .accept("application/json")
-                    .get(ClientResponse.class);
-
-            if (response.getStatus() != 200)
-                throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
-
-            String output = response.getEntity(String.class);
-
-            System.out.println("Output from Server .... \n");
-            System.out.println(output);
-			
+			ServerRequest sR = new ServerRequest("http://localhost:8080/myapp/");
+			sR.getTest();
 			
 //			Globals.verbose = true;
 //			if (!MySystemFiles.checkProgramPathExists()) {
@@ -55,6 +41,7 @@ public class Main {
 			
 			
 		} catch (Exception e) {
+			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
 	}
