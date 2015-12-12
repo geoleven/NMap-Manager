@@ -1,4 +1,4 @@
-package main.java.gr.uoa.di.NmapProject.AM;
+package main.java.gr.uoa.di.NmapProject.AM.Server.Requests;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

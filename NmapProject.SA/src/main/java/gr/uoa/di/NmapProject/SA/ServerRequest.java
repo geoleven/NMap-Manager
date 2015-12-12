@@ -39,6 +39,7 @@ public class ServerRequest {
 		
 		JSONObject obj=new JSONObject();
     	obj.put("name","foo");
+    	obj.put("ip","213,425,3456");
 		
         ClientResponse response = post("register" , obj);
         
@@ -58,9 +59,9 @@ public class ServerRequest {
 		
 		ArrayList<String> params = new ArrayList<String>();
 		
-		params.add("test1");
-		params.add("test2");
-		params.add("test3");
+		params.add("param1");
+		params.add("param2");
+		params.add("param33");
 		System.out.println("IN getTest");	
 		ClientResponse response = get("gettest" , params);
         System.out.println("IN getTest");
