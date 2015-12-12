@@ -12,8 +12,8 @@ public class Main {
 			
 //			Registration myr = new Registration();
 			
-			ServerRequest sR = new ServerRequest("http://localhost:8080/myapp/");
-			sR.getTest();
+			ServerRequest sR = new ServerRequest("http://localhost:8080/am/");
+			sR.registrationRequest();
 			
 //			Globals.verbose = true;
 //			if (!MySystemFiles.checkProgramPathExists()) {
