@@ -1,4 +1,4 @@
-package gr.uoa.di.NmapProject.AM;
+package main.java.gr.uoa.di.NmapProject.AM;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;

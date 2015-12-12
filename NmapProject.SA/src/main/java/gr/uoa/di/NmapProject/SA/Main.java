@@ -1,4 +1,4 @@
-package gr.uoa.di.NmapProject.SA;
+package main.java.gr.uoa.di.NmapProject.SA;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
