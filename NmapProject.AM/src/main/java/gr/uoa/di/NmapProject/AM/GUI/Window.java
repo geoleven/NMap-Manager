@@ -1,4 +1,4 @@
-package main.java.gr.uoa.di.NmapProject.AM.GUI;
+package gr.uoa.di.NmapProject.AM.GUI;
 
 import java.awt.Container;
 import java.awt.Dimension;

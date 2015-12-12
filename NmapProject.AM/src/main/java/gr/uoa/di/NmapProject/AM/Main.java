@@ -1,8 +1,8 @@
-package main.java.gr.uoa.di.NmapProject.AM;
+package gr.uoa.di.NmapProject.AM;
 
-import main.java.gr.uoa.di.NmapProject.AM.DB.Admin;
-import main.java.gr.uoa.di.NmapProject.AM.DB.AdminDAO;
-import main.java.gr.uoa.di.NmapProject.AM.Server.Server;
+import gr.uoa.di.NmapProject.AM.DB.Admin;
+import gr.uoa.di.NmapProject.AM.DB.AdminDAO;
+import gr.uoa.di.NmapProject.AM.Server.Server;
 
 /**
  * Main class.

@@ -1,4 +1,4 @@
-package main.java.gr.uoa.di.NmapProject.AM.Server;
+package gr.uoa.di.NmapProject.AM.Server;
 
 import java.net.URI;
 

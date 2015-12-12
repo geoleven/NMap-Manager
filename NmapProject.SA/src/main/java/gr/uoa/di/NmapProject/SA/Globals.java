@@ -1,4 +1,4 @@
-package main.java.gr.uoa.di.NmapProject.SA;
+package gr.uoa.di.NmapProject.SA;
 
 public class Globals {
 	public static String pathName = System.getProperty("user.home") + "/.myNmap/";
