@@ -90,7 +90,7 @@ public class SADAO {
 			ResultSet rs = stmt.executeQuery(query);
 
 			if (rs.next()) {
-				found = rs.getInt(0);
+				found = rs.getInt(1);
 			}
 			db.close();
 

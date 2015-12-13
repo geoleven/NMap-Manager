@@ -1,11 +1,16 @@
 package gr.uoa.di.NmapProject.AM.Server.Requests;
 
+import java.util.LinkedList;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import org.json.simple.JSONObject;
+
+import gr.uoa.di.NmapProject.AM.DB.Job;
+import gr.uoa.di.NmapProject.AM.DB.JobDAO;
 import gr.uoa.di.NmapProject.AM.DB.SADAO;
 
 /**
@@ -27,10 +32,17 @@ public class JobRequest {
     	
     	JSONObject resp = new JSONObject();
     	int saID = SADAO.hashToId(curHash);
+    	
     	if (saID == 0) {
     		resp.put("Error", "Hash not in database");
     		return Response.status(200).entity(resp.toJSONString()).build();
-    	}    	
+    	}
+    	
+    	LinkedList<Job> jobsToSendToSa = JobDAO.getAllSAJobs(saID);
+    	for (Job j : jobsToSendToSa) {
+    		j.print();
+    	}
+    	
     	resp.put("response","eisavlakas");
     	return Response.status(200).entity(resp.toJSONString()).build();
     }

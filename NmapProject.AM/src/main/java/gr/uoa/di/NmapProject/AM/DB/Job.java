@@ -6,16 +6,22 @@ public class Job {
 	public String parameters = "";
 	public boolean periodic = false;
 	public int period = 0;
+	public String status = null;
 
-	public Job(int id, String parameters, boolean periodic, int period, int saID) {
+	public Job(int id, String parameters, boolean periodic, int period, int saID, String status) {
 		this.id = id;
 		this.parameters = parameters;
 		this.periodic = periodic;
 		this.period = period;
 		this.saID = saID;
+		this.status = status;
 	}
 	
-	public Job(String parameters, boolean periodic, int period, int saID) {
-		this(0, parameters, periodic, period, saID);
+	public Job(String parameters, boolean periodic, int period, int saID, String status) {
+		this(0, parameters, periodic, period, saID, status);
+	}
+	
+	public void print() {
+		System.out.println("[ " + id + " | " + parameters + " | " + periodic + " | " + period + " ]");
 	}
 }
