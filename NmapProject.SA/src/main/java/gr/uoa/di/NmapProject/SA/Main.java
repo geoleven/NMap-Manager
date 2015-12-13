@@ -1,10 +1,5 @@
 package gr.uoa.di.NmapProject.SA;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import org.json.simple.JSONObject;
-
 public class Main {
 
 	public static void main(String[] args) {
