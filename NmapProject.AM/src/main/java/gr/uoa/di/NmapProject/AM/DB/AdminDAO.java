@@ -34,7 +34,7 @@ public class AdminDAO {
 		Connection db = DB.connect();
 		try{
 			
-			String query = " SELECT * from admins WHERE id = "+username;
+			String query = " SELECT * from admins WHERE username = '"+username+"'";
 			
 			Statement stmt = db.createStatement();
 			
@@ -56,5 +56,28 @@ public class AdminDAO {
 			DB.SQLError(ex);
 		}
 		return null;
+	}
+	
+	public static boolean authenticate(String username , String password ){
+		Connection db = DB.connect();
+		try{
+			
+			String query = " SELECT id from admins WHERE username = '"+username+"' AND password = '"+password+"'";
+			
+			Statement stmt = db.createStatement();
+			
+			ResultSet rs = stmt.executeQuery(query);
+			boolean found = false;
+			if(rs.next()){
+				found = true;
+			}
+			
+			db.close();
+			return found;
+			
+		} catch (SQLException ex){
+			DB.SQLError(ex);
+		}
+		return false;
 	}
 }
