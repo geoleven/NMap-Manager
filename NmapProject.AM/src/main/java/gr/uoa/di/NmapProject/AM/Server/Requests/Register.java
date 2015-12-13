@@ -30,8 +30,6 @@ public class Register {
     @Produces("application/json")
     public Response getIt(String req) throws Exception{
     	
-    	System.out.println(req);
-    	
     	SA reg = new SA((JSONObject)(new JSONParser()).parse(req));
     	
     	String status = "waiting for authentication";
