@@ -1,9 +1,13 @@
 package gr.uoa.di.NmapProject.SA;
 
+import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.security.MessageDigest;
+import java.util.Collections;
+import java.util.Enumeration;
 
 import org.json.simple.JSONObject;
 
@@ -18,20 +22,29 @@ public class Registration {
 	
 	public Registration() throws UnknownHostException, SocketException , Exception {
 		
-		InetAddress interfaceIP = InetAddress.getLocalHost();
-		ip = interfaceIP.getHostAddress().toString();
-		deviceName = interfaceIP.getHostName();
+		InetAddress netAddrIp = null;
+		Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
+		for (NetworkInterface netIf : Collections.list(nets)) {
+			if (netIf.isUp() || !netIf.isLoopback()) {
+				Enumeration<InetAddress> addresses = netIf.getInetAddresses();
+				while (addresses.hasMoreElements()) {
+					InetAddress addr = addresses.nextElement();
+					if (addr instanceof Inet4Address) {
+						netAddrIp= addr;
+						ip = addr.getHostAddress();
+					}
+				}
+			}
+			
+		}
 		
-//		NetworkInterface network = NetworkInterface.getByInetAddress(interfaceIP);
-//		byte[] mac = network.getHardwareAddress();
-//		System.out.print("Current MAC address : ");
-//		StringBuilder sb = new StringBuilder();
-//		for (int i = 0; i < mac.length; i++) {
-//			sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));		
-//		}
-//		System.out.println(sb.toString());
-		
-		mac = "macAddress";
+		NetworkInterface network = NetworkInterface.getByInetAddress(netAddrIp);
+		byte[] macAddress = network.getHardwareAddress();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < macAddress.length; i++) {
+			sb.append(String.format("%02X%s", macAddress[i], (i < macAddress.length - 1) ? "-" : ""));
+		}
+		mac = sb.toString();
 		
 		osVersion = System.getProperty("os.version");
 		
