@@ -28,9 +28,11 @@ public class Register {
     @Produces("application/json")
     public Response getIt(String req) throws Exception{
     	
+    	System.out.println(req);
+    	
     	SA reg = new SA((JSONObject)(new JSONParser()).parse(req));
     	
-    	JSONObject = new JSONObject();
+    	JSONObject obj2 = new JSONObject();
     	obj2.put("got "," it :)");
     	
 		return Response.status(200).entity(obj2.toJSONString()).build();
