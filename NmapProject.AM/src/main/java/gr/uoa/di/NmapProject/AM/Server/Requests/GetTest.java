@@ -19,7 +19,8 @@ public class GetTest {
      *
      * @return String that will be returned as a text/plain response.
      */
-    @GET
+    @SuppressWarnings("unchecked")
+	@GET
     @Path("{param1}/{param2}/{param3}")
     @Produces("application/json")
     public Response getIt(

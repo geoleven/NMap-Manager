@@ -5,8 +5,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-
 import org.json.simple.JSONObject;
+import gr.uoa.di.NmapProject.AM.DB.SADAO;
 
 /**
  * Root resource (exposed at "register" path)
@@ -19,15 +19,19 @@ public class JobRequest {
      *
      * @return String that will be returned as a text/plain response.
      */
-    @GET
-    @Path("/get")
+    @SuppressWarnings("unchecked")
+	@GET
+    @Path("get/{hash}")
     @Produces("application/json")
-    public Response getIt() {
+    public Response getIt(@PathParam("hash") String curHash) {
     	
-    	JSONObject resp=new JSONObject();
-    	
-    	resp.put("response","partarcidiamou");
-		
+    	JSONObject resp = new JSONObject();
+    	int saID = SADAO.hashToId(curHash);
+    	if (saID == 0) {
+    		resp.put("Error", "Hash not in database");
+    		return Response.status(200).entity(resp.toJSONString()).build();
+    	}    	
+    	resp.put("response","eisavlakas");
     	return Response.status(200).entity(resp.toJSONString()).build();
     }
 }

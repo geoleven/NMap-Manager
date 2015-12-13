@@ -1,15 +1,9 @@
 package gr.uoa.di.NmapProject.SA;
 
-import java.io.UnsupportedEncodingException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.Security;
-import java.util.Base64;
 import java.util.Collections;
 import java.util.Enumeration;
 
@@ -41,7 +35,6 @@ public class Registration {
 				}
 			}
 	
-			//System.out.println("My ip: " + netAddrIp.getHostAddress());
 			NetworkInterface network = NetworkInterface.getByInetAddress(netAddrIp);
 			byte[] macAddress = null;
 			StringBuilder sb = null;
@@ -85,6 +78,7 @@ public class Registration {
 		System.out.println(myHash);
 	}
 
+	@SuppressWarnings("unchecked")
 	public JSONObject toJson() {
 		JSONObject json = new JSONObject();
 		json.put("device_name", deviceName);

@@ -1,6 +1,5 @@
 package gr.uoa.di.NmapProject.SA;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
