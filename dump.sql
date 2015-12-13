@@ -16,6 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Current Database: `nmapproject`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `nmapproject` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `nmapproject`;
+
+--
 -- Table structure for table `admins`
 --
 
@@ -131,4 +139,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-13 20:05:42
+-- Dump completed on 2015-12-13 20:11:58
