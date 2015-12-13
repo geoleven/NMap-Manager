@@ -36,22 +36,26 @@ public class ServerRequest {
 	}
 	
 	public ClientResponse registrationRequest() {
-		
-		JSONObject obj=new JSONObject();
-    	obj.put("name","foo");
-    	obj.put("ip","213,425,3456");
-		
-        ClientResponse response = post("register" , obj);
-        
-        if (response.getStatus() == 200){
-        	String output = response.getEntity(String.class);
+		try{
+			Registration reg = new Registration();
+						
+	        ClientResponse response = post("register" , reg.toJson());
+	        
+	        if (response.getStatus() == 200){
+	        	String output = response.getEntity(String.class);
 
-            System.out.println("Output from Server .... \n");
-            System.out.println(output);
-        } else {
-        	System.out.println("Server Response : "+response.getStatus());
-        }
-		        
+	            System.out.println("Output from Server .... \n");
+	            System.out.println(output);
+	        } else {
+	        	System.out.println("Server Response : "+response.getStatus());
+	        }
+
+		} catch (Exception ex){
+			System.out.println(ex.getMessage());
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+			        
 		return null;
 	}
 	

@@ -16,14 +16,15 @@ public class Server {
 	}
 	
 	public void start(){
-		final ResourceConfig rc = new ResourceConfig().packages("main.java.gr.uoa.di.NmapProject.AM.Server.Requests");
+		final ResourceConfig rc = new ResourceConfig().packages("gr.uoa.di.NmapProject.AM.Server.Requests");
 		server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI),rc);
 		
-		System.out.println(String.format("Server started at "+BASE_URI));
+		System.out.println(String.format("Server started at "+BASE_URI+" ..."));
 	}
 	
 	public void stop(){
 		server.stop();
+		System.out.println("Server closed .");
 	}
 	
 }
