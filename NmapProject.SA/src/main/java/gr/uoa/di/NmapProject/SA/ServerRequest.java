@@ -1,8 +1,10 @@
 package gr.uoa.di.NmapProject.SA;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -35,28 +37,42 @@ public class ServerRequest {
 		return resource.accept("application/json").get(ClientResponse.class);
 	}
 	
-	public ClientResponse registrationRequest() {
-		try{
-			Registration reg = new Registration();
-						
-	        ClientResponse response = post("register" , reg.toJson());
+	public void registrationRequest() {
+		
+		Registration reg = new Registration();
+		
+		while(true){
+			try{
+		        ClientResponse response = post("register" , reg.toJson());
+		        
+		        if (response.getStatus() == 200){
+		        	
+		        	JSONObject status = (JSONObject)(new JSONParser()).parse(response.getEntity(String.class));
+		        	
+		            if(((String) status.get("status")).equals("ok")){
+		            	System.out.println("Authentication Successfull");
+		            	break;
+		            }
+		            else{
+		            	System.out.println("Waiting for an admin to accept registration request");
+		            }
+		        } else {
+		        	System.out.println("Server Response : "+response.getStatus());
+		        }
+		        
+		        Thread.sleep(2000);
+		        
+			}catch(Exception ex){
+				System.out.println("Server is not up");
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 	        
-	        if (response.getStatus() == 200){
-	        	String output = response.getEntity(String.class);
-
-	            System.out.println("Output from Server .... \n");
-	            System.out.println(output);
-	        } else {
-	        	System.out.println("Server Response : "+response.getStatus());
-	        }
-
-		} catch (Exception ex){
-			System.out.println(ex.getMessage());
-			ex.printStackTrace();
-			System.exit(-1);
 		}
-			        
-		return null;
 	}
 	
 	public ClientResponse getTest() {

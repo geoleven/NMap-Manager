@@ -10,6 +10,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import gr.uoa.di.NmapProject.AM.DB.SA;
+import gr.uoa.di.NmapProject.AM.DB.SADAO;
 
 /**
  * Root resource (exposed at "register" path)
@@ -23,6 +24,7 @@ public class Register {
      *
      * @return String that will be returned as a text/plain response.
      */
+	
     @POST
     @Consumes("application/json")
     @Produces("application/json")
@@ -32,10 +34,19 @@ public class Register {
     	
     	SA reg = new SA((JSONObject)(new JSONParser()).parse(req));
     	
-    	JSONObject obj2 = new JSONObject();
-    	obj2.put("got "," it :)");
+    	String status = "waiting for authentication";
+    	if(!SADAO.exists(reg.hash)){
+    		System.out.println("Got new registration request :");
+    		reg.print();
+    		SADAO.add(reg);
+    	}else if (SADAO.isAccepted(reg.hash)){
+    		status = "ok";
+    	}
     	
-		return Response.status(200).entity(obj2.toJSONString()).build();
+    	JSONObject response = new JSONObject();
+    	response.put("status",status);
+    	
+		return Response.status(200).entity(response.toJSONString()).build();
     }
 
 }

@@ -24,51 +24,55 @@ public class Registration {
 	String nMapVersion = null;
 	String unionHash = null;
 
-	public Registration()
-			throws UnknownHostException, SocketException, NoSuchAlgorithmException, UnsupportedEncodingException {
-
-		InetAddress netAddrIp = null;
-		Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
-		for (NetworkInterface netIf : Collections.list(nets)) {
-			if (netIf.isUp() && !netIf.isLoopback()) {
-				Enumeration<InetAddress> addresses = netIf.getInetAddresses();
-				while (addresses.hasMoreElements()) {
-					InetAddress addr = addresses.nextElement();
-					if (addr instanceof Inet4Address) {
-						netAddrIp = addr;
-						ip = addr.getHostAddress();
+	public Registration(){
+		try{
+			InetAddress netAddrIp = null;
+			Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
+			for (NetworkInterface netIf : Collections.list(nets)) {
+				if (netIf.isUp() && !netIf.isLoopback()) {
+					Enumeration<InetAddress> addresses = netIf.getInetAddresses();
+					while (addresses.hasMoreElements()) {
+						InetAddress addr = addresses.nextElement();
+						if (addr instanceof Inet4Address) {
+							netAddrIp = addr;
+							ip = addr.getHostAddress();
+						}
 					}
 				}
 			}
+	
+			//System.out.println("My ip: " + netAddrIp.getHostAddress());
+			NetworkInterface network = NetworkInterface.getByInetAddress(netAddrIp);
+			byte[] macAddress = null;
+			StringBuilder sb = null;
+			try {
+				macAddress = network.getHardwareAddress();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	
+			sb = new StringBuilder();
+			for (int i = 0; i < macAddress.length; i++) {
+				sb.append(String.format("%02X%s", macAddress[i], (i < macAddress.length - 1) ? "-" : ""));
+			}
+	
+			mac = sb.toString();
+			osVersion = System.getProperty("os.name") + " " + System.getProperty("os.version");
+	
+			deviceName = InetAddress.getLocalHost().getHostName();
+	
+			NmapJob myVersion = new NmapJob(0, "-V", false, 0);
+			nMapVersion = myVersion.runJob().substring(13, 17);
+	
+			String union = deviceName + ip + mac + osVersion + nMapVersion;
+			MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+			messageDigest.update(union.getBytes("UTF-8"));
+			unionHash = String.format("%064x", new java.math.BigInteger(1, messageDigest.digest()));
+		}catch(Exception ex){
+			System.err.println(ex.getMessage());
+			ex.printStackTrace();
+			System.exit(-1);
 		}
-
-		System.out.println("My ip: " + netAddrIp.getHostAddress());
-		NetworkInterface network = NetworkInterface.getByInetAddress(netAddrIp);
-		byte[] macAddress = null;
-		StringBuilder sb = null;
-		try {
-			macAddress = network.getHardwareAddress();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		sb = new StringBuilder();
-		for (int i = 0; i < macAddress.length; i++) {
-			sb.append(String.format("%02X%s", macAddress[i], (i < macAddress.length - 1) ? "-" : ""));
-		}
-
-		mac = sb.toString();
-		osVersion = System.getProperty("os.name") + " " + System.getProperty("os.version");
-
-		deviceName = InetAddress.getLocalHost().getHostName();
-
-		NmapJob myVersion = new NmapJob(0, "-V", false, 0);
-		nMapVersion = myVersion.runJob().substring(13, 17);
-
-		String union = deviceName + ip + mac + osVersion + nMapVersion;
-		MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-		messageDigest.update(union.getBytes("UTF-8"));
-		unionHash = String.format("%064x", new java.math.BigInteger(1, messageDigest.digest()));
 	}
 
 	public void PrintRegistrationForm(String myDevice, InetAddress myInterfaceIP, String myMac, String myOS,
