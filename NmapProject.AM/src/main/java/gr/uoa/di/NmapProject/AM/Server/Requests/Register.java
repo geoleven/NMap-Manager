@@ -25,7 +25,8 @@ public class Register {
      * @return String that will be returned as a text/plain response.
      */
 	
-    @POST
+    @SuppressWarnings("unchecked")
+	@POST
     @Consumes("application/json")
     @Produces("application/json")
     public Response getIt(String req) throws Exception{

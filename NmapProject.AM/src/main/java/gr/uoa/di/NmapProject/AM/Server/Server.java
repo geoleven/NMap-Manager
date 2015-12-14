@@ -23,8 +23,9 @@ public class Server {
 	}
 	
 	public void stop(){
-		server.stop();
-		System.out.println("Server closed .");
+		//server.stop();
+		server.shutdown();
+		System.out.println("Server closed.");
 	}
 	
 }

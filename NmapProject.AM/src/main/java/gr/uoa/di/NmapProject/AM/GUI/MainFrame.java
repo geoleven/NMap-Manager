@@ -5,6 +5,11 @@ import javax.swing.JPanel;
 
 public class MainFrame extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7888681097028785305L;
+
 	public MainFrame(){
 		setTitle("Admin Panel");
 

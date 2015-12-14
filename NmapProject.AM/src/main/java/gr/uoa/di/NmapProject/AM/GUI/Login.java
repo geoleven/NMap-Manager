@@ -9,6 +9,10 @@ import javax.swing.JTextField;
 
 public class Login extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5759641117023243983L;
 	public JTextField userText;
 	public JButton loginButton;
 	public JPasswordField passwordText;

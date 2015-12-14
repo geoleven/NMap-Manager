@@ -35,7 +35,7 @@ public class App {
 				JButton source = (JButton) e.getSource();
 				
 				String username = loginFrame.userText.getText();
-				String password = loginFrame.passwordText.getText();
+				String password = new String(loginFrame.passwordText.getPassword());
 				
 				if(AdminDAO.authenticate(username, password)){
 					loginFrame.dispose();
