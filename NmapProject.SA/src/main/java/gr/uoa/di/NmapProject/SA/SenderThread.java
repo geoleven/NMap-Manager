@@ -2,18 +2,18 @@ package gr.uoa.di.NmapProject.SA;
 
 public class SenderThread implements Runnable {
 
-	ResultQueue queue;
+	ResultQueue resultQueue;
 
 	public SenderThread(ResultQueue q) {
-		queue = q;
+		resultQueue = q;
 	}
 
 	public void run() {
 		try {
 			while (true) {
 				printResult();
-				synchronized (queue) {
-					queue.wait();
+				synchronized (resultQueue) {
+					resultQueue.wait();
 				}
 			}
 		} catch (InterruptedException e) {
@@ -22,9 +22,19 @@ public class SenderThread implements Runnable {
 			System.err.println("Unexpected exception " + e.getMessage() + " @SenderThread.run");
 		}
 	}
+	
+	private boolean sendToServer() throws Exception {
+		Result res = resultQueue.getResult();
+		if (res != null) {
+			//ServerRequest sRSendRes = new ServerRequest("http://localhost:8080/am/");
+			//sRSendRes.sendResults(res.result);
+			return true;
+		}
+		return false;
+	}
 
 	private boolean printResult() throws Exception {
-		Result res = queue.getResult();
+		Result res = resultQueue.getResult();
 		if (res != null) {
 			res.print();
 			return true;

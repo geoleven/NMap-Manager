@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+//import javax.ws.rs.client.Client;
+//import javax.ws.rs.client.ClientBuilder;
 
 import gr.uoa.di.NmapProject.AM.DB.AdminDAO;
 import gr.uoa.di.NmapProject.AM.Server.Server;
@@ -27,6 +29,8 @@ public class App {
 	
 	private void startLoginFrame(){
 		loginFrame = new Login();
+		
+//		Client client = ClientBuilder.newClient();
 		
 		loginFrame.loginButton.addActionListener(new ActionListener() {
 			
