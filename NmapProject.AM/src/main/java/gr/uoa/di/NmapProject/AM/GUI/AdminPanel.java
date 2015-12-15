@@ -3,14 +3,28 @@ package gr.uoa.di.NmapProject.AM.GUI;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JScrollPane;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import javax.swing.JLayeredPane;
-import javax.swing.JTabbedPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.BorderLayout;
+import javax.swing.BoxLayout;
+import javax.swing.JList;
+import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
+import java.awt.GridLayout;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.Component;
+import javax.swing.JSlider;
+import javax.swing.JTextField;
 
 
 public class AdminPanel extends JFrame {
@@ -20,6 +34,8 @@ public class AdminPanel extends JFrame {
 	 */
 	private static final long serialVersionUID = -6682482690528271851L;
 	private JPanel contentPane;
+	private JTextField periodEntry;
+	private JTextField givenCmd;
 
 	/**
 	 * Launch the application.
@@ -41,29 +57,128 @@ public class AdminPanel extends JFrame {
 	 * Create the frame.
 	 */
 	public AdminPanel() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Admin Panel");
-		setSize(640, 480);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 434, 262);
-		contentPane.add(tabbedPane);
+		JTabbedPane adminPanelTabs = new JTabbedPane(JTabbedPane.TOP);
+		adminPanelTabs.setSelectedIndex(0);
+		adminPanelTabs.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		adminPanelTabs.setBounds(0, 0, 794, 572);
+		contentPane.add(adminPanelTabs);
 		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("New tab", null, panel, null);
+		JPanel pendingRegistrationsTab = new JPanel();
+		adminPanelTabs.addTab("Pending Registrations", null, pendingRegistrationsTab, "");
+		pendingRegistrationsTab.setLayout(null);
 		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_1, null);
+		JPanel pendingRegistrationActions = new JPanel();
+		pendingRegistrationActions.setBounds(10, 472, 769, 50);
+		pendingRegistrationsTab.add(pendingRegistrationActions);
 		
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_2, null);
+		JButton refreshButton = new JButton("Refresh");
+		refreshButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		pendingRegistrationActions.setLayout(new GridLayout(0, 2, 50, 50));
+		pendingRegistrationActions.add(refreshButton);
 		
-		JPanel panel_3 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_3, null);
+		JButton acceptButton = new JButton("Accept Selected");
+		pendingRegistrationActions.add(acceptButton);
+		
+		JScrollPane PendingRegistrationsList = new JScrollPane();
+		PendingRegistrationsList.setBounds(10, 11, 769, 450);
+		pendingRegistrationsTab.add(PendingRegistrationsList);
+		adminPanelTabs.setEnabledAt(0, true);
+		
+		JPanel saStatusMonitorTab = new JPanel();
+		adminPanelTabs.addTab("SA Status Monitor", null, saStatusMonitorTab, null);
+		saStatusMonitorTab.setLayout(null);
+		
+		JList saStatusMonitorList = new JList();
+		saStatusMonitorList.setBounds(10, 11, 769, 521);
+		saStatusMonitorTab.add(saStatusMonitorList);
+		
+		JPanel jobAssignmentTab = new JPanel();
+		adminPanelTabs.addTab("Job Assignment", null, jobAssignmentTab, null);
+		jobAssignmentTab.setLayout(null);
+		
+		JPanel leftBlank = new JPanel();
+		leftBlank.setBounds(0, 0, 184, 543);
+		jobAssignmentTab.add(leftBlank);
+		
+		JPanel middlePanel = new JPanel();
+		middlePanel.setBounds(184, 99, 420, 346);
+		jobAssignmentTab.add(middlePanel);
+		middlePanel.setLayout(new GridLayout(6, 1, 5, 5));
+		
+		JPanel pnl1 = new JPanel();
+		middlePanel.add(pnl1);
+		
+		JLabel giveJobLbl = new JLabel("Please enter a new job to be assigned:");
+		pnl1.add(giveJobLbl);
+		giveJobLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		giveJobLbl.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		JPanel pnl2 = new JPanel();
+		middlePanel.add(pnl2);
+		pnl2.setLayout(null);
+		
+		givenCmd = new JTextField();
+		givenCmd.setBounds(67, 5, 286, 32);
+		pnl2.add(givenCmd);
+		givenCmd.setColumns(10);
+		
+		JPanel pnl3 = new JPanel();
+		middlePanel.add(pnl3);
+		pnl3.setLayout(null);
+		
+		JCheckBox isPeriodic = new JCheckBox("         isPeriodic");
+		isPeriodic.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		isPeriodic.setBounds(149, 5, 121, 36);
+		pnl3.add(isPeriodic);
+		
+		JPanel pnl4 = new JPanel();
+		middlePanel.add(pnl4);
+		pnl4.setLayout(null);
+		
+		periodEntry = new JTextField();
+		periodEntry.setBounds(127, 11, 166, 26);
+		pnl4.add(periodEntry);
+		periodEntry.setColumns(10);
+		
+		JPanel pnl5 = new JPanel();
+		middlePanel.add(pnl5);
+		pnl5.setLayout(null);
+		
+		JComboBox saDropDownList = new JComboBox();
+		saDropDownList.setBounds(143, 5, 128, 32);
+		saDropDownList.setMaximumRowCount(0);
+		pnl5.add(saDropDownList);
+		
+		JPanel pnl6 = new JPanel();
+		middlePanel.add(pnl6);
+		pnl6.setLayout(null);
+		
+		JButton btnSumbit = new JButton("Sumbit");
+		btnSumbit.setBounds(157, 5, 105, 41);
+		pnl6.add(btnSumbit);
+		
+		JPanel rightBlank = new JPanel();
+		rightBlank.setBounds(604, 0, 184, 543);
+		jobAssignmentTab.add(rightBlank);
+		
+		JPanel jobDeletionTab = new JPanel();
+		adminPanelTabs.addTab("Job Deletion", null, jobDeletionTab, null);
+		
+		JPanel resultsTab = new JPanel();
+		adminPanelTabs.addTab("Results", null, resultsTab, null);
+		
+		JPanel remoteTerminationTab = new JPanel();
+		adminPanelTabs.addTab("Remote Termination", null, remoteTerminationTab, null);
 	}
 }
