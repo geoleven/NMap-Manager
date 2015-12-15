@@ -21,6 +21,15 @@ public class pendingRegsTab {
 			tempcb.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			tempcb.setBounds(0, 0, 100, 200);
 			checkList.add(tempcb);
+			
+		    int index =checkList.getSelectedIndex(); //get selected index
+		    if (index == -1) { //no selection, so insert at beginning
+		        index = 0;
+		    } else {           //add after the selected item
+		        index++;
+		    }
+			checkList.setSelectedIndex(index);
+			checkList.ensureIndexIsVisible(index);
 		}
 	}
 }
