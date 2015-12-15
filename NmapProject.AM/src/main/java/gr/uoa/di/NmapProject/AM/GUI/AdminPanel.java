@@ -1,10 +1,8 @@
 package gr.uoa.di.NmapProject.AM.GUI;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -23,10 +21,8 @@ import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import java.awt.SystemColor;
+import gr.uoa.di.NmapProject.AM.GUI.pendingRegsTab;
 
 
 public class AdminPanel extends JFrame {
