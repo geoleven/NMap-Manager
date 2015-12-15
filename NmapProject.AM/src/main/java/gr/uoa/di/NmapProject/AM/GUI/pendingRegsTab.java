@@ -16,10 +16,10 @@ public class pendingRegsTab {
 		for (SA curSA : curList) {
 			JCheckBox tempcb = new JCheckBox(curSA.id + "\t" + curSA.device_name + "\t" + curSA.ip + "\t" + curSA.mac_address + "\t" + curSA.os_version + "\t" + curSA.nmap_version + "\t" + curSA.hash);
 			tempcb.setHorizontalAlignment(SwingConstants.CENTER);
-			//tempcb.setActionCommand("isPeriodic");
+			//tempcb.setActionCommand("setToReg");
 			tempcb.setHorizontalTextPosition(SwingConstants.LEADING);
 			tempcb.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			//tempcb.setBounds(149, 5, 121, 36);
+			tempcb.setBounds(0, 0, 100, 200);
 			checkList.add(tempcb);
 		}
 	}
