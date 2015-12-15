@@ -71,6 +71,7 @@ public class AdminPanel extends JFrame {
 		pendRegPnl.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane pendRegScrollPane = new JScrollPane();
+		pendRegScrollPane.setMaximumSize(new Dimension(0, 0));
 		pendRegPnl.add(pendRegScrollPane);
 		
 		pendingRegistrationsList = new CheckBoxList();
