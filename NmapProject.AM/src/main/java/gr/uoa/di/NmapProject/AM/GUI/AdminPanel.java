@@ -16,11 +16,9 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
-import java.awt.Dimension;
 import java.awt.Panel;
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
-import java.awt.ComponentOrientation;
 import java.awt.Component;
 
 
