@@ -22,7 +22,6 @@ import java.awt.Component;
 import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
 import java.awt.SystemColor;
-import gr.uoa.di.NmapProject.AM.GUI.pendingRegsTab;
 
 
 public class AdminPanel extends JFrame {
