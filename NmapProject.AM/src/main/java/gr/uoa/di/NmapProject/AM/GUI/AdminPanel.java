@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+import java.awt.Dimension;
 
 
 public class AdminPanel extends JFrame {
@@ -59,12 +60,19 @@ public class AdminPanel extends JFrame {
 		JTabbedPane adminPanelTabs = new JTabbedPane(JTabbedPane.TOP);
 		adminPanelTabs.setSelectedIndex(-1);
 		adminPanelTabs.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		adminPanelTabs.setBounds(0, 0, 794, 572);
+		adminPanelTabs.setBounds(0, 0, 796, 574);
 		contentPane.add(adminPanelTabs);
 		
 		JPanel pendingRegistrationsTab = new JPanel();
+		pendingRegistrationsTab.setBorder(null);
 		adminPanelTabs.addTab("Pending Registrations", null, pendingRegistrationsTab, "");
 		pendingRegistrationsTab.setLayout(null);
+		
+		JScrollPane PendingRegistrationsList = new JScrollPane();
+		PendingRegistrationsList.setBorder(null);
+		PendingRegistrationsList.setViewportBorder(null);
+		PendingRegistrationsList.setBounds(10, 11, 769, 450);
+		pendingRegistrationsTab.add(PendingRegistrationsList);
 		
 		JPanel pendingRegistrationActions = new JPanel();
 		pendingRegistrationActions.setBounds(10, 472, 769, 50);
@@ -80,10 +88,6 @@ public class AdminPanel extends JFrame {
 		
 		JButton acceptButton = new JButton("Accept Selected");
 		pendingRegistrationActions.add(acceptButton);
-		
-		JScrollPane PendingRegistrationsList = new JScrollPane();
-		PendingRegistrationsList.setBounds(10, 11, 769, 450);
-		pendingRegistrationsTab.add(PendingRegistrationsList);
 		adminPanelTabs.setEnabledAt(0, true);
 		
 		JPanel saStatusMonitorTab = new JPanel();
@@ -128,7 +132,7 @@ public class AdminPanel extends JFrame {
 		middlePanel.add(pnl3);
 		pnl3.setLayout(null);
 		
-		JCheckBox isPeriodic = new JCheckBox("         isPeriodic");
+		JCheckBox isPeriodic = new JCheckBox("     isPeriodic");
 		isPeriodic.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		isPeriodic.setBounds(149, 5, 121, 36);
 		pnl3.add(isPeriodic);
