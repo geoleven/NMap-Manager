@@ -22,6 +22,8 @@ import java.awt.Component;
 import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
 import java.awt.SystemColor;
+import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
 
 
 public class AdminPanel extends JFrame {
@@ -76,10 +78,17 @@ public class AdminPanel extends JFrame {
 		adminPanelTabs.addTab("Pending Registrations", null, pendingRegistrationsTab, "");
 		pendingRegistrationsTab.setLayout(null);
 		
-		JList<JCheckBox> pendingRegistrationsList = new JList<JCheckBox>();
+		JPanel pendRegPnl = new JPanel();
+		pendRegPnl.setBounds(10, 11, 769, 450);
+		pendingRegistrationsTab.add(pendRegPnl);
+		pendRegPnl.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane pendRegScrollPane = new JScrollPane();
+		pendRegPnl.add(pendRegScrollPane);
+		
+		CheckBoxList pendingRegistrationsList = new CheckBoxList();
+		pendRegScrollPane.setViewportView(pendingRegistrationsList);
 		pendingRegistrationsList.setVisibleRowCount(20);
-		pendingRegistrationsList.setBounds(10, 11, 769, 450);
-		pendingRegistrationsTab.add(pendingRegistrationsList);
 		
 		JPanel pendingRegistrationActions = new JPanel();
 		pendingRegistrationActions.setBounds(10, 472, 769, 50);
@@ -92,7 +101,11 @@ public class AdminPanel extends JFrame {
 //			@Override
 //			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
-				pendingRegsTab.populatePendingRegList((JList<JCheckBox>)(((JButton)(e.getSource())).getParent().getParent().getComponent(0)));
+				JButton curBtn = (JButton)(e.getSource());
+				JPanel tempPendingRegistrationTabComp = (JPanel)(curBtn.getParent().getParent());
+				JPanel tempPendRegPnl = (JPanel)(tempPendingRegistrationTabComp.getComponent(0));
+				JScrollPane tempPendScrlRegPnl = (JScrollPane)(tempPendRegPnl.getComponent(0));
+				pendingRegsTab.populatePendingRegList((CheckBoxList)(tempPendScrlRegPnl.getComponent(0)));
 			}
 		});
 		
