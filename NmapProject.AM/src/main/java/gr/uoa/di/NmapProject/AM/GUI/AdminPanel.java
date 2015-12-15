@@ -4,14 +4,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
-import java.awt.FlowLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
 import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
@@ -19,11 +15,6 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.Component;
-import javax.swing.JSlider;
 import javax.swing.JTextField;
 
 
@@ -68,7 +59,7 @@ public class AdminPanel extends JFrame {
 		JTabbedPane adminPanelTabs = new JTabbedPane(JTabbedPane.TOP);
 		adminPanelTabs.setSelectedIndex(0);
 		adminPanelTabs.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		adminPanelTabs.setBounds(0, 0, 794, 572);
+		adminPanelTabs.setBounds(1, 1, 794, 572);
 		contentPane.add(adminPanelTabs);
 		
 		JPanel pendingRegistrationsTab = new JPanel();
