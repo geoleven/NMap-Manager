@@ -13,16 +13,17 @@ import gr.uoa.di.NmapProject.AM.DB.SA;
 public class pendingRegsTab {
 	public static void populatePendingRegList(JList<JCheckBox> checkList) {
 		LinkedList<SA> curList = AdminPanelDAO.getPendReg();
+		System.out.println(curList.size());
 		for (SA curSA : curList) {
 			JCheckBox tempcb = new JCheckBox(curSA.id + "\t" + curSA.device_name + "\t" + curSA.ip + "\t" + curSA.mac_address + "\t" + curSA.os_version + "\t" + curSA.nmap_version + "\t" + curSA.hash);
 			tempcb.setHorizontalAlignment(SwingConstants.CENTER);
 			//tempcb.setActionCommand("setToReg");
 			tempcb.setHorizontalTextPosition(SwingConstants.LEADING);
-			tempcb.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			tempcb.setBounds(0, 0, 100, 200);
+			tempcb.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			tempcb.setBounds(0, 0, 700, 50);
 			checkList.add(tempcb);
 			
-		    int index =checkList.getSelectedIndex(); //get selected index
+		    int index = checkList.getMaxSelectionIndex(); //get selected index
 		    if (index == -1) { //no selection, so insert at beginning
 		        index = 0;
 		    } else {           //add after the selected item
@@ -30,6 +31,8 @@ public class pendingRegsTab {
 		    }
 			checkList.setSelectedIndex(index);
 			checkList.ensureIndexIsVisible(index);
+			
+			System.out.println(curSA.id + "\t" + curSA.device_name + "\t" + curSA.ip + "\t" + curSA.mac_address + "\t" + curSA.os_version + "\t" + curSA.nmap_version + "\t" + curSA.hash);
 		}
 	}
 }

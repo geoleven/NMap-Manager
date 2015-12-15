@@ -14,7 +14,7 @@ public class AdminPanelDAO {
 			String query = " SELECT * from software_agents WHERE is_accepted = 0";
 			Statement stmt = db.createStatement();			
 			ResultSet rs = stmt.executeQuery(query);
-			if(rs.next()){
+			while(rs.next()){
 				results.add(new SA(rs.getInt(1), 
 								rs.getString(2), 
 								rs.getString(3), 
