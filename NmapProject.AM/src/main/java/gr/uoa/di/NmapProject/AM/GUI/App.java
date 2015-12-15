@@ -82,6 +82,7 @@ public class App {
 	
 	private void startAdminPanel() {
 	adminPanel = new AdminPanel();
+	adminPanel.setVisible(true);
 	
 	adminPanel.addWindowListener(new java.awt.event.WindowAdapter() {
 	    @Override

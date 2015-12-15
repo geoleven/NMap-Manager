@@ -57,9 +57,9 @@ public class AdminPanel extends JFrame {
 		contentPane.setLayout(null);
 		
 		JTabbedPane adminPanelTabs = new JTabbedPane(JTabbedPane.TOP);
-		adminPanelTabs.setSelectedIndex(0);
+		adminPanelTabs.setSelectedIndex(-1);
 		adminPanelTabs.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		adminPanelTabs.setBounds(1, 1, 794, 572);
+		adminPanelTabs.setBounds(0, 0, 794, 572);
 		contentPane.add(adminPanelTabs);
 		
 		JPanel pendingRegistrationsTab = new JPanel();
