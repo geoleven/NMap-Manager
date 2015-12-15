@@ -19,11 +19,14 @@ import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
 import java.awt.SystemColor;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
+import javax.swing.ListSelectionModel;
 
 
 public class AdminPanel extends JFrame {
@@ -71,8 +74,10 @@ public class AdminPanel extends JFrame {
 		pendRegPnl.add(pendRegScrollPane);
 		
 		pendingRegistrationsList = new CheckBoxList();
+		pendingRegistrationsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		pendRegScrollPane.setViewportView(pendingRegistrationsList);
 		pendingRegistrationsList.setVisibleRowCount(20);
+		pendingRegistrationsList.setMaximumSize(new Dimension(5000, 5000));
 		pendingRegistrationsList.setFixedCellHeight(30);
 		
 		JPanel pendingRegistrationActions = new JPanel();
