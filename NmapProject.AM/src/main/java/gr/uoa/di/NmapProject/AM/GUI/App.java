@@ -2,6 +2,8 @@ package gr.uoa.di.NmapProject.AM.GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -66,6 +68,24 @@ public class App {
 		            exit();
 		        }
 		    }
+		});
+		
+		loginFrame.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
+					loginFrame.loginButton.doClick();
+				}
+			}
+		});
+		
+		loginFrame.passwordText.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
+					loginFrame.loginButton.doClick();
+				}
+			}
 		});
 	}
 	

@@ -17,6 +17,11 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.Dimension;
+import java.awt.Panel;
+import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
+import java.awt.ComponentOrientation;
+import java.awt.Component;
 
 
 public class AdminPanel extends JFrame {
@@ -54,10 +59,12 @@ public class AdminPanel extends JFrame {
 		setTitle("Admin Panel");
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
+		contentPane.setBorder(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JTabbedPane adminPanelTabs = new JTabbedPane(JTabbedPane.TOP);
+		adminPanelTabs.setBorder(null);
 		adminPanelTabs.setSelectedIndex(-1);
 		adminPanelTabs.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		adminPanelTabs.setBounds(0, 0, 796, 574);
@@ -91,6 +98,7 @@ public class AdminPanel extends JFrame {
 		adminPanelTabs.setEnabledAt(0, true);
 		
 		JPanel saStatusMonitorTab = new JPanel();
+		saStatusMonitorTab.setBorder(null);
 		adminPanelTabs.addTab("SA Status Monitor", null, saStatusMonitorTab, null);
 		saStatusMonitorTab.setLayout(null);
 		
@@ -99,6 +107,7 @@ public class AdminPanel extends JFrame {
 		saStatusMonitorTab.add(saStatusMonitorList);
 		
 		JPanel jobAssignmentTab = new JPanel();
+		jobAssignmentTab.setBorder(null);
 		adminPanelTabs.addTab("Job Assignment", null, jobAssignmentTab, null);
 		jobAssignmentTab.setLayout(null);
 		
@@ -168,12 +177,50 @@ public class AdminPanel extends JFrame {
 		jobAssignmentTab.add(rightBlank);
 		
 		JPanel jobDeletionTab = new JPanel();
+		jobDeletionTab.setBorder(null);
 		adminPanelTabs.addTab("Job Deletion", null, jobDeletionTab, null);
 		
 		JPanel resultsTab = new JPanel();
+		resultsTab.setBorder(null);
 		adminPanelTabs.addTab("Results", null, resultsTab, null);
 		
 		JPanel remoteTerminationTab = new JPanel();
+		remoteTerminationTab.setBorder(null);
 		adminPanelTabs.addTab("Remote Termination", null, remoteTerminationTab, null);
+		remoteTerminationTab.setLayout(new BoxLayout(remoteTerminationTab, BoxLayout.X_AXIS));
+		
+		Panel pl = new Panel();
+		FlowLayout flowLayout = (FlowLayout) pl.getLayout();
+		flowLayout.setVgap(50);
+		remoteTerminationTab.add(pl);
+		
+		Panel pm = new Panel();
+		remoteTerminationTab.add(pm);
+		pm.setLayout(null);
+		
+		JLabel lblPleaseSelectWhich = new JLabel(String.format("<html><dev WIDTH=%d>%s</div></html>", 250, "Please select which software agent you would like to terminate: "));
+		lblPleaseSelectWhich.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblPleaseSelectWhich.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblPleaseSelectWhich.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblPleaseSelectWhich.setBounds(83, 11, 257, 115);
+		lblPleaseSelectWhich.setHorizontalAlignment(SwingConstants.CENTER);
+		pm.add(lblPleaseSelectWhich);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(10, 172, 407, 40);
+		pm.add(comboBox);
+		
+		JButton btnTerminate = new JButton("Terminate");
+		btnTerminate.setBounds(10, 332, 407, 40);
+		pm.add(btnTerminate);
+		
+		JLabel lblTerminationresult = new JLabel("");
+		lblTerminationresult.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblTerminationresult.setBounds(0, 429, 427, 115);
+		lblTerminationresult.setHorizontalAlignment(SwingConstants.CENTER);
+		pm.add(lblTerminationresult);
+		
+		Panel pr = new Panel();
+		remoteTerminationTab.add(pr);
 	}
 }

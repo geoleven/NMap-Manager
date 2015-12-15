@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Login extends JFrame{
 	
@@ -25,7 +27,7 @@ public class Login extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
-		add(panel);
+		getContentPane().add(panel);
 		placeComponents(panel);
 		
 		setLocationRelativeTo(null);
@@ -53,8 +55,8 @@ public class Login extends JFrame{
 		passwordText.setBounds(100, 40, 160, 25);
 		panel.add(passwordText);
 
-		loginButton = new JButton("login");
-		loginButton.setBounds(10, 80, 80, 25);
+		loginButton = new JButton("Login");
+		loginButton.setBounds(100, 76, 80, 25);
 		panel.add(loginButton);
 		
 		
