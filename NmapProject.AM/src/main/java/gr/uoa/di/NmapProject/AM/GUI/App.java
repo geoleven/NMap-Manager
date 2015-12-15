@@ -70,15 +70,6 @@ public class App {
 		    }
 		});
 		
-		loginFrame.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
-					loginFrame.loginButton.doClick();
-				}
-			}
-		});
-		
 		loginFrame.passwordText.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
@@ -87,6 +78,17 @@ public class App {
 				}
 			}
 		});
+		
+//		loginFrame.addKeyListener(new KeyAdapter() {
+//			@Override
+//			public void keyTyped(KeyEvent arg0) {
+//				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
+//					loginFrame.loginButton.doClick();
+//				}
+//			}
+//		});
+		
+
 	}
 	
 //	private void startMainFrame(){
