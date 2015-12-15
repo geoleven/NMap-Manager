@@ -91,6 +91,11 @@ public class AdminPanel extends JFrame {
 		
 		JButton acceptButton = new JButton("Accept Selected");
 		pendingRegistrationActions.add(acceptButton);
+		acceptButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pendingRegsTab.acceptSelectedSAs(getPendingRegistrationsList());
+			}
+		});
 		adminPanelTabs.setEnabledAt(0, true);
 		
 		JPanel saStatusMonitorTab = new JPanel();

@@ -1,6 +1,7 @@
 package gr.uoa.di.NmapProject.AM.DB;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,7 +12,7 @@ public class AdminPanelDAO {
 		LinkedList<SA> results = new LinkedList<SA>();		
 		Connection db = DB.connect();
 		try{		
-			String query = " SELECT * from software_agents WHERE is_accepted = 0";
+			String query = " SELECT * FROM software_agents WHERE is_accepted = 0";
 			Statement stmt = db.createStatement();			
 			ResultSet rs = stmt.executeQuery(query);
 			while(rs.next()){
@@ -22,11 +23,28 @@ public class AdminPanelDAO {
 								rs.getString(6), 
 								rs.getString(7), 
 								rs.getString(5)));
-			}
+			};
 			db.close();
 		} catch (SQLException ex){
 			DB.SQLError(ex);
 		}
 		return results;		
+	}
+	
+	public static void acceptSAs(LinkedList<Integer> ids) {
+		Connection db = DB.connect();
+		try{		
+			String query = " UPDATE software_agents SET is_accepted = 1 WHERE id = ?";
+			PreparedStatement stmt = db.prepareStatement(query);			
+			for (int id : ids) {
+				stmt.setInt(1, id);
+				stmt.executeUpdate();
+				db.commit();
+				db.close();
+			}
+		} catch (SQLException ex){
+			DB.SQLError(ex);
+		}
+		return;	
 	}
 }

@@ -21,4 +21,13 @@ public class pendingRegsTab {
 		}
 		checkList.setListData(tempArray);
 	}
+	
+	public static void acceptSelectedSAs(CheckBoxList checkList) {
+		LinkedList<Integer> idsToBeAccepted = new LinkedList<Integer>();
+		for (JCheckBox cb : (JCheckBox[])(checkList.getComponents())) {
+			if (cb.isSelected()) {
+				idsToBeAccepted.add(Integer.parseInt(cb.getText().substring(0, cb.getText().indexOf(" "))));
+			}
+		}
+	}
 }
