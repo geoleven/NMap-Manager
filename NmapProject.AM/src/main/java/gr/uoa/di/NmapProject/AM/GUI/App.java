@@ -15,7 +15,8 @@ public class App {
 	
 	private Server server;
 	private Login loginFrame;
-	private MainFrame mainFrame;
+//	private MainFrame mainFrame;
+	private AdminPanel adminPanel;
 	
 	public void run(){
 		startServer();
@@ -44,7 +45,8 @@ public class App {
 				if(AdminDAO.authenticate(username, password)){
 					loginFrame.dispose();
 					loginFrame = null;
-					startMainFrame();
+					//startMainFrame();
+					startAdminPanel();
 				}
 				else{
 					JOptionPane.showMessageDialog(source , "Authentication Failed");
@@ -67,16 +69,28 @@ public class App {
 		});
 	}
 	
-	private void startMainFrame(){
-		mainFrame = new MainFrame();
-		
-		mainFrame.addWindowListener(new java.awt.event.WindowAdapter() {
-		    @Override
-		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-		        exit();
-		    }
-		});
-	}
+//	private void startMainFrame(){
+//		mainFrame = new MainFrame();
+//		
+//		mainFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+//		    @Override
+//		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+//		        exit();
+//		    }
+//		});
+//	}
+	
+	private void startAdminPanel() {
+	adminPanel = new AdminPanel();
+	
+	adminPanel.addWindowListener(new java.awt.event.WindowAdapter() {
+	    @Override
+	    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+	        exit();
+	    }
+	});
+}
+	
 
 	private void exit(){
 		server.stop();
