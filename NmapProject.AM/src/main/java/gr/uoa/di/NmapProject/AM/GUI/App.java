@@ -2,8 +2,6 @@ package gr.uoa.di.NmapProject.AM.GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -17,7 +15,6 @@ public class App {
 	
 	private Server server;
 	private Login loginFrame;
-//	private MainFrame mainFrame;
 	private AdminPanel adminPanel;
 	
 	public void run(){
@@ -46,7 +43,6 @@ public class App {
 				if(AdminDAO.authenticate(username, password)){
 					loginFrame.dispose();
 					loginFrame = null;
-					//startMainFrame();
 					startAdminPanel();
 				}
 				else{
@@ -73,16 +69,6 @@ public class App {
 
 	}
 	
-//	private void startMainFrame(){
-//		mainFrame = new MainFrame();
-//		
-//		mainFrame.addWindowListener(new java.awt.event.WindowAdapter() {
-//		    @Override
-//		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-//		        exit();
-//		    }
-//		});
-//	}
 	
 	private void startAdminPanel() {
 	adminPanel = new AdminPanel();
