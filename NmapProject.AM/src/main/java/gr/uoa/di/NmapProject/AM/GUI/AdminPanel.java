@@ -35,6 +35,7 @@ public class AdminPanel extends JFrame {
 	private JPanel contentPane;
 	private JTextField periodEntry;
 	private JTextField givenCmd;
+	private CheckBoxList pendingRegistrationsList;
 
 	/**
 	 * Launch the application.
@@ -86,7 +87,7 @@ public class AdminPanel extends JFrame {
 		JScrollPane pendRegScrollPane = new JScrollPane();
 		pendRegPnl.add(pendRegScrollPane);
 		
-		CheckBoxList pendingRegistrationsList = new CheckBoxList();
+		pendingRegistrationsList = new CheckBoxList();
 		pendRegScrollPane.setViewportView(pendingRegistrationsList);
 		pendingRegistrationsList.setVisibleRowCount(20);
 		
@@ -101,11 +102,12 @@ public class AdminPanel extends JFrame {
 //			@Override
 //			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
-				JButton curBtn = (JButton)(e.getSource());
-				JPanel tempPendingRegistrationTabComp = (JPanel)(curBtn.getParent().getParent());
-				JPanel tempPendRegPnl = (JPanel)(tempPendingRegistrationTabComp.getComponent(0));
-				JScrollPane tempPendScrlRegPnl = (JScrollPane)(tempPendRegPnl.getComponent(0));
-				pendingRegsTab.populatePendingRegList((CheckBoxList)(tempPendScrlRegPnl.getComponent(0)));
+//				JButton curBtn = (JButton)(e.getSource());
+//				JPanel tempPendingRegistrationTabComp = (JPanel)(curBtn.getParent().getParent());
+//				JPanel tempPendRegPnl = (JPanel)(tempPendingRegistrationTabComp.getComponent(0));
+//				JScrollPane tempPendScrlRegPnl = (JScrollPane)(tempPendRegPnl.getComponent(0));
+//				pendingRegsTab.populatePendingRegList((CheckBoxList)(tempPendScrlRegPnl.getComponent(0)));
+				pendingRegsTab.populatePendingRegList(getPendingRegistrationsList());
 			}
 		});
 		
@@ -325,5 +327,8 @@ public class AdminPanel extends JFrame {
 		
 		Panel pr = new Panel();
 		remoteTerminationTab.add(pr);
+	}
+	public CheckBoxList getPendingRegistrationsList() {
+		return pendingRegistrationsList;
 	}
 }
