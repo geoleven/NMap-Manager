@@ -67,7 +67,6 @@ public class AdminPanel extends JFrame {
 		contentPane.setLayout(null);
 		
 		JTabbedPane adminPanelTabs = new JTabbedPane(JTabbedPane.TOP);
-//		final JTabbedPane adminPanelTabs = new JTabbedPane(JTabbedPane.TOP);
 		adminPanelTabs.setBorder(null);
 		adminPanelTabs.setSelectedIndex(-1);
 		adminPanelTabs.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -90,10 +89,12 @@ public class AdminPanel extends JFrame {
 		pendingRegistrationsList = new CheckBoxList();
 		pendRegScrollPane.setViewportView(pendingRegistrationsList);
 		pendingRegistrationsList.setVisibleRowCount(20);
+		pendingRegistrationsList.setFixedCellHeight(30);
 		
 		JPanel pendingRegistrationActions = new JPanel();
 		pendingRegistrationActions.setBounds(10, 472, 769, 50);
 		pendingRegistrationsTab.add(pendingRegistrationActions);
+		pendingRegsTab.populatePendingRegList(getPendingRegistrationsList());
 		
 		JButton refreshButton = new JButton("Refresh");
 		pendingRegistrationActions.setLayout(new GridLayout(0, 2, 50, 50));
