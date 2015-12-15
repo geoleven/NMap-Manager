@@ -38,22 +38,6 @@ public class AdminPanel extends JFrame {
 	private CheckBoxList pendingRegistrationsList;
 
 	/**
-	 * Launch the application.
-	 */
-//	public void runAdminPanel() {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					AdminPanel frame = new AdminPanel();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
 	 * Create the frame.
 	 */
 	public AdminPanel() {
@@ -100,14 +84,7 @@ public class AdminPanel extends JFrame {
 		pendingRegistrationActions.setLayout(new GridLayout(0, 2, 50, 50));
 		pendingRegistrationActions.add(refreshButton);
 		refreshButton.addActionListener(new ActionListener() {
-//			@Override
-//			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
-//				JButton curBtn = (JButton)(e.getSource());
-//				JPanel tempPendingRegistrationTabComp = (JPanel)(curBtn.getParent().getParent());
-//				JPanel tempPendRegPnl = (JPanel)(tempPendingRegistrationTabComp.getComponent(0));
-//				JScrollPane tempPendScrlRegPnl = (JScrollPane)(tempPendRegPnl.getComponent(0));
-//				pendingRegsTab.populatePendingRegList((CheckBoxList)(tempPendScrlRegPnl.getComponent(0)));
 				pendingRegsTab.populatePendingRegList(getPendingRegistrationsList());
 			}
 		});
