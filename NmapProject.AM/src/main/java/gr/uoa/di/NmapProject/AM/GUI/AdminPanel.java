@@ -19,7 +19,14 @@ import javax.swing.JTextField;
 import java.awt.Panel;
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
+import java.awt.Color;
 import java.awt.Component;
+import javax.swing.JTextArea;
+import javax.swing.border.BevelBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import java.awt.SystemColor;
 
 
 public class AdminPanel extends JFrame {
@@ -35,18 +42,18 @@ public class AdminPanel extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public void runAdminPanel() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AdminPanel frame = new AdminPanel();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public void runAdminPanel() {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					AdminPanel frame = new AdminPanel();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -62,6 +69,7 @@ public class AdminPanel extends JFrame {
 		contentPane.setLayout(null);
 		
 		JTabbedPane adminPanelTabs = new JTabbedPane(JTabbedPane.TOP);
+//		final JTabbedPane adminPanelTabs = new JTabbedPane(JTabbedPane.TOP);
 		adminPanelTabs.setBorder(null);
 		adminPanelTabs.setSelectedIndex(-1);
 		adminPanelTabs.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -73,23 +81,25 @@ public class AdminPanel extends JFrame {
 		adminPanelTabs.addTab("Pending Registrations", null, pendingRegistrationsTab, "");
 		pendingRegistrationsTab.setLayout(null);
 		
-		JScrollPane PendingRegistrationsList = new JScrollPane();
-		PendingRegistrationsList.setBorder(null);
-		PendingRegistrationsList.setViewportBorder(null);
-		PendingRegistrationsList.setBounds(10, 11, 769, 450);
-		pendingRegistrationsTab.add(PendingRegistrationsList);
+		JList<JCheckBox> pendingRegistrationsList = new JList<JCheckBox>();
+		pendingRegistrationsList.setVisibleRowCount(20);
+		pendingRegistrationsList.setBounds(10, 11, 769, 450);
+		pendingRegistrationsTab.add(pendingRegistrationsList);
 		
 		JPanel pendingRegistrationActions = new JPanel();
 		pendingRegistrationActions.setBounds(10, 472, 769, 50);
 		pendingRegistrationsTab.add(pendingRegistrationActions);
 		
 		JButton refreshButton = new JButton("Refresh");
-		refreshButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		pendingRegistrationActions.setLayout(new GridLayout(0, 2, 50, 50));
 		pendingRegistrationActions.add(refreshButton);
+		refreshButton.addActionListener(new ActionListener() {
+//			@Override
+//			@SuppressWarnings("unchecked")
+			public void actionPerformed(ActionEvent e) {
+				pendingRegsTab.populatePendingRegList((JList<JCheckBox>)(((JButton)(e.getSource())).getParent().getComponent(0)));
+			}
+		});
 		
 		JButton acceptButton = new JButton("Accept Selected");
 		pendingRegistrationActions.add(acceptButton);
@@ -101,6 +111,7 @@ public class AdminPanel extends JFrame {
 		saStatusMonitorTab.setLayout(null);
 		
 		JList saStatusMonitorList = new JList();
+		saStatusMonitorList.setBackground(new Color(240, 240, 240));
 		saStatusMonitorList.setBounds(10, 11, 769, 521);
 		saStatusMonitorTab.add(saStatusMonitorList);
 		
@@ -139,7 +150,10 @@ public class AdminPanel extends JFrame {
 		middlePanel.add(pnl3);
 		pnl3.setLayout(null);
 		
-		JCheckBox isPeriodic = new JCheckBox("     isPeriodic");
+		JCheckBox isPeriodic = new JCheckBox("isPeriodic   ");
+		isPeriodic.setHorizontalAlignment(SwingConstants.CENTER);
+		isPeriodic.setActionCommand("isPeriodic");
+		isPeriodic.setHorizontalTextPosition(SwingConstants.LEADING);
 		isPeriodic.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		isPeriodic.setBounds(149, 5, 121, 36);
 		pnl3.add(isPeriodic);
@@ -178,9 +192,70 @@ public class AdminPanel extends JFrame {
 		jobDeletionTab.setBorder(null);
 		adminPanelTabs.addTab("Job Deletion", null, jobDeletionTab, null);
 		
+		JPanel saSpecificResults = new JPanel();
+		adminPanelTabs.addTab("SA Specific Results", null, saSpecificResults, null);
+		saSpecificResults.setLayout(null);
+		saSpecificResults.setBorder(null);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		textArea.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		textArea.setBackground(SystemColor.menu);
+		textArea.setBounds(10, 134, 771, 400);
+		saSpecificResults.add(textArea);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(296, 74, 200, 20);
+		saSpecificResults.add(comboBox);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(581, 74, 200, 20);
+		saSpecificResults.add(comboBox_1);
+		
+		JLabel label = new JLabel("Please select starting time:");
+		label.setBounds(298, 28, 196, 39);
+		saSpecificResults.add(label);
+		
+		JLabel label_1 = new JLabel("Please select ending time:");
+		label_1.setBounds(584, 28, 196, 39);
+		saSpecificResults.add(label_1);
+		
+		JComboBox comboBox_2 = new JComboBox();
+		comboBox_2.setBounds(10, 74, 200, 20);
+		saSpecificResults.add(comboBox_2);
+		
+		JLabel lblPleaseSelectA = new JLabel("Please select a Software Agent:");
+		lblPleaseSelectA.setBounds(10, 40, 200, 14);
+		saSpecificResults.add(lblPleaseSelectA);
+		
 		JPanel resultsTab = new JPanel();
 		resultsTab.setBorder(null);
 		adminPanelTabs.addTab("Results", null, resultsTab, null);
+		resultsTab.setLayout(null);
+		
+		JTextArea resultsArea = new JTextArea();
+		//resultsArea.setBackground(UIManager.getColor("Button.background"));
+		resultsArea.setBackground(new Color(240, 240, 240));
+		resultsArea.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		resultsArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		resultsArea.setBounds(10, 134, 771, 400);
+		resultsTab.add(resultsArea);
+		
+		JComboBox saWithResultsDropDownList = new JComboBox();
+		saWithResultsDropDownList.setBounds(90, 75, 200, 20);
+		resultsTab.add(saWithResultsDropDownList);
+		
+		JComboBox sasResultList = new JComboBox();
+		sasResultList.setBounds(488, 75, 200, 20);
+		resultsTab.add(sasResultList);
+		
+		JLabel lblPleaseSelectSTime = new JLabel("Please select starting time:");
+		lblPleaseSelectSTime.setBounds(92, 29, 196, 39);
+		resultsTab.add(lblPleaseSelectSTime);
+		
+		JLabel lblPleaseSelectETime = new JLabel("Please select ending time:");
+		lblPleaseSelectETime.setBounds(491, 29, 196, 39);
+		resultsTab.add(lblPleaseSelectETime);
 		
 		JPanel remoteTerminationTab = new JPanel();
 		remoteTerminationTab.setBorder(null);
@@ -204,9 +279,9 @@ public class AdminPanel extends JFrame {
 		lblPleaseSelectWhich.setHorizontalAlignment(SwingConstants.CENTER);
 		pm.add(lblPleaseSelectWhich);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(10, 172, 407, 40);
-		pm.add(comboBox);
+		JComboBox runningSADropDownlist = new JComboBox();
+		runningSADropDownlist.setBounds(10, 172, 407, 40);
+		pm.add(runningSADropDownlist);
 		
 		JButton btnTerminate = new JButton("Terminate");
 		btnTerminate.setBounds(10, 332, 407, 40);
@@ -217,6 +292,28 @@ public class AdminPanel extends JFrame {
 		lblTerminationresult.setBounds(0, 429, 427, 115);
 		lblTerminationresult.setHorizontalAlignment(SwingConstants.CENTER);
 		pm.add(lblTerminationresult);
+		
+//		adminPanelTabs.addChangeListener(new ChangeListener() {
+//			public void stateChanged(ChangeEvent e) {
+//				int currentIndex = ((JTabbedPane)e.getSource()).getSelectedIndex();
+//				switch (currentIndex) {
+//				case 0: ;
+//				break;
+//				case 1: ;
+//				break;
+//				case 2: ;
+//				break;
+//				case 3: ;
+//				break;
+//				case 4: ;
+//				break;
+//				case 5: ;
+//				break;
+//				case 6: ;
+//				break;
+//				}
+//			}
+//		});
 		
 		Panel pr = new Panel();
 		remoteTerminationTab.add(pr);
