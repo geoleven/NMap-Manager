@@ -1,8 +1,6 @@
 package gr.uoa.di.NmapProject.AM.GUI;
 
 import java.util.LinkedList;
-import java.util.List;
-
 import javax.swing.JCheckBox;
 import gr.uoa.di.NmapProject.AM.DB.AdminPanelDAO;
 import gr.uoa.di.NmapProject.AM.DB.SA;
@@ -24,12 +22,13 @@ public class pendingRegsTab {
 		checkList.setListData(tempArray);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static void acceptSelectedSAs(CheckBoxList checkList) {
 		LinkedList<Integer> idsToBeAccepted = new LinkedList<Integer>();
-		for (JCheckBox cb : (List<JCheckBox>)(checkList.getSelectedValuesList())) {
+		JCheckBox cb = null;
+		for (int index = 0; index < checkList.getModel().getSize(); index++) {
+			cb = (JCheckBox) checkList.getModel().getElementAt(index);
 			if (cb.isSelected()) {
-				System.out.println("Adding " + Integer.parseInt(cb.getText().substring(11, cb.getText().indexOf("\t"))) + ".");
+				//System.out.println("Adding " + Integer.parseInt(cb.getText().substring(11, cb.getText().indexOf("\t"))) + ".");
 				idsToBeAccepted.add(Integer.parseInt(cb.getText().substring(11, cb.getText().indexOf("\t"))));
 			}
 		}
