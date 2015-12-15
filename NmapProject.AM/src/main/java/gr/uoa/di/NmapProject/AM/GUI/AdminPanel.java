@@ -92,7 +92,7 @@ public class AdminPanel extends JFrame {
 //			@Override
 //			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
-				pendingRegsTab.populatePendingRegList((JList<JCheckBox>)(((JButton)(e.getSource())).getParent().getComponent(0)));
+				pendingRegsTab.populatePendingRegList((JList<JCheckBox>)(((JButton)(e.getSource())).getParent().getParent().getComponent(0)));
 			}
 		});
 		
