@@ -29,8 +29,10 @@ public class pendingRegsTab {
 		LinkedList<Integer> idsToBeAccepted = new LinkedList<Integer>();
 		for (JCheckBox cb : (List<JCheckBox>)(checkList.getSelectedValuesList())) {
 			if (cb.isSelected()) {
+				System.out.println("Adding " + Integer.parseInt(cb.getText().substring(11, cb.getText().indexOf("\t"))) + ".");
 				idsToBeAccepted.add(Integer.parseInt(cb.getText().substring(11, cb.getText().indexOf("\t"))));
 			}
 		}
+		AdminPanelDAO.acceptSAs(idsToBeAccepted);
 	}
 }

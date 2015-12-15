@@ -39,7 +39,6 @@ public class AdminPanelDAO {
 			for (int id : ids) {
 				stmt.setInt(1, id);
 				stmt.executeUpdate();
-				db.commit();
 				db.close();
 			}
 		} catch (SQLException ex){
