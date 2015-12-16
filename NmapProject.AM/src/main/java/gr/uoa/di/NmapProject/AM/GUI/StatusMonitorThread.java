@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import javax.swing.JTable;
 import gr.uoa.di.NmapProject.AM.Globals;
 import gr.uoa.di.NmapProject.AM.DB.AdminPanelDAO;
-import gr.uoa.di.NmapProject.AM.DB.SA;
 import gr.uoa.di.NmapProject.AM.DB.SAInfoStatus;
 
 public class StatusMonitorThread implements Runnable {

@@ -1,9 +1,6 @@
 package gr.uoa.di.NmapProject.AM.GUI;
 
-import java.awt.Component;
-
 import javax.swing.JTable;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 public class StatusMonitorTab {
@@ -27,17 +24,7 @@ public class StatusMonitorTab {
 		smt = new StatusMonitorThread();
 		smt.populateData();
 		this.table = new JTable(smt.data, columnNames);
-//		this.table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		final TableColumnModel columnModel = this.table.getColumnModel();
-//	    for (int column = 0; column < this.table.getColumnCount(); column++) {
-//	        int width = 50; // Min width
-//	        for (int row = 0; row < this.table.getRowCount(); row++) {
-//	            TableCellRenderer renderer = this.table.getCellRenderer(row, column);
-//	            Component comp = this.table.prepareRenderer(renderer, row, column);
-//	            width = Math.max(comp.getPreferredSize().width +1 , width);
-//	        }
-//	        columnModel.getColumn(column).setPreferredWidth(width);
-//	    }
 		columnModel.getColumn(0).setPreferredWidth(100);
 		columnModel.getColumn(1).setPreferredWidth(60);
 		columnModel.getColumn(2).setPreferredWidth(200);
@@ -46,9 +33,7 @@ public class StatusMonitorTab {
 		columnModel.getColumn(5).setPreferredWidth(150);
 		columnModel.getColumn(6).setPreferredWidth(100);
 		columnModel.getColumn(7).setPreferredWidth(100);
-		columnModel.getColumn(8).setPreferredWidth(500);
-		
-		
+		columnModel.getColumn(8).setPreferredWidth(500);		
 		smt.setTable(this.table);
 		statusMonitorThread = new Thread(smt);
 	}
