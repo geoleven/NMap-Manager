@@ -1,5 +1,5 @@
 package gr.uoa.di.NmapProject.AM.GUI;
 
-public class jobInsertionTab {
+public class SaResultsTab {
 
 }

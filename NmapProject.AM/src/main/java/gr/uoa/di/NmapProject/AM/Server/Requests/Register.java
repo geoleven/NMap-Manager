@@ -34,9 +34,9 @@ public class Register {
     	
     	SA reg = new SA((JSONObject)(new JSONParser()).parse(req));
     	
-    	String status = "waiting for authentication";
+    	String status = "Waiting for authentication . . .";
     	if(!SADAO.exists(reg.hash)){
-    		System.out.println("Got new registration request :");
+    		System.out.println("Got new registration request: ");
     		reg.print();
     		SADAO.add(reg);
     	}else if (SADAO.isAccepted(reg.hash)){

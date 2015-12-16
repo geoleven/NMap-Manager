@@ -1,5 +1,5 @@
 package gr.uoa.di.NmapProject.AM.GUI;
 
-public class jobDeletionTab {
+public class JobDeletionTab {
 
 }

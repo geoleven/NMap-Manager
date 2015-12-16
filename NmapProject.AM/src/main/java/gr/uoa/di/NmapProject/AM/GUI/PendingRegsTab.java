@@ -5,7 +5,7 @@ import javax.swing.JCheckBox;
 import gr.uoa.di.NmapProject.AM.DB.AdminPanelDAO;
 import gr.uoa.di.NmapProject.AM.DB.SA;
 
-public class pendingRegsTab {
+public class PendingRegsTab {
 	@SuppressWarnings("unchecked")
 	public static void populatePendingRegList(CheckBoxList checkList) {
 		LinkedList<SA> curList = AdminPanelDAO.getPendReg();

@@ -77,6 +77,7 @@ public class App {
 	adminPanel.addWindowListener(new java.awt.event.WindowAdapter() {
 	    @Override
 	    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+	    	//closethreadstatus
 	        exit();
 	    }
 	});

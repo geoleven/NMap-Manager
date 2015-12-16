@@ -21,10 +21,15 @@ import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import java.awt.SystemColor;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import javax.swing.ListSelectionModel;
+import javax.swing.JTable;
+import javax.swing.table.JTableHeader;
 
 
 public class AdminPanel extends JFrame {
@@ -37,6 +42,7 @@ public class AdminPanel extends JFrame {
 	private JTextField periodEntry;
 	private JTextField givenCmd;
 	private CheckBoxList pendingRegistrationsList;
+	public StatusMonitorTab smt = null;
 
 	/**
 	 * Create the frame.
@@ -80,14 +86,14 @@ public class AdminPanel extends JFrame {
 		JPanel pendingRegistrationActions = new JPanel();
 		pendingRegistrationActions.setBounds(10, 472, 769, 50);
 		pendingRegistrationsTab.add(pendingRegistrationActions);
-		pendingRegsTab.populatePendingRegList(getPendingRegistrationsList());
+		PendingRegsTab.populatePendingRegList(getPendingRegistrationsList());
 		
 		JButton refreshButton = new JButton("Refresh");
 		pendingRegistrationActions.setLayout(new GridLayout(0, 2, 50, 50));
 		pendingRegistrationActions.add(refreshButton);
 		refreshButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pendingRegsTab.populatePendingRegList(getPendingRegistrationsList());
+				PendingRegsTab.populatePendingRegList(getPendingRegistrationsList());
 			}
 		});
 		
@@ -95,8 +101,8 @@ public class AdminPanel extends JFrame {
 		pendingRegistrationActions.add(acceptButton);
 		acceptButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pendingRegsTab.acceptSelectedSAs(getPendingRegistrationsList());
-				pendingRegsTab.populatePendingRegList(getPendingRegistrationsList());
+				PendingRegsTab.acceptSelectedSAs(getPendingRegistrationsList());
+				PendingRegsTab.populatePendingRegList(getPendingRegistrationsList());
 			}
 		});
 		adminPanelTabs.setEnabledAt(0, true);
@@ -106,10 +112,21 @@ public class AdminPanel extends JFrame {
 		adminPanelTabs.addTab("SA Status Monitor", null, saStatusMonitorTab, null);
 		saStatusMonitorTab.setLayout(null);
 		
-		JList saStatusMonitorList = new JList();
-		saStatusMonitorList.setBackground(new Color(240, 240, 240));
-		saStatusMonitorList.setBounds(10, 11, 769, 521);
-		saStatusMonitorTab.add(saStatusMonitorList);
+		JTableHeader thStatusHeader = new JTableHeader();
+		thStatusHeader.setBounds(10, 11, 769, 31);
+		saStatusMonitorTab.add(thStatusHeader);
+		
+		JScrollPane scrlStatusMntr = new JScrollPane();
+		scrlStatusMntr.setBounds(10, 53, 769, 479);
+		saStatusMonitorTab.add(scrlStatusMntr);
+		
+		
+		JTable saStatusMonitorList = null;// = new JTable();
+		smt = new StatusMonitorTab(saStatusMonitorList);
+		scrlStatusMntr.setViewportView(saStatusMonitorList);
+		saStatusMonitorList.setFillsViewportHeight(true);
+		saStatusMonitorList.setCellSelectionEnabled(true);
+		//saStatusMonitorList.setBackground(new Color(240, 240, 240));
 		
 		JPanel jobAssignmentTab = new JPanel();
 		jobAssignmentTab.setBorder(null);
@@ -289,27 +306,27 @@ public class AdminPanel extends JFrame {
 		lblTerminationresult.setHorizontalAlignment(SwingConstants.CENTER);
 		pm.add(lblTerminationresult);
 		
-//		adminPanelTabs.addChangeListener(new ChangeListener() {
-//			public void stateChanged(ChangeEvent e) {
-//				int currentIndex = ((JTabbedPane)e.getSource()).getSelectedIndex();
-//				switch (currentIndex) {
-//				case 0: ;
-//				break;
-//				case 1: ;
-//				break;
-//				case 2: ;
-//				break;
-//				case 3: ;
-//				break;
-//				case 4: ;
-//				break;
-//				case 5: ;
-//				break;
-//				case 6: ;
-//				break;
-//				}
-//			}
-//		});
+		adminPanelTabs.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				int currentIndex = ((JTabbedPane)e.getSource()).getSelectedIndex();
+				switch (currentIndex) {
+				case 0: smt.stop();
+				break;
+				case 1: smt.start();;
+				break;
+				case 2: smt.stop();;
+				break;
+				case 3: smt.stop();;
+				break;
+				case 4: smt.stop();;
+				break;
+				case 5: smt.stop();;
+				break;
+				case 6: smt.stop();;
+				break;
+				}
+			}
+		});
 		
 		Panel pr = new Panel();
 		remoteTerminationTab.add(pr);

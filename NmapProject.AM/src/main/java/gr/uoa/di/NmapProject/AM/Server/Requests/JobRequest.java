@@ -43,7 +43,7 @@ public class JobRequest {
     		j.print();
     	}
     	
-    	resp.put("response","eisavlakas");
+    	resp.put("response","mpla");
     	return Response.status(200).entity(resp.toJSONString()).build();
     }
 }
