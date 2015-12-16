@@ -55,11 +55,11 @@ public class MyTableModel extends AbstractTableModel {
     	fireTableDataChanged();
     }
     
-//    public void addElement(SAInfoStatus e) {
-//        // Adds the element in the last position in the list
-//        list.add(e);
-//        fireTableRowsInserted(list.size()-1, list.size()-1);
-//    }
+    public void addElement(SAInfoStatus e) {
+        // Adds the element in the last position in the list
+        list.add(e);
+        fireTableRowsInserted(list.size()-1, list.size()-1);
+    }
 
     @Override
     public int getColumnCount() {
