@@ -165,7 +165,7 @@ public class AdminPanel extends JFrame {
 		pnl2.setLayout(null);
 		
 		givenCmd = new JTextField();
-		givenCmd.setBounds(67, 5, 286, 32);
+		givenCmd.setBounds(67, 5, 287, 32);
 		pnl2.add(givenCmd);
 		givenCmd.setColumns(10);
 		
@@ -195,8 +195,8 @@ public class AdminPanel extends JFrame {
 		pnl5.setLayout(null);
 		
 		saDropDownList = new JComboBox<String>();
-		saDropDownList.setBounds(143, 5, 128, 32);
-		saDropDownList.setMaximumRowCount(0);
+		saDropDownList.setBounds(71, 5, 270, 32);
+		saDropDownList.setMaximumRowCount(10);
 		saDropDownList.addPopupMenuListener(new PopupMenuListener() {
 			@Override
 			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
@@ -261,6 +261,17 @@ public class AdminPanel extends JFrame {
 		JPanel jobDeletionTab = new JPanel();
 		jobDeletionTab.setBorder(null);
 		adminPanelTabs.addTab("Job Deletion", null, jobDeletionTab, null);
+		jobDeletionTab.setLayout(null);
+		
+		JLabel lblPleaseSelectThe = new JLabel("Please select the Software Agent from which you wish to stop a periodic job:");
+		lblPleaseSelectThe.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPleaseSelectThe.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblPleaseSelectThe.setBounds(10, 20, 771, 26);
+		jobDeletionTab.add(lblPleaseSelectThe);
+		
+		JComboBox jdCB = new JComboBox();
+		jdCB.setBounds(134, 57, 525, 20);
+		jobDeletionTab.add(jdCB);
 		
 		JPanel saSpecificResults = new JPanel();
 		adminPanelTabs.addTab("SA Specific Results", null, saSpecificResults, null);
@@ -330,14 +341,16 @@ public class AdminPanel extends JFrame {
 		JPanel remoteTerminationTab = new JPanel();
 		remoteTerminationTab.setBorder(null);
 		adminPanelTabs.addTab("Remote Termination", null, remoteTerminationTab, null);
-		remoteTerminationTab.setLayout(new BoxLayout(remoteTerminationTab, BoxLayout.X_AXIS));
+//		remoteTerminationTab.setLayout(new BoxLayout(remoteTerminationTab, BoxLayout.X_AXIS));
+		remoteTerminationTab.setLayout(null);
 		
-		Panel pl = new Panel();
-		FlowLayout flowLayout = (FlowLayout) pl.getLayout();
-		flowLayout.setVgap(50);
-		remoteTerminationTab.add(pl);
+//		Panel pl = new Panel();
+//		FlowLayout flowLayout = (FlowLayout) pl.getLayout();
+//		flowLayout.setVgap(50);
+//		remoteTerminationTab.add(pl);
 		
 		Panel pm = new Panel();
+		pm.setBounds(184, 50, 420, 450);
 		remoteTerminationTab.add(pm);
 		pm.setLayout(null);
 		
@@ -350,11 +363,11 @@ public class AdminPanel extends JFrame {
 		pm.add(lblPleaseSelectWhich);
 		
 		JComboBox runningSADropDownlist = new JComboBox();
-		runningSADropDownlist.setBounds(10, 172, 407, 40);
+		runningSADropDownlist.setBounds(0, 172, 417, 40);
 		pm.add(runningSADropDownlist);
 		
 		JButton btnTerminate = new JButton("Terminate");
-		btnTerminate.setBounds(10, 332, 407, 40);
+		btnTerminate.setBounds(0, 332, 417, 40);
 		pm.add(btnTerminate);
 		
 		JLabel lblTerminationresult = new JLabel("");
@@ -385,8 +398,8 @@ public class AdminPanel extends JFrame {
 			}
 		});
 		
-		Panel pr = new Panel();
-		remoteTerminationTab.add(pr);
+//		Panel pr = new Panel();
+//		remoteTerminationTab.add(pr);
 	}
 	public CheckBoxList getPendingRegistrationsList() {
 		return pendingRegistrationsList;
