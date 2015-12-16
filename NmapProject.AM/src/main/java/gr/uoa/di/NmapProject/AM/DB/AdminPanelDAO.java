@@ -48,7 +48,7 @@ public class AdminPanelDAO {
 		return;	
 	}
 	
-	public static LinkedList<SAInfoStatus> getActiveSAInfo() {
+	public static LinkedList<SAInfoStatus> getAcceptedSAInfo() {
 		LinkedList<SAInfoStatus> results = new LinkedList<SAInfoStatus>();		
 		Connection db = DB.connect();
 		try{		

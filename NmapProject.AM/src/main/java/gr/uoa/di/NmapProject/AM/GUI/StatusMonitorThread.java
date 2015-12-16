@@ -21,7 +21,7 @@ public class StatusMonitorThread implements Runnable {
 			"Is accepted",
 			"Union Hash"};
 	public Object[][] data = null;
-	MyTableModel tmdl = new MyTableModel(AdminPanelDAO.getActiveSAInfo());;
+	MyTableModel tmdl = new MyTableModel(AdminPanelDAO.getAcceptedSAInfo());;
 	
 	public void setTable(JTable table) {
 		this.table = table;
@@ -30,7 +30,7 @@ public class StatusMonitorThread implements Runnable {
 	public void run() {
 		try {
 			while(true) {
-				tmdl.changeList(AdminPanelDAO.getActiveSAInfo());
+				tmdl.changeList(AdminPanelDAO.getAcceptedSAInfo());
 				Thread.sleep(1000 * Globals.refreshRate);
 			}
 		} catch (InterruptedException e) {
@@ -43,7 +43,7 @@ public class StatusMonitorThread implements Runnable {
 	}
 	
 	public void populateData() {
-		LinkedList<SAInfoStatus> list = AdminPanelDAO.getActiveSAInfo();
+		LinkedList<SAInfoStatus> list = AdminPanelDAO.getAcceptedSAInfo();
 		data = new Object[list.size()][];
 		for (int c1 = 0; c1 < list.size(); c1++) {
 			Object[] temp = new Object[] {list.get(c1).status ? "Online" : "Offline",

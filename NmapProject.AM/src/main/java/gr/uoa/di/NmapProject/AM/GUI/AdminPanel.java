@@ -23,13 +23,14 @@ import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 
 import java.awt.SystemColor;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
-import javax.swing.table.JTableHeader;
 
 
 public class AdminPanel extends JFrame {
@@ -43,6 +44,8 @@ public class AdminPanel extends JFrame {
 	private JTextField givenCmd;
 	private CheckBoxList pendingRegistrationsList;
 	public StatusMonitorTab smt = null;
+	private String lastSASelectedToAssignJob = null;
+	private JComboBox<String> saDropDownList;
 
 	/**
 	 * Create the frame.
@@ -133,7 +136,6 @@ public class AdminPanel extends JFrame {
 		
 		saStatusMonitorList.setFillsViewportHeight(true);
 		saStatusMonitorList.setCellSelectionEnabled(true);
-		//saStatusMonitorList.setBackground(new Color(240, 240, 240));
 		
 		JPanel jobAssignmentTab = new JPanel();
 		jobAssignmentTab.setBorder(null);
@@ -191,9 +193,31 @@ public class AdminPanel extends JFrame {
 		middlePanel.add(pnl5);
 		pnl5.setLayout(null);
 		
-		JComboBox saDropDownList = new JComboBox();
+		saDropDownList = new JComboBox<String>();
 		saDropDownList.setBounds(143, 5, 128, 32);
 		saDropDownList.setMaximumRowCount(0);
+		saDropDownList.addPopupMenuListener(new PopupMenuListener() {
+			@Override
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+				JobInsertionTab.addItemsToComboBox(saDropDownList);
+			}
+			@Override
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+				// TODO Delete?
+			}
+			@Override
+			public void popupMenuCanceled(PopupMenuEvent e) {
+				// TODO Delete?	
+			}
+		});
+		saDropDownList.addActionListener(new ActionListener() {
+			@SuppressWarnings("unchecked")
+			public void actionPerformed(ActionEvent e) {
+				lastSASelectedToAssignJob = (String) ((JComboBox<String>)e.getSource()).getSelectedItem();
+				//System.out.println(lastSASelectedToAssignJob);
+		}	
+		});
+		
 		pnl5.add(saDropDownList);
 		
 		JPanel pnl6 = new JPanel();
