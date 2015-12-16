@@ -13,7 +13,7 @@ public class StatusMonitorThread implements Runnable {
 		
 	public Object[][] data = null;
 	
-	public StatusMonitorThread(JTable table) {
+	public void setTable(JTable table) {
 		this.table = table;
 	}
 	
@@ -37,14 +37,14 @@ public class StatusMonitorThread implements Runnable {
 		LinkedList<SAInfoStatus> list = AdminPanelDAO.getActiveSAInfo();
 		data = new Object[list.size()][];
 		for (int c1 = 0; c1 < list.size(); c1++) {
-			Object[] temp = new Object[] {list.get(c1).status,
+			Object[] temp = new Object[] {list.get(c1).status ? "Online" : "Offline",
 						list.get(c1).id,
 						list.get(c1).deviceName,
 						list.get(c1).interfaceIP,
 						list.get(c1).interfaceMacAddr,
 						list.get(c1).osVersion,
 						list.get(c1).nMapVersion,
-						list.get(c1).isAccepted,
+						list.get(c1).isAccepted ? "Yes" : "No",
 						list.get(c1).unionHash};
 			data[c1] = temp;
 		}

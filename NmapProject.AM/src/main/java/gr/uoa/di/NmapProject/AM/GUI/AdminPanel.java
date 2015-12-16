@@ -123,6 +123,7 @@ public class AdminPanel extends JFrame {
 		
 		JTable saStatusMonitorList = null;// = new JTable();
 		smt = new StatusMonitorTab(saStatusMonitorList);
+		saStatusMonitorList = smt.getTable();
 		scrlStatusMntr.setViewportView(saStatusMonitorList);
 		saStatusMonitorList.setFillsViewportHeight(true);
 		saStatusMonitorList.setCellSelectionEnabled(true);
