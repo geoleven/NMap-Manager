@@ -6,7 +6,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import java.awt.GridLayout;
@@ -46,6 +45,8 @@ public class AdminPanel extends JFrame {
 	public StatusMonitorTab smt = null;
 	private String lastSASelectedToAssignJob = null;
 	private JComboBox<String> saDropDownList;
+	private JCheckBox isPeriodic;
+	private int lastSetPeriod = -1;
 
 	/**
 	 * Create the frame.
@@ -172,7 +173,7 @@ public class AdminPanel extends JFrame {
 		middlePanel.add(pnl3);
 		pnl3.setLayout(null);
 		
-		JCheckBox isPeriodic = new JCheckBox("isPeriodic   ");
+		isPeriodic = new JCheckBox("isPeriodic   ");
 		isPeriodic.setHorizontalAlignment(SwingConstants.CENTER);
 		isPeriodic.setActionCommand("isPeriodic");
 		isPeriodic.setHorizontalTextPosition(SwingConstants.LEADING);
@@ -227,6 +228,31 @@ public class AdminPanel extends JFrame {
 		JButton btnSumbit = new JButton("Sumbit");
 		btnSumbit.setBounds(157, 5, 105, 41);
 		pnl6.add(btnSumbit);
+		btnSumbit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int tempi = 0;
+				if (isPeriodic.isSelected()) {
+					try {
+						tempi = Integer.parseUnsignedInt(periodEntry.getText());
+					} catch (NumberFormatException nfe1) {
+						// TODO msg insert proper period time
+						System.out.println("Weird period");
+						return;
+					}
+					lastSetPeriod = tempi;
+				}
+				else {
+					lastSetPeriod = -1;
+				}
+				if (lastSASelectedToAssignJob == null) {
+					// TODO msg no sa selected
+					System.out.println("No SA selected.");
+					return;
+				}
+				JobInsertionTab.assignJob(givenCmd.getText(), isPeriodic.isSelected(), lastSetPeriod, lastSASelectedToAssignJob);
+			}
+		});
 		
 		JPanel rightBlank = new JPanel();
 		rightBlank.setBounds(604, 0, 184, 543);
