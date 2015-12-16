@@ -117,10 +117,10 @@ public class AdminPanel extends JFrame {
 		saStatusMonitorTab.add(scrlStatusMntr);
 		
 		
-		JTable saStatusMonitorList = null;// = new JTable();
+		JTable saStatusMonitorList = null;
 		smt = new StatusMonitorTab(saStatusMonitorList);
 		saStatusMonitorList = smt.getTable();
-		//scrlStatusMntr.setViewportView(saStatusMonitorList);
+		scrlStatusMntr.setViewportView(saStatusMonitorList);
 		
 		JLabel lblSM = new JLabel("Live Status of Software Agents");
 		lblSM.setFont(new Font("Tahoma", Font.BOLD, 16));
