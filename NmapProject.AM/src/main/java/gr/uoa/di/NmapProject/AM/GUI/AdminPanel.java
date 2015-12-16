@@ -112,22 +112,25 @@ public class AdminPanel extends JFrame {
 		adminPanelTabs.addTab("SA Status Monitor", null, saStatusMonitorTab, null);
 		saStatusMonitorTab.setLayout(null);
 		
-		JScrollPane scrlStatusMntr = new JScrollPane();
-		scrlStatusMntr.setBounds(10, 53, 769, 479);
-		saStatusMonitorTab.add(scrlStatusMntr);
-		
-		
-		JTable saStatusMonitorList = null;
-		smt = new StatusMonitorTab(saStatusMonitorList);
-		saStatusMonitorList = smt.getTable();
-		scrlStatusMntr.setViewportView(saStatusMonitorList);
-		
 		JLabel lblSM = new JLabel("Live Status of Software Agents");
 		lblSM.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblSM.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblSM.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSM.setBounds(12, 11, 767, 26);
 		saStatusMonitorTab.add(lblSM);
+		
+		JScrollPane scrlStatusMntr = new JScrollPane();
+		scrlStatusMntr.setBounds(10, 53, 769, 465);
+		saStatusMonitorTab.add(scrlStatusMntr);
+		
+		
+		JTable saStatusMonitorList = null;
+		smt = new StatusMonitorTab(saStatusMonitorList);
+		saStatusMonitorList = smt.getTable();
+		scrlStatusMntr.add(saStatusMonitorList);
+		scrlStatusMntr.setViewportView(saStatusMonitorList);
+		
+		
 		saStatusMonitorList.setFillsViewportHeight(true);
 		saStatusMonitorList.setCellSelectionEnabled(true);
 		//saStatusMonitorList.setBackground(new Color(240, 240, 240));
