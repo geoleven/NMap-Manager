@@ -11,7 +11,7 @@ public class StatusMonitorTab {
 	
 	public StatusMonitorTab(JTable table) {
 		smt = new StatusMonitorThread();
-		smt.populateData();
+//		smt.populateData();
 		smt.drawTable();
 	}
 	

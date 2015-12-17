@@ -56,7 +56,7 @@ public class AdminPanelDAO {
 			Statement stmt = db.createStatement();			
 			ResultSet rs = stmt.executeQuery(query);
 			while(rs.next()){
-				//TODO add real status
+				// FIXME add real status
 				results.add(new SAInfoStatus(rs.getInt(1), 
 								rs.getString(2), 
 								rs.getString(3), 
@@ -65,7 +65,7 @@ public class AdminPanelDAO {
 								rs.getString(6), 
 								rs.getString(7),
 								rs.getBoolean(8),
-								//TODO HERE
+								// TODO HERE
 								true));
 			};
 			db.close();

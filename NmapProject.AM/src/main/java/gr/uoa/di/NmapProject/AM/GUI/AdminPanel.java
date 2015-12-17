@@ -14,8 +14,6 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.Panel;
-import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JTextArea;
@@ -24,14 +22,12 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
-
 import java.awt.SystemColor;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
 import javax.swing.JList;
-import javax.swing.AbstractListModel;
 
 
 public class AdminPanel extends JFrame {
@@ -49,6 +45,8 @@ public class AdminPanel extends JFrame {
 	private JComboBox<String> saDropDownList;
 	private JCheckBox isPeriodic;
 	private int lastSetPeriod = -1;
+	private JComboBox<String> jdCB;
+	private String lastSASelectedToDeleteJob = null;
 
 	/**
 	 * Create the frame.
@@ -271,9 +269,30 @@ public class AdminPanel extends JFrame {
 		lblPleaseSelectThe.setBounds(10, 20, 771, 26);
 		jobDeletionTab.add(lblPleaseSelectThe);
 		
-		JComboBox<String> jdCB = new JComboBox<String>();
+		jdCB = new JComboBox<String>();
 		jdCB.setBounds(134, 57, 525, 20);
 		jdCB.setMaximumRowCount(10);
+		jdCB.addPopupMenuListener(new PopupMenuListener() {
+			@Override
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+				JobInsertionTab.addItemsToComboBox(jdCB);
+			}
+			@Override
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+				// TODO Delete?
+			}
+			@Override
+			public void popupMenuCanceled(PopupMenuEvent e) {
+				// TODO Delete?	
+			}
+		});
+		jdCB.addActionListener(new ActionListener() {
+			@SuppressWarnings("unchecked")
+			public void actionPerformed(ActionEvent e) {
+				lastSASelectedToDeleteJob = (String) ((JComboBox<String>)e.getSource()).getSelectedItem();
+				System.out.println(lastSASelectedToDeleteJob);
+		}	
+		});
 		jobDeletionTab.add(jdCB);
 		
 		JScrollPane jDelScrollPane = new JScrollPane();

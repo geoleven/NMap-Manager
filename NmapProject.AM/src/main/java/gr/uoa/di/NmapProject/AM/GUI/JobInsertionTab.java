@@ -14,6 +14,7 @@ public class JobInsertionTab {
 	}
 
 	public static void addItemsToComboBox(JComboBox<String> cb){
+		// FIXME change from db access to list
 		LinkedList<SAInfoStatus>  list = AdminPanelDAO.getAcceptedSAInfo();
 		for (SAInfoStatus s : list) {
 			cb.addItem(s.unionHash);
