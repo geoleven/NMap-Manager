@@ -32,12 +32,14 @@ import javax.swing.JList;
 
 public class AdminPanel extends JFrame {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = -6682482690528271851L;
 	private JPanel contentPane;
-	private final int numOfAssgns = 6;
-	private JTextField[] periodEntry = new JTextField[numOfAssgns];
-	private JTextField[] givenCmd = new JTextField[numOfAssgns];
-	private JCheckBox[] isPeriodic = new JCheckBox[numOfAssgns];
+	private JTextField[] periodEntry = new JTextField[5];
+	private JTextField[] givenCmd = new JTextField[5];
+	private JCheckBox[] isPeriodic = new JCheckBox[5];
 //	private JTextField periodEntry;
 //	private JTextField givenCmd;
 //	private JCheckBox isPeriodic;
@@ -166,7 +168,7 @@ public class AdminPanel extends JFrame {
 //		int baseY = 75;
 //		int cmdWidth = 400;
 //		int cmdHeight = 32;
-		for (int jobAsgnC = 0; jobAsgnC < numOfAssgns; jobAsgnC++){
+		for (int jobAsgnC = 0; jobAsgnC < 6; jobAsgnC++){
 			int curY = 75 + (jobAsgnC * (20 + 32));
 			givenCmd[jobAsgnC] = new JTextField();
 			givenCmd[jobAsgnC].setBounds(20, curY, 400, 32);
