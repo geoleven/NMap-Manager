@@ -159,7 +159,7 @@ public class AdminPanel extends JFrame {
 //		int baseY = 75;
 //		int cmdWidth = 400;
 //		int cmdHeight = 32;
-		for (int jobAsgnC = 0; jobAsgnC < 5; jobAsgnC++){
+		for (int jobAsgnC = 0; jobAsgnC < 6; jobAsgnC++){
 			int curY = 75 + (jobAsgnC * (20 + 32));
 			givenCmd[jobAsgnC] = new JTextField();
 			givenCmd[jobAsgnC].setBounds(20, curY, 400, 32);
@@ -213,7 +213,7 @@ public class AdminPanel extends JFrame {
 		pnl5.add(saDropDownList);
 		
 		JPanel pnl6 = new JPanel();
-		pnl6.setBounds(184, 483, 420, 53);
+		pnl6.setBounds(184, 470, 420, 53);
 		jobAssignmentTab.add(pnl6);
 		pnl6.setLayout(null);
 		
