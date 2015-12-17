@@ -3,32 +3,35 @@ package gr.uoa.di.NmapProject.AM.GUI;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
-import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
-import java.awt.GridLayout;
 import javax.swing.JLabel;
-import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
-import java.awt.Panel;
-import java.awt.Color;
-import java.awt.Component;
 import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
-import java.awt.SystemColor;
 import javax.swing.JScrollPane;
-import java.awt.BorderLayout;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
 import javax.swing.JList;
+
+// Root of all evil :D
+import java.awt.Color;
+import java.awt.BorderLayout;
+import java.awt.SystemColor;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.FlowLayout;
+//import java.awt.Component;
 
 public class AdminPanel extends JFrame {
 
@@ -36,12 +39,10 @@ public class AdminPanel extends JFrame {
 
 	private static final long serialVersionUID = -6682482690528271851L;
 	private JPanel contentPane;
-//	private JTextField[] periodEntry = new JTextField[numOfAssigns];
-//	private JTextField[] givenCmd = new JTextField[numOfAssigns];
-//	private JCheckBox[] isPeriodic = new JCheckBox[numOfAssigns];
-	LinkedList<JTextField> periodEntry= new LinkedList<JTextField>();
-	LinkedList<JTextField> givenCmd= new LinkedList<JTextField>();
-	LinkedList<JCheckBox> isPeriodic= new LinkedList<JCheckBox>();
+	LinkedList<JTextField> periodEntry = new LinkedList<JTextField>();
+	LinkedList<JTextField> givenCmd = new LinkedList<JTextField>();
+	LinkedList<JCheckBox> isPeriodic = new LinkedList<JCheckBox>();
+	LinkedList<JPanel> miniPanel = new LinkedList<JPanel>();
 	private CheckBoxList pendingRegistrationsList;
 	public StatusMonitorTab smt = null;
 	private String lastSASelectedToAssignJob = null;
@@ -51,6 +52,8 @@ public class AdminPanel extends JFrame {
 	private String lastSASelectedToDeleteJob = null;
 	JList<JobPrev> delList = null;
 	private JComboBox<String> runningSADropDownlist;
+	private JButton btnSumbit;
+	private JPanel expandableAssigns;
 
 	/**
 	 * Create the frame.
@@ -154,39 +157,75 @@ public class AdminPanel extends JFrame {
 		giveJobLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		giveJobLbl.setFont(new Font("Tahoma", Font.BOLD, 12));
 
-		int baseX = 20;
-		// int baseY = 75;
-		// int cmdWidth = 400;
-		// int cmdHeight = 32;
+		JPanel jobAssignPnl = new JPanel();
+		jobAssignPnl.setBounds(10, 58, 771, 403);
+		jobAssignmentTab.add(jobAssignPnl);
+		jobAssignPnl.setLayout(null);
+
+		JScrollPane jobAssignScrollPane = new JScrollPane();
+		jobAssignScrollPane.setBounds(0, 0, 771, 403);
+		jobAssignPnl.add(jobAssignScrollPane);
+
+		expandableAssigns = new JPanel();
+		jobAssignScrollPane.setViewportView(expandableAssigns);
+		expandableAssigns.setLayout(new BoxLayout(expandableAssigns, BoxLayout.Y_AXIS));
+
 		for (int jobAsgnC = 0; jobAsgnC < numOfAssigns; jobAsgnC++) {
-			int curY = 75 + (jobAsgnC * (20 + 32));
+			miniPanel.add(new JPanel());
+			miniPanel.getLast().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			//int curY = 75 + (jobAsgnC * (20 + 32));
 			givenCmd.add(new JTextField());
-			givenCmd.getLast().setBounds(20, curY, 400, 32);
-			jobAssignmentTab.add(givenCmd.getLast());
+			//givenCmd.getLast().setBounds(20, curY, 400, 32);
+			miniPanel.getLast().add(givenCmd.getLast());
 			givenCmd.getLast().setColumns(10);
 
 			isPeriodic.add(new JCheckBox("isPeriodic   "));
-			isPeriodic.getLast().setBounds(450, curY, 120, 32);
-			jobAssignmentTab.add(isPeriodic.getLast());
+			//isPeriodic.getLast().setBounds(450, curY, 120, 32);
+			miniPanel.getLast().add(isPeriodic.getLast());
 			isPeriodic.getLast().setHorizontalAlignment(SwingConstants.CENTER);
 			isPeriodic.getLast().setActionCommand("isPeriodic");
 			isPeriodic.getLast().setHorizontalTextPosition(SwingConstants.LEADING);
 			isPeriodic.getLast().setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 			periodEntry.add(new JTextField());
-			periodEntry.getLast().setBounds(595, curY, 166, 32);
-			jobAssignmentTab.add(periodEntry.getLast());
+			//periodEntry.getLast().setBounds(595, curY, 166, 32);
+			miniPanel.getLast().add(periodEntry.getLast());
 			periodEntry.getLast().setColumns(10);
+			expandableAssigns.add(miniPanel.getLast());
 		}
 
-		JPanel pnl5 = new JPanel();
-		pnl5.setBounds(184, 419, 420, 53);
-		jobAssignmentTab.add(pnl5);
-		pnl5.setLayout(null);
+		btnSumbit = new JButton("Sumbit");
+		btnSumbit.setBounds(581, 472, 200, 32);
+		jobAssignmentTab.add(btnSumbit);
 
 		saDropDownList = new JComboBox<String>();
-		saDropDownList.setBounds(71, 5, 270, 32);
+		saDropDownList.setBounds(10, 472, 355, 32);
+		jobAssignmentTab.add(saDropDownList);
 		saDropDownList.setMaximumRowCount(10);
+		
+		JButton btnAddMore = new JButton("Add another job . . .");
+		btnAddMore.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				miniPanel.add(new JPanel());
+				miniPanel.getLast().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+				givenCmd.add(new JTextField());
+				miniPanel.getLast().add(givenCmd.getLast());
+				givenCmd.getLast().setColumns(10);
+				isPeriodic.add(new JCheckBox("isPeriodic   "));
+				miniPanel.getLast().add(isPeriodic.getLast());
+				isPeriodic.getLast().setHorizontalAlignment(SwingConstants.CENTER);
+				isPeriodic.getLast().setActionCommand("isPeriodic");
+				isPeriodic.getLast().setHorizontalTextPosition(SwingConstants.LEADING);
+				isPeriodic.getLast().setFont(new Font("Tahoma", Font.PLAIN, 14));
+				periodEntry.add(new JTextField());
+				miniPanel.getLast().add(periodEntry.getLast());
+				periodEntry.getLast().setColumns(10);
+				expandableAssigns.add(miniPanel.getLast());	
+				expandableAssigns.revalidate();
+			}
+		});
+		btnAddMore.setBounds(400, 472, 137, 32);
+		jobAssignmentTab.add(btnAddMore);
 		saDropDownList.addPopupMenuListener(new PopupMenuListener() {
 			@Override
 			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
@@ -210,22 +249,11 @@ public class AdminPanel extends JFrame {
 				// System.out.println(lastSASelectedToAssignJob);
 			}
 		});
-
-		pnl5.add(saDropDownList);
-
-		JPanel pnl6 = new JPanel();
-		pnl6.setBounds(184, 483, 420, 53);
-		jobAssignmentTab.add(pnl6);
-		pnl6.setLayout(null);
-
-		JButton btnSumbit = new JButton("Sumbit");
-		btnSumbit.setBounds(157, 5, 105, 41);
-		pnl6.add(btnSumbit);
 		btnSumbit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int tempi = 0;
-				for (int assignsCounter = 0; assignsCounter < numOfAssigns; assignsCounter++) {
+				for (int assignsCounter = 0; assignsCounter < miniPanel.size(); assignsCounter++) {
 					if (!givenCmd.get(assignsCounter).getText().equals("")) {
 						if (isPeriodic.get(assignsCounter).isSelected()) {
 							try {
@@ -290,7 +318,7 @@ public class AdminPanel extends JFrame {
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
 				lastSASelectedToDeleteJob = (String) ((JComboBox<String>) e.getSource()).getSelectedItem();
-				//System.out.println("Hmm " + lastSASelectedToDeleteJob);
+				// System.out.println("Hmm " + lastSASelectedToDeleteJob);
 			}
 		});
 		jobDeletionTab.add(jdCB);
@@ -315,7 +343,7 @@ public class AdminPanel extends JFrame {
 		btnStopSelected.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				for (JobPrev curJP : delList.getSelectedValuesList()) {
-						JobDeletionTab.stopJobOfSA(curJP);
+					JobDeletionTab.stopJobOfSA(curJP);
 				}
 			}
 		});
@@ -403,7 +431,7 @@ public class AdminPanel extends JFrame {
 		// flowLayout.setVgap(50);
 		// remoteTerminationTab.add(pl);
 
-		Panel pm = new Panel();
+		JPanel pm = new JPanel();
 		pm.setBounds(184, 50, 420, 450);
 		remoteTerminationTab.add(pm);
 		pm.setLayout(null);
@@ -411,7 +439,7 @@ public class AdminPanel extends JFrame {
 		JLabel lblPleaseSelectWhich = new JLabel(String.format("<html><dev WIDTH=%d>%s</div></html>", 250,
 				"Please select which software agent you would like to terminate: "));
 		lblPleaseSelectWhich.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblPleaseSelectWhich.setAlignmentX(Component.CENTER_ALIGNMENT);
+		// lblPleaseSelectWhich.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblPleaseSelectWhich.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblPleaseSelectWhich.setBounds(83, 11, 257, 115);
 		lblPleaseSelectWhich.setHorizontalAlignment(SwingConstants.CENTER);
@@ -445,7 +473,7 @@ public class AdminPanel extends JFrame {
 		btnTerminate.setBounds(0, 332, 417, 40);
 		btnTerminate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SATerminationTab.stopSA((String)runningSADropDownlist.getSelectedItem());
+				SATerminationTab.stopSA((String) runningSADropDownlist.getSelectedItem());
 			}
 		});
 		pm.add(btnTerminate);
