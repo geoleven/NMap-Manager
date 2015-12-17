@@ -153,6 +153,15 @@ public class AdminPanel extends JFrame {
 		giveJobLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		giveJobLbl.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
+		JPanel pnl2 = new JPanel();
+		pnl2.setBounds(0, 56, 791, 402);
+		jobAssignmentTab.add(pnl2);
+		pnl2.setLayout(null);
+		
+		JScrollPane scrlAssgn = new JScrollPane();
+		scrlAssgn.setBounds(0, 0, 790, 401);
+		pnl2.add(scrlAssgn);
+		
 		int baseX = 20;
 //		int baseY = 75;
 //		int cmdWidth = 400;
@@ -161,12 +170,12 @@ public class AdminPanel extends JFrame {
 			int curY = 75 + (jobAsgnC * (20 + 32));
 			givenCmd[jobAsgnC] = new JTextField();
 			givenCmd[jobAsgnC].setBounds(20, curY, 400, 32);
-			jobAssignmentTab.add(givenCmd[jobAsgnC]);
+			scrlAssgn.add(givenCmd[jobAsgnC]);
 			givenCmd[jobAsgnC].setColumns(10);
 			
 			isPeriodic[jobAsgnC] = new JCheckBox("isPeriodic   ");
 			isPeriodic[jobAsgnC].setBounds(450, curY, 120, 32);
-			jobAssignmentTab.add(isPeriodic[jobAsgnC]);
+			scrlAssgn.add(isPeriodic[jobAsgnC]);
 			isPeriodic[jobAsgnC].setHorizontalAlignment(SwingConstants.CENTER);
 			isPeriodic[jobAsgnC].setActionCommand("isPeriodic");
 			isPeriodic[jobAsgnC].setHorizontalTextPosition(SwingConstants.LEADING);
@@ -174,14 +183,15 @@ public class AdminPanel extends JFrame {
 			
 			periodEntry[jobAsgnC] = new JTextField();
 			periodEntry[jobAsgnC].setBounds(595, curY, 166, 32);
-			jobAssignmentTab.add(periodEntry[jobAsgnC]);
+			scrlAssgn.add(periodEntry[jobAsgnC]);
 			periodEntry[jobAsgnC].setColumns(10);
 		}
 		
-		JPanel pnl5 = new JPanel();
-		pnl5.setBounds(184, 419, 420, 53);
-		jobAssignmentTab.add(pnl5);
-		pnl5.setLayout(null);
+		
+		JPanel pnl3 = new JPanel();
+		pnl3.setBounds(10, 469, 401, 53);
+		jobAssignmentTab.add(pnl3);
+		pnl3.setLayout(null);
 		
 		saDropDownList = new JComboBox<String>();
 		saDropDownList.setBounds(71, 5, 270, 32);
@@ -208,16 +218,16 @@ public class AdminPanel extends JFrame {
 		}	
 		});
 		
-		pnl5.add(saDropDownList);
+		pnl3.add(saDropDownList);
 		
-		JPanel pnl6 = new JPanel();
-		pnl6.setBounds(184, 470, 420, 53);
-		jobAssignmentTab.add(pnl6);
-		pnl6.setLayout(null);
+		JPanel pnl4 = new JPanel();
+		pnl4.setBounds(410, 469, 371, 53);
+		jobAssignmentTab.add(pnl4);
+		pnl4.setLayout(null);
 		
 		JButton btnSumbit = new JButton("Sumbit");
-		btnSumbit.setBounds(157, 5, 105, 41);
-		pnl6.add(btnSumbit);
+		btnSumbit.setBounds(112, 5, 150, 41);
+		pnl4.add(btnSumbit);
 		btnSumbit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
