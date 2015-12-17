@@ -1,14 +1,13 @@
 package gr.uoa.di.NmapProject.AM.GUI;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -25,6 +24,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerDateModel;
 import javax.swing.JTable;
 import javax.swing.JList;
+import javax.swing.JSpinner;
+import javax.swing.JSpinner.DateEditor;
 
 // Root of all evil :D
 import java.awt.Color;
@@ -34,14 +35,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.awt.FlowLayout;
-import javax.swing.JSpinner;
-import javax.swing.JSpinner.DateEditor;
+
 //import java.awt.Component;
 
-//import javax.swing.*;
 
 public class AdminPanel extends JFrame {
 
@@ -183,14 +180,11 @@ public class AdminPanel extends JFrame {
 		for (int jobAsgnC = 0; jobAsgnC < numOfAssigns; jobAsgnC++) {
 			miniPanel.add(new JPanel());
 			miniPanel.getLast().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-			//int curY = 75 + (jobAsgnC * (20 + 32));
 			givenCmd.add(new JTextField());
-			//givenCmd.getLast().setBounds(20, curY, 400, 32);
 			miniPanel.getLast().add(givenCmd.getLast());
 			givenCmd.getLast().setColumns(10);
 
 			isPeriodic.add(new JCheckBox("isPeriodic   "));
-			//isPeriodic.getLast().setBounds(450, curY, 120, 32);
 			miniPanel.getLast().add(isPeriodic.getLast());
 			isPeriodic.getLast().setHorizontalAlignment(SwingConstants.CENTER);
 			isPeriodic.getLast().setActionCommand("isPeriodic");
@@ -198,7 +192,6 @@ public class AdminPanel extends JFrame {
 			isPeriodic.getLast().setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 			periodEntry.add(new JTextField());
-			//periodEntry.getLast().setBounds(595, curY, 166, 32);
 			miniPanel.getLast().add(periodEntry.getLast());
 			periodEntry.getLast().setColumns(10);
 			expandableAssigns.add(miniPanel.getLast());
@@ -388,16 +381,23 @@ public class AdminPanel extends JFrame {
 		lblPleaseSelectA.setBounds(10, 40, 200, 14);
 		saSpecificResults.add(lblPleaseSelectA);
 		
-		Date date = new Date();
-		SpinnerDateModel hourModel = new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
-		JSpinner saspecST = new JSpinner(hourModel);
+		
+		// FIXME Spinners move along each other!
+		
+		Date saspecSTDate = new Date();
+		SpinnerDateModel saspecSTSDM = new SpinnerDateModel(saspecSTDate, null, null, Calendar.HOUR_OF_DAY);
+		JSpinner saspecST = new JSpinner(saspecSTSDM);
 		saspecST.setBounds(246, 74, 150, 32);
-		DateEditor de_saspecST = new JSpinner.DateEditor(saspecST, "yyyy/MM/dd HH:mm:ss");
+		DateEditor de_saspecST = new JSpinner.DateEditor(saspecST, "dd/MM/yyyy HH:mm:ss");
 		saspecST.setEditor(de_saspecST);
 		saSpecificResults.add(saspecST);
 		
-		JSpinner saspecET = new JSpinner(hourModel);
+		Date saspecETDate = new Date();
+		SpinnerDateModel saspecETSDM = new SpinnerDateModel(saspecETDate, null, null, Calendar.HOUR_OF_DAY);
+		JSpinner saspecET = new JSpinner(saspecETSDM);
 		saspecET.setBounds(444, 74, 150, 32);
+		DateEditor de_saspecET = new JSpinner.DateEditor(saspecET, "dd/MM/yyyy HH:mm:ss");
+		saspecET.setEditor(de_saspecET);
 		saSpecificResults.add(saspecET);
 		
 		JButton btnShowResults = new JButton("Show Results");
@@ -410,7 +410,6 @@ public class AdminPanel extends JFrame {
 		resultsTab.setLayout(null);
 
 		JTextArea resultsArea = new JTextArea();
-		// resultsArea.setBackground(UIManager.getColor("Button.background"));
 		resultsArea.setBackground(new Color(240, 240, 240));
 		resultsArea.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		resultsArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
@@ -425,13 +424,21 @@ public class AdminPanel extends JFrame {
 		lblPleaseSelectETime.setBounds(284, 28, 196, 39);
 		resultsTab.add(lblPleaseSelectETime);
 		
-		JSpinner spinner = new JSpinner();
-		spinner.setBounds(10, 78, 150, 32);
-		resultsTab.add(spinner);
+		Date resSTDate = new Date();
+		SpinnerDateModel resSTSDM = new SpinnerDateModel(resSTDate, null, null, Calendar.HOUR_OF_DAY);
+		JSpinner resST = new JSpinner(resSTSDM);
+		resST.setBounds(10, 78, 150, 32);
+		DateEditor de_resST = new JSpinner.DateEditor(resST, "dd/MM/yyyy HH:mm:ss");
+		saspecET.setEditor(de_resST);
+		resultsTab.add(resST);
 		
-		JSpinner spinner_1 = new JSpinner();
-		spinner_1.setBounds(284, 78, 140, 32);
-		resultsTab.add(spinner_1);
+		Date resETDate = new Date();
+		SpinnerDateModel resETSDM = new SpinnerDateModel(resETDate, null, null, Calendar.HOUR_OF_DAY);
+		JSpinner resET = new JSpinner(resETSDM);
+		resET.setBounds(284, 78, 140, 32);
+		DateEditor de_resET = new JSpinner.DateEditor(resET, "dd/MM/yyyy HH:mm:ss");
+		saspecET.setEditor(de_resET);
+		resultsTab.add(resET);
 		
 		JButton btnNewButton = new JButton("Show Results");
 		btnNewButton.setBounds(519, 78, 200, 32);
@@ -440,14 +447,7 @@ public class AdminPanel extends JFrame {
 		JPanel remoteTerminationTab = new JPanel();
 		remoteTerminationTab.setBorder(null);
 		adminPanelTabs.addTab("Remote Termination", null, remoteTerminationTab, null);
-		// remoteTerminationTab.setLayout(new BoxLayout(remoteTerminationTab,
-		// BoxLayout.X_AXIS));
 		remoteTerminationTab.setLayout(null);
-
-		// Panel pl = new Panel();
-		// FlowLayout flowLayout = (FlowLayout) pl.getLayout();
-		// flowLayout.setVgap(50);
-		// remoteTerminationTab.add(pl);
 
 		JPanel pm = new JPanel();
 		pm.setBounds(184, 50, 420, 450);
@@ -457,7 +457,6 @@ public class AdminPanel extends JFrame {
 		JLabel lblPleaseSelectWhich = new JLabel(String.format("<html><dev WIDTH=%d>%s</div></html>", 250,
 				"Please select which software agent you would like to terminate: "));
 		lblPleaseSelectWhich.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		// lblPleaseSelectWhich.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblPleaseSelectWhich.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblPleaseSelectWhich.setBounds(83, 11, 257, 115);
 		lblPleaseSelectWhich.setHorizontalAlignment(SwingConstants.CENTER);
@@ -537,8 +536,6 @@ public class AdminPanel extends JFrame {
 			}
 		});
 
-		// Panel pr = new Panel();
-		// remoteTerminationTab.add(pr);
 	}
 
 	public CheckBoxList getPendingRegistrationsList() {
