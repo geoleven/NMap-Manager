@@ -375,7 +375,7 @@ public class AdminPanel extends JFrame {
 		saSpecificResults.setBorder(null);
 		
 		JScrollPane scrollSASpecTextArea = new JScrollPane();
-		scrollSASpecTextArea.setBounds(10, 134, 771, 400);
+		scrollSASpecTextArea.setBounds(10, 134, 771, 389);
 		saSpecificResults.add(scrollSASpecTextArea);
 
 		txtSaResults = new JTextArea();
