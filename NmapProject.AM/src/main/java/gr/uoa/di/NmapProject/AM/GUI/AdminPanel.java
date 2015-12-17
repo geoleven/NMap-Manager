@@ -30,6 +30,8 @@ import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
 
 
 public class AdminPanel extends JFrame {
@@ -273,6 +275,21 @@ public class AdminPanel extends JFrame {
 		jdCB.setBounds(134, 57, 525, 20);
 		jdCB.setMaximumRowCount(10);
 		jobDeletionTab.add(jdCB);
+		
+		JScrollPane jDelScrollPane = new JScrollPane();
+		jDelScrollPane.setBounds(10, 103, 771, 350);
+		jobDeletionTab.add(jDelScrollPane);
+		
+		JList delList = new JList();
+		jDelScrollPane.setViewportView(delList);
+		
+		JButton btnClrSel = new JButton("Clear Selection/-s");
+		btnClrSel.setBounds(134, 480, 150, 40);
+		jobDeletionTab.add(btnClrSel);
+		
+		JButton btnStopSelected = new JButton("Stop Selected");
+		btnStopSelected.setBounds(509, 480, 150, 40);
+		jobDeletionTab.add(btnStopSelected);
 		
 		JPanel saSpecificResults = new JPanel();
 		adminPanelTabs.addTab("SA Specific Results", null, saSpecificResults, null);
