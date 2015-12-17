@@ -17,6 +17,8 @@ public class JobInsertionTab {
 		// FIXME change from db access to list specially for online!!!
 		LinkedList<SAInfoStatus>  list = AdminPanelDAO.getAcceptedSAInfo();
 		cb.removeAllItems();
+		if (list == null)
+			return;
 		for (SAInfoStatus s : list) {
 			cb.addItem(s.unionHash);
 		}

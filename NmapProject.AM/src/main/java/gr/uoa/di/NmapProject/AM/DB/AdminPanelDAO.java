@@ -96,4 +96,13 @@ public class AdminPanelDAO {
 		}
 		return results;		
 	}
+	
+	public static LinkedList<SAInfoStatus> getOnlineSAInfo() {
+		LinkedList<SAInfoStatus> temp = getAcceptedSAInfo();
+		LinkedList<SAInfoStatus> results = new LinkedList<SAInfoStatus>();
+		for (SAInfoStatus sa : temp)
+			if (sa.status)
+				results.add(sa);
+		return results;
+	}
 }

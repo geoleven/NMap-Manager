@@ -50,6 +50,7 @@ public class AdminPanel extends JFrame {
 	private JComboBox<String> jdCB;
 	private String lastSASelectedToDeleteJob = null;
 	JList<JobPrev> delList = null;
+	private JComboBox<String> runningSADropDownlist;
 
 	/**
 	 * Create the frame.
@@ -416,13 +417,37 @@ public class AdminPanel extends JFrame {
 		lblPleaseSelectWhich.setHorizontalAlignment(SwingConstants.CENTER);
 		pm.add(lblPleaseSelectWhich);
 
-		JComboBox runningSADropDownlist = new JComboBox();
+		runningSADropDownlist = new JComboBox<String>();
 		runningSADropDownlist.setBounds(0, 172, 417, 40);
 		runningSADropDownlist.setMaximumRowCount(10);
+		runningSADropDownlist.addPopupMenuListener(new PopupMenuListener() {
+			@Override
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+				SATerminationTab.addItemsToComboBox(runningSADropDownlist);
+			}
+
+			@Override
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+				if (lastSASelectedToDeleteJob != null) {
+					delList.removeAll();
+					JobDeletionTab.pupulateList(delList, lastSASelectedToDeleteJob);
+				}
+			}
+
+			@Override
+			public void popupMenuCanceled(PopupMenuEvent e) {
+				// TODO Delete?
+			}
+		});
 		pm.add(runningSADropDownlist);
 
 		JButton btnTerminate = new JButton("Terminate");
 		btnTerminate.setBounds(0, 332, 417, 40);
+		btnTerminate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SATerminationTab.stopSA((String)runningSADropDownlist.getSelectedItem());
+			}
+		});
 		pm.add(btnTerminate);
 
 		JLabel lblTerminationresult = new JLabel("");
