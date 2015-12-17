@@ -37,13 +37,16 @@ public class AdminPanel extends JFrame {
 	 */
 	private static final long serialVersionUID = -6682482690528271851L;
 	private JPanel contentPane;
-	private JTextField periodEntry;
-	private JTextField givenCmd;
+	private JTextField[] periodEntry = new JTextField[5];
+	private JTextField[] givenCmd = new JTextField[5];
+	private JCheckBox[] isPeriodic = new JCheckBox[5];
+//	private JTextField periodEntry;
+//	private JTextField givenCmd;
+//	private JCheckBox isPeriodic;
 	private CheckBoxList pendingRegistrationsList;
 	public StatusMonitorTab smt = null;
 	private String lastSASelectedToAssignJob = null;
 	private JComboBox<String> saDropDownList;
-	private JCheckBox isPeriodic;
 	private int lastSetPeriod = -1;
 	private JComboBox<String> jdCB;
 	private String lastSASelectedToDeleteJob = null;
@@ -143,55 +146,43 @@ public class AdminPanel extends JFrame {
 		adminPanelTabs.addTab("Job Assignment", null, jobAssignmentTab, null);
 		jobAssignmentTab.setLayout(null);
 		
-		JPanel leftBlank = new JPanel();
-		leftBlank.setBounds(0, 0, 184, 543);
-		jobAssignmentTab.add(leftBlank);
-		
-		JPanel middlePanel = new JPanel();
-		middlePanel.setBounds(184, 99, 420, 346);
-		jobAssignmentTab.add(middlePanel);
-		middlePanel.setLayout(new GridLayout(6, 1, 5, 5));
-		
 		JPanel pnl1 = new JPanel();
-		middlePanel.add(pnl1);
+		pnl1.setBounds(184, 11, 420, 34);
+		jobAssignmentTab.add(pnl1);
 		
-		JLabel giveJobLbl = new JLabel("Please enter a new job to be assigned:");
+		JLabel giveJobLbl = new JLabel("Please enter job/-s to be assigned:");
 		pnl1.add(giveJobLbl);
 		giveJobLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		giveJobLbl.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
-		JPanel pnl2 = new JPanel();
-		middlePanel.add(pnl2);
-		pnl2.setLayout(null);
-		
-		givenCmd = new JTextField();
-		givenCmd.setBounds(67, 5, 287, 32);
-		pnl2.add(givenCmd);
-		givenCmd.setColumns(10);
-		
-		JPanel pnl3 = new JPanel();
-		middlePanel.add(pnl3);
-		pnl3.setLayout(null);
-		
-		isPeriodic = new JCheckBox("isPeriodic   ");
-		isPeriodic.setHorizontalAlignment(SwingConstants.CENTER);
-		isPeriodic.setActionCommand("isPeriodic");
-		isPeriodic.setHorizontalTextPosition(SwingConstants.LEADING);
-		isPeriodic.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		isPeriodic.setBounds(149, 5, 121, 36);
-		pnl3.add(isPeriodic);
-		
-		JPanel pnl4 = new JPanel();
-		middlePanel.add(pnl4);
-		pnl4.setLayout(null);
-		
-		periodEntry = new JTextField();
-		periodEntry.setBounds(127, 11, 166, 26);
-		pnl4.add(periodEntry);
-		periodEntry.setColumns(10);
+		int baseX = 20;
+//		int baseY = 75;
+//		int cmdWidth = 400;
+//		int cmdHeight = 32;
+		for (int jobAsgnC = 0; jobAsgnC < 5; jobAsgnC++){
+			int curY = 75 + (jobAsgnC * (20 + 32));
+			givenCmd[jobAsgnC] = new JTextField();
+			givenCmd[jobAsgnC].setBounds(20, curY, 400, 32);
+			jobAssignmentTab.add(givenCmd[jobAsgnC]);
+			givenCmd[jobAsgnC].setColumns(10);
+			
+			isPeriodic[jobAsgnC] = new JCheckBox("isPeriodic   ");
+			isPeriodic[jobAsgnC].setBounds(450, curY, 120, 32);
+			jobAssignmentTab.add(isPeriodic[jobAsgnC]);
+			isPeriodic[jobAsgnC].setHorizontalAlignment(SwingConstants.CENTER);
+			isPeriodic[jobAsgnC].setActionCommand("isPeriodic");
+			isPeriodic[jobAsgnC].setHorizontalTextPosition(SwingConstants.LEADING);
+			isPeriodic[jobAsgnC].setFont(new Font("Tahoma", Font.PLAIN, 14));
+			
+			periodEntry[jobAsgnC] = new JTextField();
+			periodEntry[jobAsgnC].setBounds(595, curY, 166, 32);
+			jobAssignmentTab.add(periodEntry[jobAsgnC]);
+			periodEntry[jobAsgnC].setColumns(10);
+		}
 		
 		JPanel pnl5 = new JPanel();
-		middlePanel.add(pnl5);
+		pnl5.setBounds(184, 419, 420, 53);
+		jobAssignmentTab.add(pnl5);
 		pnl5.setLayout(null);
 		
 		saDropDownList = new JComboBox<String>();
@@ -222,7 +213,8 @@ public class AdminPanel extends JFrame {
 		pnl5.add(saDropDownList);
 		
 		JPanel pnl6 = new JPanel();
-		middlePanel.add(pnl6);
+		pnl6.setBounds(184, 483, 420, 53);
+		jobAssignmentTab.add(pnl6);
 		pnl6.setLayout(null);
 		
 		JButton btnSumbit = new JButton("Sumbit");
@@ -232,31 +224,27 @@ public class AdminPanel extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int tempi = 0;
-				if (isPeriodic.isSelected()) {
-					try {
-						tempi = Integer.parseUnsignedInt(periodEntry.getText());
-					} catch (NumberFormatException nfe1) {
-						// TODO msg insert proper period time
-						System.out.println("Weird period");
-						return;
-					}
-					lastSetPeriod = tempi;
-				}
-				else {
-					lastSetPeriod = -1;
-				}
-				if (lastSASelectedToAssignJob == null) {
-					// TODO msg no sa selected
-					System.out.println("No SA selected.");
-					return;
-				}
-				JobInsertionTab.assignJob(givenCmd.getText(), isPeriodic.isSelected(), lastSetPeriod, lastSASelectedToAssignJob);
+//				if (isPeriodic.isSelected()) {
+//					try {
+//						tempi = Integer.parseUnsignedInt(periodEntry.getText());
+//					} catch (NumberFormatException nfe1) {
+//						// TODO msg insert proper period time
+//						System.out.println("Weird period");
+//						return;
+//					}
+//					lastSetPeriod = tempi;
+//				}
+//				else {
+//					lastSetPeriod = -1;
+//				}
+//				if (lastSASelectedToAssignJob == null) {
+//					// TODO msg no sa selected
+//					System.out.println("No SA selected.");
+//					return;
+//				}
+//				JobInsertionTab.assignJob(givenCmd.getText(), isPeriodic.isSelected(), lastSetPeriod, lastSASelectedToAssignJob);
 			}
 		});
-		
-		JPanel rightBlank = new JPanel();
-		rightBlank.setBounds(604, 0, 184, 543);
-		jobAssignmentTab.add(rightBlank);
 		
 		JPanel jobDeletionTab = new JPanel();
 		jobDeletionTab.setBorder(null);
