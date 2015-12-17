@@ -165,12 +165,12 @@ public class AdminPanel extends JFrame {
 		giveJobLbl.setFont(new Font("Tahoma", Font.BOLD, 12));
 
 		JPanel jobAssignPnl = new JPanel();
-		jobAssignPnl.setBounds(10, 58, 771, 403);
+		jobAssignPnl.setBounds(10, 85, 771, 376);
 		jobAssignmentTab.add(jobAssignPnl);
 		jobAssignPnl.setLayout(null);
 
 		JScrollPane jobAssignScrollPane = new JScrollPane();
-		jobAssignScrollPane.setBounds(0, 0, 771, 403);
+		jobAssignScrollPane.setBounds(0, 0, 771, 376);
 		jobAssignPnl.add(jobAssignScrollPane);
 
 		expandableAssigns = new JPanel();
@@ -229,6 +229,20 @@ public class AdminPanel extends JFrame {
 		});
 		btnAddMore.setBounds(400, 472, 137, 32);
 		jobAssignmentTab.add(btnAddMore);
+		
+		JLabel lblPleaseEnteThe = new JLabel("NMap parameters:");
+		lblPleaseEnteThe.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblPleaseEnteThe.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblPleaseEnteThe.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPleaseEnteThe.setBounds(10, 60, 384, 26);
+		jobAssignmentTab.add(lblPleaseEnteThe);
+		
+		JLabel lblNewLabel = new JLabel("Period of job (if periodic)");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNewLabel.setBounds(404, 60, 377, 26);
+		jobAssignmentTab.add(lblNewLabel);
 		saDropDownList.addPopupMenuListener(new PopupMenuListener() {
 			@Override
 			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
