@@ -21,7 +21,7 @@ public class SaResultsTab {
 		LinkedList<String> parsedList = parseResultList(resList);
 		String finalText = "";
 		for(String s : parsedList) {
-			finalText += s + "\n" + "_______________________________________________________________________" + "\n";
+			finalText += s + "\n" + "___________________________________________________________________________________________________________" + "\n";
 		}
 //		ta.setText(null);
 		ta.setText(finalText);
