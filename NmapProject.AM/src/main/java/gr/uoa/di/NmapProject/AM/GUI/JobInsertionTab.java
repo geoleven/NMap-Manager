@@ -14,8 +14,9 @@ public class JobInsertionTab {
 	} 
 
 	public static void addItemsToComboBox(JComboBox<String> cb){
-		// FIXME change from db access to list
+		// FIXME change from db access to list specially for online!!!
 		LinkedList<SAInfoStatus>  list = AdminPanelDAO.getAcceptedSAInfo();
+		cb.removeAllItems();
 		for (SAInfoStatus s : list) {
 			cb.addItem(s.unionHash);
 		}

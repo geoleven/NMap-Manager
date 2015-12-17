@@ -49,6 +49,7 @@ public class AdminPanel extends JFrame {
 	private int lastSetPeriod = -1;
 	private JComboBox<String> jdCB;
 	private String lastSASelectedToDeleteJob = null;
+	JList<JobPrev> delList = null;
 
 	/**
 	 * Create the frame.
@@ -264,6 +265,7 @@ public class AdminPanel extends JFrame {
 		jdCB = new JComboBox<String>();
 		jdCB.setBounds(134, 57, 525, 20);
 		jdCB.setMaximumRowCount(10);
+		delList = new JList<JobPrev>();
 		jdCB.addPopupMenuListener(new PopupMenuListener() {
 			@Override
 			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
@@ -272,7 +274,10 @@ public class AdminPanel extends JFrame {
 
 			@Override
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-				// TODO Delete?
+				if (lastSASelectedToDeleteJob != null) {
+					delList.removeAll();
+					JobDeletionTab.pupulateList(delList, lastSASelectedToDeleteJob);
+				}
 			}
 
 			@Override
@@ -284,7 +289,7 @@ public class AdminPanel extends JFrame {
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
 				lastSASelectedToDeleteJob = (String) ((JComboBox<String>) e.getSource()).getSelectedItem();
-				System.out.println(lastSASelectedToDeleteJob);
+				//System.out.println("Hmm " + lastSASelectedToDeleteJob);
 			}
 		});
 		jobDeletionTab.add(jdCB);
@@ -293,15 +298,26 @@ public class AdminPanel extends JFrame {
 		jDelScrollPane.setBounds(10, 103, 771, 350);
 		jobDeletionTab.add(jDelScrollPane);
 
-		JList delList = new JList();
 		jDelScrollPane.setViewportView(delList);
 
 		JButton btnClrSel = new JButton("Clear Selection/-s");
-		btnClrSel.setBounds(134, 480, 150, 40);
+		btnClrSel.setBounds(124, 480, 170, 40);
+		btnClrSel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				delList.clearSelection();
+			}
+		});
 		jobDeletionTab.add(btnClrSel);
 
 		JButton btnStopSelected = new JButton("Stop Selected");
-		btnStopSelected.setBounds(509, 480, 150, 40);
+		btnStopSelected.setBounds(499, 480, 170, 40);
+		btnStopSelected.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for (JobPrev curJP : delList.getSelectedValuesList()) {
+						JobDeletionTab.stopJobOfSA(curJP);
+				}
+			}
+		});
 		jobDeletionTab.add(btnStopSelected);
 
 		JPanel saSpecificResults = new JPanel();

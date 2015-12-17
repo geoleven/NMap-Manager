@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
+import gr.uoa.di.NmapProject.AM.GUI.JobPrev;
+
 public class AdminPanelDAO {
 	public static LinkedList<SA> getPendReg() {
 		LinkedList<SA> results = new LinkedList<SA>();		
@@ -67,6 +69,26 @@ public class AdminPanelDAO {
 								rs.getBoolean(8),
 								// TODO HERE
 								true));
+			};
+			db.close();
+		} catch (SQLException ex){
+			DB.SQLError(ex);
+		}
+		return results;		
+	}
+	
+	public static LinkedList<JobPrev> getPeriodicJobsOfSA(String curSA) {
+		LinkedList<JobPrev> results = new LinkedList<JobPrev>();		
+		Connection db = DB.connect();
+		try{		
+			String query = " SELECT j.id, j.parameters, j.time, j.periodic FROM jobs j, software_agents sa WHERE sa.hash = \"" + curSA + "\" AND j.sa_id = sa.id";
+			Statement stmt = db.createStatement();			
+			ResultSet rs = stmt.executeQuery(query);
+			while(rs.next()){
+				results.add(new JobPrev(rs.getInt(1), 
+								rs.getString(2), 
+								rs.getInt(3), 
+								rs.getBoolean(4) ? "Periodic" : "Not Periodic"));
 			};
 			db.close();
 		} catch (SQLException ex){
