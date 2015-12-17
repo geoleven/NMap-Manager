@@ -269,8 +269,9 @@ public class AdminPanel extends JFrame {
 		lblPleaseSelectThe.setBounds(10, 20, 771, 26);
 		jobDeletionTab.add(lblPleaseSelectThe);
 		
-		JComboBox jdCB = new JComboBox();
+		JComboBox<String> jdCB = new JComboBox<String>();
 		jdCB.setBounds(134, 57, 525, 20);
+		jdCB.setMaximumRowCount(10);
 		jobDeletionTab.add(jdCB);
 		
 		JPanel saSpecificResults = new JPanel();
@@ -287,10 +288,12 @@ public class AdminPanel extends JFrame {
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(296, 74, 200, 20);
+		comboBox.setMaximumRowCount(10);
 		saSpecificResults.add(comboBox);
 		
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setBounds(581, 74, 200, 20);
+		comboBox_1.setMaximumRowCount(10);
 		saSpecificResults.add(comboBox_1);
 		
 		JLabel label = new JLabel("Please select starting time:");
@@ -303,6 +306,7 @@ public class AdminPanel extends JFrame {
 		
 		JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setBounds(10, 74, 200, 20);
+		comboBox_2.setMaximumRowCount(10);
 		saSpecificResults.add(comboBox_2);
 		
 		JLabel lblPleaseSelectA = new JLabel("Please select a Software Agent:");
@@ -324,10 +328,12 @@ public class AdminPanel extends JFrame {
 		
 		JComboBox saWithResultsDropDownList = new JComboBox();
 		saWithResultsDropDownList.setBounds(90, 75, 200, 20);
+		saWithResultsDropDownList.setMaximumRowCount(10);
 		resultsTab.add(saWithResultsDropDownList);
 		
 		JComboBox sasResultList = new JComboBox();
 		sasResultList.setBounds(488, 75, 200, 20);
+		sasResultList.setMaximumRowCount(10);
 		resultsTab.add(sasResultList);
 		
 		JLabel lblPleaseSelectSTime = new JLabel("Please select starting time:");
@@ -364,6 +370,7 @@ public class AdminPanel extends JFrame {
 		
 		JComboBox runningSADropDownlist = new JComboBox();
 		runningSADropDownlist.setBounds(0, 172, 417, 40);
+		runningSADropDownlist.setMaximumRowCount(10);
 		pm.add(runningSADropDownlist);
 		
 		JButton btnTerminate = new JButton("Terminate");
