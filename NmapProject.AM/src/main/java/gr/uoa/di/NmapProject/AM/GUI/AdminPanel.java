@@ -63,6 +63,7 @@ public class AdminPanel extends JFrame {
 	private JPanel expandableAssigns;
 	private String lastSASelectedToShowRes = null;
 	private JComboBox<String> saSpecCB;
+	private JTextArea txtSaResults;
 
 	/**
 	 * Create the frame.
@@ -372,21 +373,25 @@ public class AdminPanel extends JFrame {
 		adminPanelTabs.addTab("SA Specific Results", null, saSpecificResults, null);
 		saSpecificResults.setLayout(null);
 		saSpecificResults.setBorder(null);
+		
+		JScrollPane scrollSASpecTextArea = new JScrollPane();
+		scrollSASpecTextArea.setBounds(10, 134, 771, 400);
+		saSpecificResults.add(scrollSASpecTextArea);
 
-		JTextArea txtSaResults = new JTextArea();
+		txtSaResults = new JTextArea();
+		scrollSASpecTextArea.setViewportView(txtSaResults);
+		txtSaResults.setLineWrap(true);
 		txtSaResults.setEditable(false);
 		txtSaResults.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		txtSaResults.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		txtSaResults.setBackground(SystemColor.menu);
-		txtSaResults.setBounds(10, 134, 771, 400);
-		saSpecificResults.add(txtSaResults);
 
 		JLabel label = new JLabel("Please select starting time:");
-		label.setBounds(246, 28, 150, 39);
+		label.setBounds(246, 28, 160, 39);
 		saSpecificResults.add(label);
 
 		JLabel label_1 = new JLabel("Please select ending time:");
-		label_1.setBounds(444, 28, 150, 39);
+		label_1.setBounds(444, 28, 160, 39);
 		saSpecificResults.add(label_1);
 
 		saSpecCB = new JComboBox<String>();
@@ -403,11 +408,11 @@ public class AdminPanel extends JFrame {
 			}
 		});
 		saSpecCB.setBounds(10, 74, 200, 32);
-//		saSpecCB.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				lastSASelectedToShowRes = e.getSource()
-//			}
-//		});
+		saSpecCB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lastSASelectedToShowRes = (String) saSpecCB.getSelectedItem();
+			}
+		});
 		saSpecCB.setMaximumRowCount(10);
 		
 		saSpecificResults.add(saSpecCB);
@@ -415,10 +420,7 @@ public class AdminPanel extends JFrame {
 		JLabel lblPleaseSelectA = new JLabel("Please select a Software Agent:");
 		lblPleaseSelectA.setBounds(10, 40, 200, 14);
 		saSpecificResults.add(lblPleaseSelectA);
-		
-		
-		// FIXME Spinners move along each other!
-		
+				
 		Date saspecSTDate = new Date();
 		SpinnerDateModel saspecSTSDM = new SpinnerDateModel(saspecSTDate, null, null, Calendar.HOUR_OF_DAY);
 		JSpinner saspecST = new JSpinner(saspecSTSDM);
@@ -436,6 +438,11 @@ public class AdminPanel extends JFrame {
 		saSpecificResults.add(saspecET);
 		
 		JButton btnShowResults = new JButton("Show Results");
+		btnShowResults.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			SaResultsTab.populateSASpecificResultTextArea(txtSaResults ,lastSASelectedToShowRes);
+			}
+		});
 		btnShowResults.setBounds(627, 40, 154, 66);
 		saSpecificResults.add(btnShowResults);
 
