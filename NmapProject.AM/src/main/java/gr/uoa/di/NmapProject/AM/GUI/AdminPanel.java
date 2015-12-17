@@ -429,7 +429,7 @@ public class AdminPanel extends JFrame {
 		JSpinner resST = new JSpinner(resSTSDM);
 		resST.setBounds(10, 78, 150, 32);
 		DateEditor de_resST = new JSpinner.DateEditor(resST, "dd/MM/yyyy HH:mm:ss");
-		saspecET.setEditor(de_resST);
+		resST.setEditor(de_resST);
 		resultsTab.add(resST);
 		
 		Date resETDate = new Date();
@@ -437,7 +437,7 @@ public class AdminPanel extends JFrame {
 		JSpinner resET = new JSpinner(resETSDM);
 		resET.setBounds(284, 78, 140, 32);
 		DateEditor de_resET = new JSpinner.DateEditor(resET, "dd/MM/yyyy HH:mm:ss");
-		saspecET.setEditor(de_resET);
+		resET.setEditor(de_resET);
 		resultsTab.add(resET);
 		
 		JButton btnNewButton = new JButton("Show Results");
