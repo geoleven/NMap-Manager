@@ -61,6 +61,8 @@ public class AdminPanel extends JFrame {
 	private JComboBox<String> runningSADropDownlist;
 	private JButton btnSumbit;
 	private JPanel expandableAssigns;
+	private String lastSASelectedToShowRes = null;
+	private JComboBox<String> saSpecCB;
 
 	/**
 	 * Create the frame.
@@ -237,7 +239,7 @@ public class AdminPanel extends JFrame {
 		lblPleaseEnteThe.setBounds(10, 60, 384, 26);
 		jobAssignmentTab.add(lblPleaseEnteThe);
 		
-		JLabel lblNewLabel = new JLabel("Period of job (if periodic)");
+		JLabel lblNewLabel = new JLabel("Period of job (if periodic):");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -371,12 +373,13 @@ public class AdminPanel extends JFrame {
 		saSpecificResults.setLayout(null);
 		saSpecificResults.setBorder(null);
 
-		JTextArea textArea = new JTextArea();
-		textArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		textArea.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		textArea.setBackground(SystemColor.menu);
-		textArea.setBounds(10, 134, 771, 400);
-		saSpecificResults.add(textArea);
+		JTextArea txtSaResults = new JTextArea();
+		txtSaResults.setEditable(false);
+		txtSaResults.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		txtSaResults.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		txtSaResults.setBackground(SystemColor.menu);
+		txtSaResults.setBounds(10, 134, 771, 400);
+		saSpecificResults.add(txtSaResults);
 
 		JLabel label = new JLabel("Please select starting time:");
 		label.setBounds(246, 28, 150, 39);
@@ -386,10 +389,28 @@ public class AdminPanel extends JFrame {
 		label_1.setBounds(444, 28, 150, 39);
 		saSpecificResults.add(label_1);
 
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(10, 74, 200, 32);
-		comboBox_2.setMaximumRowCount(10);
-		saSpecificResults.add(comboBox_2);
+		saSpecCB = new JComboBox<String>();
+		saSpecCB.addPopupMenuListener(new PopupMenuListener() {
+			@Override
+			public void popupMenuCanceled(PopupMenuEvent e) {
+			}
+			@Override
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+			}
+			@Override
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+				SaResultsTab.populateSAWithResultsList(saSpecCB);
+			}
+		});
+		saSpecCB.setBounds(10, 74, 200, 32);
+//		saSpecCB.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				lastSASelectedToShowRes = e.getSource()
+//			}
+//		});
+		saSpecCB.setMaximumRowCount(10);
+		
+		saSpecificResults.add(saSpecCB);
 
 		JLabel lblPleaseSelectA = new JLabel("Please select a Software Agent:");
 		lblPleaseSelectA.setBounds(10, 40, 200, 14);
@@ -401,7 +422,7 @@ public class AdminPanel extends JFrame {
 		Date saspecSTDate = new Date();
 		SpinnerDateModel saspecSTSDM = new SpinnerDateModel(saspecSTDate, null, null, Calendar.HOUR_OF_DAY);
 		JSpinner saspecST = new JSpinner(saspecSTSDM);
-		saspecST.setBounds(246, 74, 150, 32);
+		saspecST.setBounds(246, 74, 160, 32);
 		DateEditor de_saspecST = new JSpinner.DateEditor(saspecST, "dd/MM/yyyy HH:mm:ss");
 		saspecST.setEditor(de_saspecST);
 		saSpecificResults.add(saspecST);
@@ -409,13 +430,13 @@ public class AdminPanel extends JFrame {
 		Date saspecETDate = new Date();
 		SpinnerDateModel saspecETSDM = new SpinnerDateModel(saspecETDate, null, null, Calendar.HOUR_OF_DAY);
 		JSpinner saspecET = new JSpinner(saspecETSDM);
-		saspecET.setBounds(444, 74, 150, 32);
+		saspecET.setBounds(444, 74, 160, 32);
 		DateEditor de_saspecET = new JSpinner.DateEditor(saspecET, "dd/MM/yyyy HH:mm:ss");
 		saspecET.setEditor(de_saspecET);
 		saSpecificResults.add(saspecET);
 		
 		JButton btnShowResults = new JButton("Show Results");
-		btnShowResults.setBounds(627, 40, 116, 66);
+		btnShowResults.setBounds(627, 40, 154, 66);
 		saSpecificResults.add(btnShowResults);
 
 		JPanel resultsTab = new JPanel();
@@ -423,12 +444,12 @@ public class AdminPanel extends JFrame {
 		adminPanelTabs.addTab("Results", null, resultsTab, null);
 		resultsTab.setLayout(null);
 
-		JTextArea resultsArea = new JTextArea();
-		resultsArea.setBackground(new Color(240, 240, 240));
-		resultsArea.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		resultsArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		resultsArea.setBounds(10, 134, 771, 400);
-		resultsTab.add(resultsArea);
+		JTextArea txtResultsArea = new JTextArea();
+		txtResultsArea.setBackground(new Color(240, 240, 240));
+		txtResultsArea.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		txtResultsArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		txtResultsArea.setBounds(10, 134, 771, 400);
+		resultsTab.add(txtResultsArea);
 
 		JLabel lblPleaseSelectSTime = new JLabel("Please select starting time:");
 		lblPleaseSelectSTime.setBounds(12, 28, 196, 39);
@@ -441,7 +462,7 @@ public class AdminPanel extends JFrame {
 		Date resSTDate = new Date();
 		SpinnerDateModel resSTSDM = new SpinnerDateModel(resSTDate, null, null, Calendar.HOUR_OF_DAY);
 		JSpinner resST = new JSpinner(resSTSDM);
-		resST.setBounds(10, 78, 150, 32);
+		resST.setBounds(10, 78, 155, 32);
 		DateEditor de_resST = new JSpinner.DateEditor(resST, "dd/MM/yyyy HH:mm:ss");
 		resST.setEditor(de_resST);
 		resultsTab.add(resST);
@@ -449,7 +470,7 @@ public class AdminPanel extends JFrame {
 		Date resETDate = new Date();
 		SpinnerDateModel resETSDM = new SpinnerDateModel(resETDate, null, null, Calendar.HOUR_OF_DAY);
 		JSpinner resET = new JSpinner(resETSDM);
-		resET.setBounds(284, 78, 140, 32);
+		resET.setBounds(284, 78, 155, 32);
 		DateEditor de_resET = new JSpinner.DateEditor(resET, "dd/MM/yyyy HH:mm:ss");
 		resET.setEditor(de_resET);
 		resultsTab.add(resET);

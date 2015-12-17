@@ -105,4 +105,10 @@ public class AdminPanelDAO {
 				results.add(sa);
 		return results;
 	}
+	
+	public static LinkedList<String> geSAWithResults() {
+		// TODO Write query
+		
+		return null;
+	}
 }
