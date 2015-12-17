@@ -5,6 +5,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
@@ -19,6 +22,7 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SpinnerDateModel;
 import javax.swing.JTable;
 import javax.swing.JList;
 
@@ -30,8 +34,14 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.awt.FlowLayout;
+import javax.swing.JSpinner;
+import javax.swing.JSpinner.DateEditor;
 //import java.awt.Component;
+
+//import javax.swing.*;
 
 public class AdminPanel extends JFrame {
 
@@ -361,32 +371,38 @@ public class AdminPanel extends JFrame {
 		textArea.setBounds(10, 134, 771, 400);
 		saSpecificResults.add(textArea);
 
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(296, 74, 200, 20);
-		comboBox.setMaximumRowCount(10);
-		saSpecificResults.add(comboBox);
-
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(581, 74, 200, 20);
-		comboBox_1.setMaximumRowCount(10);
-		saSpecificResults.add(comboBox_1);
-
 		JLabel label = new JLabel("Please select starting time:");
-		label.setBounds(298, 28, 196, 39);
+		label.setBounds(246, 28, 150, 39);
 		saSpecificResults.add(label);
 
 		JLabel label_1 = new JLabel("Please select ending time:");
-		label_1.setBounds(584, 28, 196, 39);
+		label_1.setBounds(444, 28, 150, 39);
 		saSpecificResults.add(label_1);
 
 		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(10, 74, 200, 20);
+		comboBox_2.setBounds(10, 74, 200, 32);
 		comboBox_2.setMaximumRowCount(10);
 		saSpecificResults.add(comboBox_2);
 
 		JLabel lblPleaseSelectA = new JLabel("Please select a Software Agent:");
 		lblPleaseSelectA.setBounds(10, 40, 200, 14);
 		saSpecificResults.add(lblPleaseSelectA);
+		
+		Date date = new Date();
+		SpinnerDateModel hourModel = new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
+		JSpinner saspecST = new JSpinner(hourModel);
+		saspecST.setBounds(246, 74, 150, 32);
+		DateEditor de_saspecST = new JSpinner.DateEditor(saspecST, "yyyy/MM/dd HH:mm:ss");
+		saspecST.setEditor(de_saspecST);
+		saSpecificResults.add(saspecST);
+		
+		JSpinner saspecET = new JSpinner(hourModel);
+		saspecET.setBounds(444, 74, 150, 32);
+		saSpecificResults.add(saspecET);
+		
+		JButton btnShowResults = new JButton("Show Results");
+		btnShowResults.setBounds(627, 40, 116, 66);
+		saSpecificResults.add(btnShowResults);
 
 		JPanel resultsTab = new JPanel();
 		resultsTab.setBorder(null);
@@ -401,23 +417,25 @@ public class AdminPanel extends JFrame {
 		resultsArea.setBounds(10, 134, 771, 400);
 		resultsTab.add(resultsArea);
 
-		JComboBox saWithResultsDropDownList = new JComboBox();
-		saWithResultsDropDownList.setBounds(90, 75, 200, 20);
-		saWithResultsDropDownList.setMaximumRowCount(10);
-		resultsTab.add(saWithResultsDropDownList);
-
-		JComboBox sasResultList = new JComboBox();
-		sasResultList.setBounds(488, 75, 200, 20);
-		sasResultList.setMaximumRowCount(10);
-		resultsTab.add(sasResultList);
-
 		JLabel lblPleaseSelectSTime = new JLabel("Please select starting time:");
-		lblPleaseSelectSTime.setBounds(92, 29, 196, 39);
+		lblPleaseSelectSTime.setBounds(12, 28, 196, 39);
 		resultsTab.add(lblPleaseSelectSTime);
 
 		JLabel lblPleaseSelectETime = new JLabel("Please select ending time:");
-		lblPleaseSelectETime.setBounds(491, 29, 196, 39);
+		lblPleaseSelectETime.setBounds(284, 28, 196, 39);
 		resultsTab.add(lblPleaseSelectETime);
+		
+		JSpinner spinner = new JSpinner();
+		spinner.setBounds(10, 78, 150, 32);
+		resultsTab.add(spinner);
+		
+		JSpinner spinner_1 = new JSpinner();
+		spinner_1.setBounds(284, 78, 140, 32);
+		resultsTab.add(spinner_1);
+		
+		JButton btnNewButton = new JButton("Show Results");
+		btnNewButton.setBounds(519, 78, 200, 32);
+		resultsTab.add(btnNewButton);
 
 		JPanel remoteTerminationTab = new JPanel();
 		remoteTerminationTab.setBorder(null);
