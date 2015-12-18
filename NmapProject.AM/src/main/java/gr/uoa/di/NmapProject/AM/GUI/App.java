@@ -5,8 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-//import javax.ws.rs.client.Client;
-//import javax.ws.rs.client.ClientBuilder;
 
 import gr.uoa.di.NmapProject.AM.DB.AdminDAO;
 import gr.uoa.di.NmapProject.AM.Server.Server;

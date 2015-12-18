@@ -24,11 +24,14 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerDateModel;
 import javax.swing.JTable;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.DateEditor;
+import javax.swing.JOptionPane;
 
 // Root of all evil :D
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.BorderLayout;
 import java.awt.SystemColor;
 import java.awt.Font;
@@ -36,8 +39,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
-
-//import java.awt.Component;
 
 
 public class AdminPanel extends JFrame {
@@ -64,7 +65,11 @@ public class AdminPanel extends JFrame {
 	private String lastSASelectedToShowRes = null;
 	private JComboBox<String> saSpecCB;
 	private JTextArea txtSaResults;
-
+	private JSpinner saspecST;
+	private JSpinner saspecET;
+	private JPanel jobAssignmentTab;
+	private JFrame myFrame = (JFrame) this;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -153,7 +158,7 @@ public class AdminPanel extends JFrame {
 		saStatusMonitorList.setFillsViewportHeight(true);
 		saStatusMonitorList.setCellSelectionEnabled(true);
 
-		JPanel jobAssignmentTab = new JPanel();
+		jobAssignmentTab = new JPanel();
 		jobAssignmentTab.setBorder(null);
 		adminPanelTabs.addTab("Job Assignment", null, jobAssignmentTab, null);
 		jobAssignmentTab.setLayout(null);
@@ -254,12 +259,10 @@ public class AdminPanel extends JFrame {
 
 			@Override
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-				// TODO Delete?
 			}
 
 			@Override
 			public void popupMenuCanceled(PopupMenuEvent e) {
-				// TODO Delete?
 			}
 		});
 		saDropDownList.addActionListener(new ActionListener() {
@@ -279,8 +282,8 @@ public class AdminPanel extends JFrame {
 							try {
 								tempi = Integer.parseUnsignedInt(periodEntry.get(assignsCounter).getText());
 							} catch (NumberFormatException nfe1) {
-								// TODO msg insert proper period time
-								System.out.println("Weird period");
+								JOptionPane.showMessageDialog((Component)myFrame, "Period should be a positive decimal number!", "Error", JOptionPane.WARNING_MESSAGE, null);				  
+								System.out.println("Weird period given!");
 								return;
 							}
 							lastSetPeriod = tempi;
@@ -288,7 +291,7 @@ public class AdminPanel extends JFrame {
 							lastSetPeriod = -1;
 						}
 						if (lastSASelectedToAssignJob == null) {
-							// TODO msg no sa selected
+							JOptionPane.showMessageDialog((Component)myFrame, "You must select a Software Agent before assigning the jobs!", "Error", JOptionPane.WARNING_MESSAGE, null);
 							System.out.println("No SA selected.");
 							return;
 						}
@@ -331,7 +334,6 @@ public class AdminPanel extends JFrame {
 
 			@Override
 			public void popupMenuCanceled(PopupMenuEvent e) {
-				// TODO Delete?
 			}
 		});
 		jdCB.addActionListener(new ActionListener() {
@@ -423,7 +425,7 @@ public class AdminPanel extends JFrame {
 				
 		Date saspecSTDate = new Date();
 		SpinnerDateModel saspecSTSDM = new SpinnerDateModel(saspecSTDate, null, null, Calendar.HOUR_OF_DAY);
-		JSpinner saspecST = new JSpinner(saspecSTSDM);
+		saspecST = new JSpinner(saspecSTSDM);
 		saspecST.setBounds(246, 74, 160, 32);
 		DateEditor de_saspecST = new JSpinner.DateEditor(saspecST, "dd/MM/yyyy HH:mm:ss");
 		saspecST.setEditor(de_saspecST);
@@ -431,7 +433,7 @@ public class AdminPanel extends JFrame {
 		
 		Date saspecETDate = new Date();
 		SpinnerDateModel saspecETSDM = new SpinnerDateModel(saspecETDate, null, null, Calendar.HOUR_OF_DAY);
-		JSpinner saspecET = new JSpinner(saspecETSDM);
+		saspecET = new JSpinner(saspecETSDM);
 		saspecET.setBounds(444, 74, 160, 32);
 		DateEditor de_saspecET = new JSpinner.DateEditor(saspecET, "dd/MM/yyyy HH:mm:ss");
 		saspecET.setEditor(de_saspecET);
@@ -440,7 +442,7 @@ public class AdminPanel extends JFrame {
 		JButton btnShowResults = new JButton("Show Results");
 		btnShowResults.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			SaResultsTab.populateSASpecificResultTextArea(txtSaResults ,lastSASelectedToShowRes);
+			SaResultsTab.populateSASpecificResultTextArea(txtSaResults ,lastSASelectedToShowRes, (Date) saspecST.getValue(), (Date) saspecET.getValue());
 			}
 		});
 		btnShowResults.setBounds(627, 40, 154, 66);
@@ -450,13 +452,16 @@ public class AdminPanel extends JFrame {
 		resultsTab.setBorder(null);
 		adminPanelTabs.addTab("Results", null, resultsTab, null);
 		resultsTab.setLayout(null);
+		
+		JScrollPane scrollResultsArea = new JScrollPane();
+		scrollResultsArea.setBounds(10, 134, 771, 384);
+		resultsTab.add(scrollResultsArea);
 
 		JTextArea txtResultsArea = new JTextArea();
+		scrollResultsArea.setViewportView(txtResultsArea);
 		txtResultsArea.setBackground(new Color(240, 240, 240));
 		txtResultsArea.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		txtResultsArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		txtResultsArea.setBounds(10, 134, 771, 400);
-		resultsTab.add(txtResultsArea);
 
 		JLabel lblPleaseSelectSTime = new JLabel("Please select starting time:");
 		lblPleaseSelectSTime.setBounds(12, 28, 196, 39);
@@ -512,7 +517,6 @@ public class AdminPanel extends JFrame {
 			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 				SATerminationTab.addItemsToComboBox(runningSADropDownlist);
 			}
-
 			@Override
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
 				if (lastSASelectedToDeleteJob != null) {
@@ -520,10 +524,8 @@ public class AdminPanel extends JFrame {
 					JobDeletionTab.pupulateList(delList, lastSASelectedToDeleteJob);
 				}
 			}
-
 			@Override
 			public void popupMenuCanceled(PopupMenuEvent e) {
-				// TODO Delete?
 			}
 		});
 		pm.add(runningSADropDownlist);
@@ -547,33 +549,29 @@ public class AdminPanel extends JFrame {
 			public void stateChanged(ChangeEvent e) {
 				int currentIndex = ((JTabbedPane) e.getSource()).getSelectedIndex();
 				switch (currentIndex) {
-				case 0:
-					smt.stop();
-					break;
+//				case 0:
+//					smt.stop();
+//					break;
 				case 1:
 					smt.start();
-					;
 					break;
-				case 2:
+//				case 2:
+//					smt.stop();
+//					break;
+//				case 3:
+//					smt.stop();
+//					break;
+//				case 4:
+//					smt.stop();
+//					break;
+//				case 5:
+//					smt.stop();
+//					break;
+//				case 6:
+//					smt.stop();
+//					break;
+				default:
 					smt.stop();
-					;
-					break;
-				case 3:
-					smt.stop();
-					;
-					break;
-				case 4:
-					smt.stop();
-					;
-					break;
-				case 5:
-					smt.stop();
-					;
-					break;
-				case 6:
-					smt.stop();
-					;
-					break;
 				}
 			}
 		});

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 
 import gr.uoa.di.NmapProject.AM.GUI.JobPrev;
@@ -115,15 +116,21 @@ public class AdminPanelDAO {
 		return results;
 	}
 
-	public static LinkedList<String> getResultsOfSA(String saHash) {
+	public static LinkedList<String> getResultsOfSABetweenTime(String saHash, long sTime, long eTime, boolean forAll) {
 		int saID = SADAO.hashToId(saHash);
 		LinkedList<String> results = new LinkedList<String>();
 		if (saID > 0) {
 			Connection db = DB.connect();
 			try {
-				String query = "SELECT xml FROM results WHERE software_agents_id = " + saID;
-				Statement stmt = db.createStatement();
-				ResultSet rs = stmt.executeQuery(query);
+				String query;
+				if(forAll)
+					query = "SELECT xml FROM results WHERE time_created >= ? AND time_created <= ?";
+				else
+					query = "SELECT xml FROM results WHERE software_agents_id = " + saID + " AND time_created >= ? AND time_created <= ?";
+				PreparedStatement stmt = db.prepareStatement(query);
+				stmt.setTimestamp(1, new Timestamp(sTime));
+				stmt.setTimestamp(2, new Timestamp(eTime));
+				ResultSet rs = stmt.executeQuery();
 				while (rs.next()) {
 					results.add(rs.getString(1));
 				}

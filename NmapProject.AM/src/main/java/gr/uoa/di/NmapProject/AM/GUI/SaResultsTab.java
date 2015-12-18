@@ -1,5 +1,6 @@
 package gr.uoa.di.NmapProject.AM.GUI;
 
+import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
@@ -16,8 +17,8 @@ public class SaResultsTab {
 		}
 	}
 	
-	public static void populateSASpecificResultTextArea(JTextArea ta, String sa) {
-		LinkedList<String> resList = AdminPanelDAO.getResultsOfSA(sa);
+	public static void populateSASpecificResultTextArea(JTextArea ta, String sa, Date start, Date end) {
+		LinkedList<String> resList = AdminPanelDAO.getResultsOfSABetweenTime(sa, start.getTime(), end.getTime(), false);
 		LinkedList<String> parsedList = parseResultList(resList);
 		String finalText = "";
 		for(String s : parsedList) {
