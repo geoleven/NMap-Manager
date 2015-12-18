@@ -17,14 +17,13 @@ public class SaResultsTab {
 		}
 	}
 	
-	public static void populateSASpecificResultTextArea(JTextArea ta, String sa, Date start, Date end) {
-		LinkedList<String> resList = AdminPanelDAO.getResultsOfSABetweenTime(sa, start.getTime(), end.getTime(), false);
+	public static void populateResultTextArea(JTextArea ta, String sa, Date start, Date end, boolean saSpecific) {
+		LinkedList<String> resList = AdminPanelDAO.getResultsOfSABetweenTime(sa, start.getTime(), end.getTime(), saSpecific);
 		LinkedList<String> parsedList = parseResultList(resList);
 		String finalText = "";
 		for(String s : parsedList) {
 			finalText += s + "\n" + "___________________________________________________________________________________________________________" + "\n";
 		}
-//		ta.setText(null);
 		ta.setText(finalText);
 	}
 	

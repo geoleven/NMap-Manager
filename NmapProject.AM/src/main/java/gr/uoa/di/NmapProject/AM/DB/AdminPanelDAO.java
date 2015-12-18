@@ -119,6 +119,8 @@ public class AdminPanelDAO {
 	public static LinkedList<String> getResultsOfSABetweenTime(String saHash, long sTime, long eTime, boolean forAll) {
 		int saID = SADAO.hashToId(saHash);
 		LinkedList<String> results = new LinkedList<String>();
+		if(forAll)
+			saID = 1;
 		if (saID > 0) {
 			Connection db = DB.connect();
 			try {

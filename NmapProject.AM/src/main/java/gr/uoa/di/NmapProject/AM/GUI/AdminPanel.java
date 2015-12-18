@@ -27,10 +27,8 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.DateEditor;
-import javax.swing.JOptionPane;
 
 // Root of all evil :D
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.BorderLayout;
 import java.awt.SystemColor;
@@ -68,6 +66,9 @@ public class AdminPanel extends JFrame {
 	private JSpinner saspecST;
 	private JSpinner saspecET;
 	private JPanel jobAssignmentTab;
+	private JTextArea txtResultsArea;
+	private JSpinner resST;
+	private JSpinner resET;
 	private JFrame myFrame = (JFrame) this;
 	
 	/**
@@ -442,7 +443,7 @@ public class AdminPanel extends JFrame {
 		JButton btnShowResults = new JButton("Show Results");
 		btnShowResults.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			SaResultsTab.populateSASpecificResultTextArea(txtSaResults ,lastSASelectedToShowRes, (Date) saspecST.getValue(), (Date) saspecET.getValue());
+			SaResultsTab.populateResultTextArea(txtSaResults ,lastSASelectedToShowRes, (Date) saspecST.getValue(), (Date) saspecET.getValue(), false);
 			}
 		});
 		btnShowResults.setBounds(627, 40, 154, 66);
@@ -457,11 +458,14 @@ public class AdminPanel extends JFrame {
 		scrollResultsArea.setBounds(10, 134, 771, 384);
 		resultsTab.add(scrollResultsArea);
 
-		JTextArea txtResultsArea = new JTextArea();
+		txtResultsArea = new JTextArea();
 		scrollResultsArea.setViewportView(txtResultsArea);
-		txtResultsArea.setBackground(new Color(240, 240, 240));
-		txtResultsArea.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		//txtResultsArea.setBackground(new Color(240, 240, 240));
+		txtResultsArea.setLineWrap(true);
+		txtResultsArea.setEditable(false);
 		txtResultsArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		txtResultsArea.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		txtResultsArea.setBackground(SystemColor.menu);
 
 		JLabel lblPleaseSelectSTime = new JLabel("Please select starting time:");
 		lblPleaseSelectSTime.setBounds(12, 28, 196, 39);
@@ -473,7 +477,7 @@ public class AdminPanel extends JFrame {
 		
 		Date resSTDate = new Date();
 		SpinnerDateModel resSTSDM = new SpinnerDateModel(resSTDate, null, null, Calendar.HOUR_OF_DAY);
-		JSpinner resST = new JSpinner(resSTSDM);
+		resST = new JSpinner(resSTSDM);
 		resST.setBounds(10, 78, 155, 32);
 		DateEditor de_resST = new JSpinner.DateEditor(resST, "dd/MM/yyyy HH:mm:ss");
 		resST.setEditor(de_resST);
@@ -481,13 +485,18 @@ public class AdminPanel extends JFrame {
 		
 		Date resETDate = new Date();
 		SpinnerDateModel resETSDM = new SpinnerDateModel(resETDate, null, null, Calendar.HOUR_OF_DAY);
-		JSpinner resET = new JSpinner(resETSDM);
+		resET = new JSpinner(resETSDM);
 		resET.setBounds(284, 78, 155, 32);
 		DateEditor de_resET = new JSpinner.DateEditor(resET, "dd/MM/yyyy HH:mm:ss");
 		resET.setEditor(de_resET);
 		resultsTab.add(resET);
 		
 		JButton btnNewButton = new JButton("Show Results");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SaResultsTab.populateResultTextArea(txtResultsArea , "", (Date) resST.getValue(), (Date) resET.getValue(), true);
+			}
+		});
 		btnNewButton.setBounds(519, 78, 200, 32);
 		resultsTab.add(btnNewButton);
 
