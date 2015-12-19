@@ -1,6 +1,7 @@
 package gr.uoa.di.NmapProject.SA;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.ws.rs.core.MediaType;
 
@@ -95,5 +96,14 @@ public class ServerRequest {
 		}
 
 		return null;
+	}
+	
+	public LinkedList<String> requestJobs() {
+		// TODO write me
+		JSONObject reqJson = new JSONObject();
+		reqJson.put("Hash", Globals.saHash);
+		ClientResponse response = post("getjobs", reqJson);
+		return null;
+		
 	}
 }

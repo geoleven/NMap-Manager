@@ -1,5 +1,7 @@
 package gr.uoa.di.NmapProject.SA;
 
+import sun.misc.Signal;
+
 public class Stopper {
 
 	GetPendingJobs getPendingJobs;
@@ -31,6 +33,10 @@ public class Stopper {
 					}
 				}
 			});
+	}
+	
+	public void closeNow() {
+		sun.misc.Signal.raise(new Signal("INT"));
 	}
 	
 }
