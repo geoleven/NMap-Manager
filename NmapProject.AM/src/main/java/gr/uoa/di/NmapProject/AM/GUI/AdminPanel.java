@@ -13,12 +13,16 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
-import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
+import javax.swing.text.html.HTMLDocument;
+import javax.ws.rs.core.MediaType;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerDateModel;
@@ -30,12 +34,15 @@ import javax.swing.JSpinner.DateEditor;
 
 // Root of all evil :D
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.BorderLayout;
 import java.awt.SystemColor;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.awt.FlowLayout;
 
 
@@ -62,11 +69,13 @@ public class AdminPanel extends JFrame {
 	private JPanel expandableAssigns;
 	private String lastSASelectedToShowRes = null;
 	private JComboBox<String> saSpecCB;
-	private JTextArea txtSaResults;
+	// private CustomTextPane txtSaResults;
+	private JTextPane txtSaResults;
 	private JSpinner saspecST;
 	private JSpinner saspecET;
 	private JPanel jobAssignmentTab;
-	private JTextArea txtResultsArea;
+	// private CustomTextPane txtResultsArea;
+	private JTextPane txtResultsArea;
 	private JSpinner resST;
 	private JSpinner resET;
 	private JFrame myFrame = (JFrame) this;
@@ -341,7 +350,6 @@ public class AdminPanel extends JFrame {
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
 				lastSASelectedToDeleteJob = (String) ((JComboBox<String>) e.getSource()).getSelectedItem();
-				// System.out.println("Hmm " + lastSASelectedToDeleteJob);
 			}
 		});
 		jobDeletionTab.add(jdCB);
@@ -381,13 +389,28 @@ public class AdminPanel extends JFrame {
 		scrollSASpecTextArea.setBounds(10, 134, 771, 389);
 		saSpecificResults.add(scrollSASpecTextArea);
 
-		txtSaResults = new JTextArea();
+//		txtSaResults = new CustomTextPane(true);
+		txtSaResults = new JTextPane();
 		scrollSASpecTextArea.setViewportView(txtSaResults);
-		txtSaResults.setLineWrap(true);
+		txtSaResults.setContentType(MediaType.TEXT_HTML);
+		txtSaResults.setEditorKit(JTextPane.createEditorKitForContentType(MediaType.TEXT_HTML));
+		HTMLDocument doc1 = (HTMLDocument)txtSaResults.getDocument();
+		doc1.putProperty("IgnoreCharsetDirective", new Boolean(true));
 		txtSaResults.setEditable(false);
-		txtSaResults.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		txtSaResults.setEnabled(true);
 		txtSaResults.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		txtSaResults.setBackground(SystemColor.menu);
+		txtSaResults.addHyperlinkListener(new HyperlinkListener() {
+		    public void hyperlinkUpdate(HyperlinkEvent e) {
+		        if(e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+		        	if(Desktop.isDesktopSupported()) {
+		        	    try {
+							Desktop.getDesktop().browse(e.getURL().toURI());
+						} catch (IOException | URISyntaxException e1) {
+						}
+		        	}
+		        }
+		    }
+		});
 
 		JLabel label = new JLabel("Please select starting time:");
 		label.setBounds(246, 28, 160, 39);
@@ -456,16 +479,30 @@ public class AdminPanel extends JFrame {
 		
 		JScrollPane scrollResultsArea = new JScrollPane();
 		scrollResultsArea.setBounds(10, 134, 771, 384);
+		//scrollResultsArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		resultsTab.add(scrollResultsArea);
 
-		txtResultsArea = new JTextArea();
+//		txtResultsArea = new CustomTextPane(true);
+		txtResultsArea = new JTextPane();
 		scrollResultsArea.setViewportView(txtResultsArea);
-		//txtResultsArea.setBackground(new Color(240, 240, 240));
-		txtResultsArea.setLineWrap(true);
 		txtResultsArea.setEditable(false);
-		txtResultsArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		txtResultsArea.setContentType(MediaType.TEXT_HTML);
+		txtResultsArea.setEditorKit(JTextPane.createEditorKitForContentType(MediaType.TEXT_HTML));
+		HTMLDocument doc2 = (HTMLDocument)txtResultsArea.getDocument();
+		doc2.putProperty("IgnoreCharsetDirective", new Boolean(true));
 		txtResultsArea.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		txtResultsArea.setBackground(SystemColor.menu);
+		txtResultsArea.addHyperlinkListener(new HyperlinkListener() {
+		    public void hyperlinkUpdate(HyperlinkEvent e) {
+		        if(e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+		        	if(Desktop.isDesktopSupported()) {
+		        	    try {
+							Desktop.getDesktop().browse(e.getURL().toURI());
+						} catch (IOException | URISyntaxException e1) {
+						}
+		        	}
+		        }
+		    }
+		});
 
 		JLabel lblPleaseSelectSTime = new JLabel("Please select starting time:");
 		lblPleaseSelectSTime.setBounds(12, 28, 196, 39);
@@ -558,27 +595,9 @@ public class AdminPanel extends JFrame {
 			public void stateChanged(ChangeEvent e) {
 				int currentIndex = ((JTabbedPane) e.getSource()).getSelectedIndex();
 				switch (currentIndex) {
-//				case 0:
-//					smt.stop();
-//					break;
 				case 1:
 					smt.start();
 					break;
-//				case 2:
-//					smt.stop();
-//					break;
-//				case 3:
-//					smt.stop();
-//					break;
-//				case 4:
-//					smt.stop();
-//					break;
-//				case 5:
-//					smt.stop();
-//					break;
-//				case 6:
-//					smt.stop();
-//					break;
 				default:
 					smt.stop();
 				}
