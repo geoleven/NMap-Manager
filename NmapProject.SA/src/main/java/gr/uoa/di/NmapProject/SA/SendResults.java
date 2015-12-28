@@ -10,6 +10,7 @@ public class SendResults {
 		results = rq;
 		sender = new SenderThread(rq);
 		senderThread = new Thread(sender);
+		
 	}
 	
 	public void start() {

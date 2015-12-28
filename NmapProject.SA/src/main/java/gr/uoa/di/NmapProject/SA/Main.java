@@ -5,8 +5,6 @@ public class Main {
 	public static void main(String[] args) {
 		try {
 			
-//			Registration myr = new Registration();
-			
 			ServerRequest sR = new ServerRequest(Globals.baseURL);
 			sR.registrationRequest();
 			
@@ -33,7 +31,7 @@ public class Main {
 			jf.start();
 			sT.start();			
 			
-			stopper.closeNow();
+//			stopper.closeNow();
 			
 		} catch (Exception e) {
 			System.err.println(e.getMessage());

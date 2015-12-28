@@ -1,13 +1,17 @@
 package gr.uoa.di.NmapProject.SA;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -28,6 +32,12 @@ public class ServerRequest {
 		WebResource resource = getResource(path);
 		return resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON).post(ClientResponse.class,
 				obj.toJSONString());
+	}
+	
+	public ClientResponse post(String path, String json) {
+		WebResource resource = getResource(path);
+		return resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON).post(ClientResponse.class,
+				json);
 	}
 
 	public ClientResponse get(String path, ArrayList<String> params) {
@@ -98,12 +108,67 @@ public class ServerRequest {
 		return null;
 	}
 	
-	public LinkedList<String> requestJobs() {
-		// TODO write me
-		JSONObject reqJson = new JSONObject();
-		reqJson.put("Hash", Globals.saHash);
-		ClientResponse response = post("getjobs", reqJson);
+	public LinkedList<NmapJob> requestJobs() {
+		ArrayList<String> params = new ArrayList<String>();
+		params.add(Globals.saHash);
+		
+		ClientResponse response = get("job/get", params);
+		if (response.getStatus() == 200) {
+			String jsonString  = response.getEntity(String.class);
+			
+			ObjectMapper mapper = new ObjectMapper();
+			
+			try{
+				LinkedList<LinkedHashMap> jobList = mapper.readValue(jsonString, LinkedList.class);
+				
+				LinkedList<NmapJob> results = new LinkedList<NmapJob>(); 
+				for(LinkedHashMap e : jobList){
+					results.add( 
+						new NmapJob(
+							(int) e.get("id"),
+							(String) e.get("parameters"),
+							(Boolean) e.get("periodic"),
+							(int) e.get("period")
+						));
+				}
+				
+				return results;
+				
+			}catch (Exception ex){
+	    		
+	    		System.out.println(ex.getMessage());
+	    		
+	    		return null;
+	    	}
+			
+		}else{
+			System.out.println("Job Request Server Response : " + response.getStatus());
+		}
+		
 		return null;
 		
+	}
+	
+	public void sendResult( Result res) {
+		try{	
+			ObjectMapper mapper = new ObjectMapper();
+			
+			ClientResponse response = post("job/result", mapper.writeValueAsString(res));
+	
+			if (response.getStatus() == 200) {
+	
+				JSONObject status = (JSONObject) (new JSONParser()).parse(response.getEntity(String.class));
+	
+				if (((String) status.get("status")).equals("ok")) {
+					System.out.println("Sent result for job : "+res.job.id);
+				} else {
+					System.out.println("Result for job "+res.job.id+" could not be sent");
+				}
+			} else {
+				System.out.println("Result Post Server Response : " + response.getStatus());
+			}
+		} catch (Exception ex){
+			System.out.println(ex.getMessage());
+		}
 	}
 }

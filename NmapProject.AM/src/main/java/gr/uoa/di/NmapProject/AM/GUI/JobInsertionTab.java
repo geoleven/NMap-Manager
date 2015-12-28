@@ -3,14 +3,20 @@ package gr.uoa.di.NmapProject.AM.GUI;
 import java.util.LinkedList;
 import javax.swing.JComboBox;
 import gr.uoa.di.NmapProject.AM.DB.AdminPanelDAO;
+import gr.uoa.di.NmapProject.AM.DB.JobDAO;
 import gr.uoa.di.NmapProject.AM.DB.SAInfoStatus;
 
 public class JobInsertionTab {
 	
 	public static void assignJob(String param, boolean isPeriodic, int period, String saHash) {
-		// TODO write the assignement
-		// TODO popup oti kataxwrithike to insertion
 		System.out.println("Got this assignment: " + "   " + param +  "   " + period +  "   " + saHash);
+		
+		if(JobDAO.newJob(param , isPeriodic , period , saHash)){
+			System.out.println("Insertion successful ...");
+		}else{
+			System.err.println("Insertion failed ...");
+		}
+		
 	} 
 
 	public static void addItemsToComboBox(JComboBox<String> cb){

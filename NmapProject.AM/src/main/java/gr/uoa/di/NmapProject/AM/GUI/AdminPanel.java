@@ -286,6 +286,7 @@ public class AdminPanel extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int tempi = 0;
+				int actualContentCounter = 0;
 				for (int assignsCounter = 0; assignsCounter < miniPanel.size(); assignsCounter++) {
 					if (!givenCmd.get(assignsCounter).getText().equals("")) {
 						if (isPeriodic.get(assignsCounter).isSelected()) {
@@ -307,7 +308,11 @@ public class AdminPanel extends JFrame {
 						}
 						JobInsertionTab.assignJob(givenCmd.get(assignsCounter).getText(),
 								isPeriodic.get(assignsCounter).isSelected(), lastSetPeriod, lastSASelectedToAssignJob);
+						actualContentCounter++;
 					}
+				}
+				if (actualContentCounter > 0) {
+					JOptionPane.showMessageDialog((Component)myFrame, Integer.toString(actualContentCounter) + " jobs were inserted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE, null);
 				}
 			}
 		});

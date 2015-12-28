@@ -38,111 +38,25 @@ public class JobFinder implements Runnable {
 		} catch (InterruptedException e) {
 			System.err.println("JobFinder interrupted. Exiting.");
 		} catch (Exception e) {
+			//TODO exception for server not responding etc shouldnt be handled here
 			System.err.println("Unexpected exception " + e.getMessage() + " @Jobfinder.run");
 		}
 	}
 
 	private void requestJobs() throws Exception {
-		if(Globals.local) {
-			if (openedFile == null) {
-				openfile();
-			}
-			if (openedFile != null) {
-				int num = rand.nextInt(10) + 1;
-				if (Globals.verbose)
-					System.out.println("Reading " + num + " jobs from file " + openedFileName + ".");
-				readJobsFromFile(num);
-				checkFileEmpty();
-			}
-		} else {
-			LinkedList<String> tempJobsStrs = serverSide.requestJobs();
-			for (String strJob : tempJobsStrs)
-				createJob(strJob);
-		}
 		
-	}
-
-	private void openfile() throws Exception {
-		// if (Globals.verbose)
-		// System.out.println("Searching for new File");
-
-		File folder = new File(Globals.pathName);
-		File[] listOfFiles = folder.listFiles();
-
-		for (int i = 0; i < listOfFiles.length; i++) {
-			if (listOfFiles[i].isFile() && listOfFiles[i].getName().equals("properties") == false
-					&& fileHistory.contains(listOfFiles[i].getName()) == false) {
-
-				if (Globals.verbose)
-					System.out.println("Found file: " + listOfFiles[i].getName() + ".");
-
-				fileHistory.add(listOfFiles[i].getName());
-
-				openedFile = new BufferedReader(
-						new InputStreamReader(new FileInputStream(Globals.pathName + listOfFiles[i].getName())));
-				openedFileName = Globals.pathName + listOfFiles[i].getName();
-
-				break;
-
-			}
-		}
-
-	}
-
-	private void readJobsFromFile(int num) throws Exception {
-		String strLine;
-		int counter = 0;
-		while ((strLine = openedFile.readLine()) != null) {
-			createJob(strLine);
-			counter++;
-			if (counter == num)
-				break;
-		}
-	}
-
-	private void createJob(String line) {
-		String[] split = line.split(",");
-
-		if (split.length == 4) {
-			try {
-				int id = Integer.parseInt(split[0]);
-				String parameter = split[1].replaceAll("-oX - ", "");
-				boolean isPeriodic = Boolean.parseBoolean(split[2]);
-				int period = Integer.parseInt(split[3]);
-				NmapJob currentJob = new NmapJob(id, parameter, isPeriodic, period);
-
-				if (Globals.verbose)
-					currentJob.print();
-				
-				if (isPeriodic) {
-					myPeriodicJobs.addToPeriodicJobs(currentJob);
-				} else {
-					OneTimeJobsQueue.addJob(currentJob);
-					synchronized (OneTimeJobsQueue) {
-						OneTimeJobsQueue.notify();
-					}
+		LinkedList<NmapJob> jobs = serverSide.requestJobs();
+		for(NmapJob j : jobs){
+			System.out.println("New Job :");
+			j.print();
+			if (j.periodic) {
+				myPeriodicJobs.addToPeriodicJobs(j);
+			} else {
+				OneTimeJobsQueue.addJob(j);
+				synchronized (OneTimeJobsQueue) {
+					OneTimeJobsQueue.notify();
 				}
-			} catch (Exception e) {
-				if (Globals.verbose)
-					System.err.println("Job in file is not formatted correctly.\n(" + e.getMessage() + ")");
 			}
-		} else {
-			if (Globals.verbose)
-				System.err.println("Job in file is not formatted correctly.");
 		}
 	}
-
-	private void checkFileEmpty() throws Exception {
-		if (!openedFile.ready()) {
-			if (Globals.verbose)
-				System.err.println("Closing empty file.");
-			closeFile();
-		}
-	}
-
-	private void closeFile() throws Exception {
-		openedFile.close();
-		openedFile = null;
-	}
-
 }

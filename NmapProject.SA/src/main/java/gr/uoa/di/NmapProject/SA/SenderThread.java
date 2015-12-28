@@ -3,15 +3,17 @@ package gr.uoa.di.NmapProject.SA;
 public class SenderThread implements Runnable {
 
 	ResultQueue resultQueue;
+	ServerRequest serverSide;
 
 	public SenderThread(ResultQueue q) {
 		resultQueue = q;
+		serverSide = new ServerRequest(Globals.baseURL);
 	}
 
 	public void run() {
 		try {
 			while (true) {
-				printResult();
+				sendToServer();
 				synchronized (resultQueue) {
 					resultQueue.wait();
 				}
@@ -26,8 +28,9 @@ public class SenderThread implements Runnable {
 	private boolean sendToServer() throws Exception {
 		Result res = resultQueue.getResult();
 		if (res != null) {
-			//ServerRequest sRSendRes = new ServerRequest("http://localhost:8080/am/");
-			//sRSendRes.sendResults(res.result);
+			
+			serverSide.sendResult(res);
+			
 			return true;
 		}
 		return false;
