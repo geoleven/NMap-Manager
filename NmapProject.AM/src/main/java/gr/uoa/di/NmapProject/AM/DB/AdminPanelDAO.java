@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.util.LinkedList;
 
 import gr.uoa.di.NmapProject.AM.GUI.JobPrev;
+import gr.uoa.di.NmapProject.AM.Server.OnlineStatus;
 
 public class AdminPanelDAO {
 	public static LinkedList<SA> getPendReg() {
@@ -55,13 +56,16 @@ public class AdminPanelDAO {
 			Statement stmt = db.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
-				// FIXME add real status
-				results.add(new SAInfoStatus(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+				
+				SAInfoStatus sa = new SAInfoStatus(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
 						rs.getString(5), rs.getString(6), rs.getString(7), rs.getBoolean(8),
-						// TODO HERE
-						true));
+						true);
+				
+				sa.status = OnlineStatus.getInstance().isOnline(sa.unionHash);
+				
+				results.add(sa);
 			}
-			;
+			
 			db.close();
 		} catch (SQLException ex) {
 			DB.SQLError(ex);

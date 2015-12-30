@@ -43,6 +43,8 @@ public class JobRequest {
     	
     	JSONObject resp = new JSONObject();
     	
+    	OnlineStatus on = OnlineStatus.getInstance(); 
+    	
     	// Find SA
     	int saID = SADAO.hashToId(curHash);
     	
@@ -51,8 +53,16 @@ public class JobRequest {
     		return Response.status(200).entity(resp.toJSONString()).build();
     	}
     	
+    	//if SA is set for exit
+    	if(on.isForExit(curHash)){
+    		resp.put("Signal" , "Kill");
+    		on.exited(curHash);
+    		
+    		return Response.status(200).entity(resp.toJSONString()).build();
+    	}
+    	
     	// Update SAs Online Status
-    	OnlineStatus.getInstance().update(curHash);
+    	on.update(curHash);
     	
     	// Find jobs for SA
     	LinkedList<Job> jobsToSendToSa = JobDAO.getAllSAJobs(saID);

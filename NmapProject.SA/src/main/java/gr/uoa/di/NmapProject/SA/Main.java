@@ -27,6 +27,8 @@ public class Main {
 			Stopper stopper = new Stopper(jf, otj, pj, sT);
 			stopper.attachShutDownHook();
 			
+			jf.setStopper(stopper);
+			
 			otj.start();
 			jf.start();
 			sT.start();			

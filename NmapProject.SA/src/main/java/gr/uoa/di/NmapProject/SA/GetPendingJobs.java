@@ -18,4 +18,8 @@ public class GetPendingJobs {
 		jobFinderThread.interrupt();
 		jobFinderThread.join();
 	}
+	
+	public void setStopper(Stopper s){
+		jobFinder.setStopper(s);
+	}
 }

@@ -15,7 +15,9 @@ public class OnlineStatus {
 		return instance;
 	}
 	
-	LinkedList<Map> saLastRequest = new LinkedList<Map>();  
+	LinkedList<Map> saLastRequest = new LinkedList<Map>();
+	
+	LinkedList<String> forExit = new LinkedList<String>();
 	
 	public void update( String saHash ){
 		 java.util.Date date= new java.util.Date();
@@ -41,7 +43,7 @@ public class OnlineStatus {
 	public boolean isOnline( String saHash ){
 		
 		for(Map s : saLastRequest){
-			if(s.get("hash") == saHash){
+			if(s.get("hash").equals(saHash)){
 				
 				Long lastReq = ((Timestamp) s.get("time")).getTime();
 				
@@ -49,8 +51,6 @@ public class OnlineStatus {
 				Long curTime = (new Timestamp(date.getTime())).getTime();
 				 
 				Long secSinceLastReq = (curTime - lastReq) / 1000;
-				
-				System.out.println(secSinceLastReq);
 				
 				if(secSinceLastReq <= 4){
 					return true;
@@ -73,6 +73,41 @@ public class OnlineStatus {
 		}
 		
 		System.out.println("");
+		
+	}
+	
+	public void setForExit( String hash ){
+		boolean contains = false;
+		for( String h : forExit){
+			if(h.equals(hash)){
+				contains = true;
+			}
+		}
+		if(contains == false){
+			forExit.add(hash);
+		}
+	}
+	
+	public boolean isForExit( String hash ){
+		for( String h : forExit){
+			if(h.equals(hash)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void exited( String hash ){
+		forExit.remove(hash);
+	}
+	
+	public void printExit(){
+		System.out.println("Set for Exit :");
+		
+		for(String h : forExit){
+			System.out.println(h);
+		}
+		System.out.println();
 		
 	}
 	

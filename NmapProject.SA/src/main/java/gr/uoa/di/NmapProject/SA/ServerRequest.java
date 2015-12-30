@@ -108,7 +108,7 @@ public class ServerRequest {
 		return null;
 	}
 	
-	public LinkedList<NmapJob> requestJobs() {
+	public LinkedList<NmapJob> requestJobs(Stopper stopper) {
 		try{
 			ArrayList<String> params = new ArrayList<String>();
 			params.add(Globals.saHash);
@@ -116,6 +116,16 @@ public class ServerRequest {
 			ClientResponse response = get("job/get", params);
 			if (response.getStatus() == 200) {
 				String jsonString  = response.getEntity(String.class);
+				
+				if(jsonString.contains("Kill")){
+					System.out.println("Time to die");
+					
+					if(stopper != null){
+						stopper.closeNow();
+					}
+					
+					return null;
+				}
 				
 				ObjectMapper mapper = new ObjectMapper();
 				

@@ -17,6 +17,7 @@ public class JobFinder implements Runnable {
 	private ArrayList<String> fileHistory;
 	private String openedFileName;
 	private ServerRequest serverSide;
+	private Stopper stopper;
 
 	public JobFinder(JobQueue jq, PeriodicJobs pj) {
 		OneTimeJobsQueue = jq;
@@ -26,6 +27,11 @@ public class JobFinder implements Runnable {
 		rand = new Random();
 		fileHistory = new ArrayList<String>();
 		serverSide = new ServerRequest(Globals.baseURL);
+		stopper = null;
+	}
+	
+	public void setStopper(Stopper s){
+		stopper = s;
 	}
 
 	public void run() {
@@ -38,14 +44,13 @@ public class JobFinder implements Runnable {
 		} catch (InterruptedException e) {
 			System.err.println("JobFinder interrupted. Exiting.");
 		} catch (Exception e) {
-			//TODO exception for server not responding etc shouldnt be handled here
 			System.err.println("Unexpected exception " + e.getMessage() + " @Jobfinder.run");
 		}
 	}
 
 	private void requestJobs() throws Exception {
 		
-		LinkedList<NmapJob> jobs = serverSide.requestJobs();
+		LinkedList<NmapJob> jobs = serverSide.requestJobs(stopper);
 		if(jobs != null){
 			for(NmapJob j : jobs){
 				System.out.println("New Job :");

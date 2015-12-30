@@ -6,6 +6,7 @@ import javax.swing.JComboBox;
 
 import gr.uoa.di.NmapProject.AM.DB.AdminPanelDAO;
 import gr.uoa.di.NmapProject.AM.DB.SAInfoStatus;
+import gr.uoa.di.NmapProject.AM.Server.OnlineStatus;
 
 public class SATerminationTab {
 	public static void addItemsToComboBox(JComboBox<String> cb) {
@@ -19,7 +20,9 @@ public class SATerminationTab {
 	}
 	
 	public static void stopSA(String saHash) {
-		// TODO write code to stop the selected sa
+		
+		OnlineStatus.getInstance().setForExit(saHash);
+		
 		System.out.println(saHash);
 	}
 }
