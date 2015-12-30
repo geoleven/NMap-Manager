@@ -1,14 +1,17 @@
 package gr.uoa.di.NmapProject.AM;
 
 import gr.uoa.di.NmapProject.AM.GUI.App;
-import gr.uoa.di.NmapProject.AM.Server.OnlineStatus;
 
 /**
  * Main class.
  *
  */
 public class Main {	
-	public static void main(String[] args) throws Exception{
+	/**
+	 * @param args
+	 *            The arguments to give to the program. Not used.
+	 */
+	public static void main(String[] args) {
 		Globals globals = new Globals();
 		App app = new App();
 		app.run();

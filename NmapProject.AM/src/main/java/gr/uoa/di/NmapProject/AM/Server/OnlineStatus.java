@@ -15,7 +15,7 @@ public class OnlineStatus {
 		return instance;
 	}
 	
-	LinkedList<Map> saLastRequest = new LinkedList<Map>();
+	LinkedList<Map<String, Object>> saLastRequest = new LinkedList<Map<String, Object>>();
 	
 	LinkedList<String> forExit = new LinkedList<String>();
 	
@@ -24,7 +24,7 @@ public class OnlineStatus {
 		 Timestamp curTime = new Timestamp(date.getTime());
 		 
 		 boolean inList = false;
-		 for( Map s : saLastRequest){
+		 for( Map<String, Object> s : saLastRequest){
 			 String hash = (String) s.get("hash");
 			 if(hash.equals(saHash)){
 				 s.put("time" , curTime);
@@ -33,7 +33,7 @@ public class OnlineStatus {
 		 }
 		 
 		 if(inList == false){
-			 Map s = new HashMap();
+			 Map<String, Object> s = new HashMap<String, Object>();
 			 s.put("hash" , saHash);
 			 s.put("time" , curTime);
 			 saLastRequest.add(s);
@@ -42,7 +42,7 @@ public class OnlineStatus {
 	
 	public boolean isOnline( String saHash ){
 		
-		for(Map s : saLastRequest){
+		for(Map<String, Object> s : saLastRequest){
 			if(s.get("hash").equals(saHash)){
 				
 				Long lastReq = ((Timestamp) s.get("time")).getTime();
@@ -67,7 +67,7 @@ public class OnlineStatus {
 		
 		System.out.println("SA statuses : ");
 		
-		for(Map s : saLastRequest){
+		for(Map<String, Object> s : saLastRequest){
 			String hash = (String) s.get("hash");
 			System.out.println(" SA : "+hash+" , "+isOnline(hash));
 		}

@@ -6,8 +6,22 @@ import gr.uoa.di.NmapProject.AM.DB.AdminPanelDAO;
 import gr.uoa.di.NmapProject.AM.DB.JobDAO;
 import gr.uoa.di.NmapProject.AM.DB.SAInfoStatus;
 
+/**
+ * The class holding all the needed functions for the job insertion tab.
+ * 
+ * @author George
+ *
+ */
 public class JobInsertionTab {
 	
+	/**
+	 * Assign a job to an S.A..
+	 * 
+	 * @param param	The NMap's parameters of this job.
+	 * @param isPeriodic A boolean showing if this job will be periodic.
+	 * @param period The period of this job, if it is periodic.
+	 * @param saHash The hash of the S.A. to which this job will be assigned.
+	 */
 	public static void assignJob(String param, boolean isPeriodic, int period, String saHash) {
 		System.out.println("Got this assignment: " + "   " + param +  "   " + period +  "   " + saHash);
 		
@@ -19,6 +33,11 @@ public class JobInsertionTab {
 		
 	} 
 
+	/**
+	 * Adds the hashes of the online S.A. to the drop down combo box.
+	 * 
+	 * @param cb The combo box to populate.
+	 */
 	public static void addItemsToComboBox(JComboBox<String> cb){
 		// FIXME change from db access to list specially for online!!!
 		LinkedList<SAInfoStatus>  list = AdminPanelDAO.getAcceptedSAInfo();

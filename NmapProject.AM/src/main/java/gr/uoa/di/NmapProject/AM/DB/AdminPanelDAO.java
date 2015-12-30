@@ -11,7 +11,18 @@ import java.util.LinkedList;
 import gr.uoa.di.NmapProject.AM.GUI.JobPrev;
 import gr.uoa.di.NmapProject.AM.Server.OnlineStatus;
 
+/**
+ * Database access class for the Administrator Panel window.
+ * @author George
+ * 
+ */
 public class AdminPanelDAO {
+	/**
+	 * Retrieves from database the registrations that are still pending for
+	 * their acceptance.
+	 * 
+	 * @return A linked list with all the pending registrations at this time.
+	 */
 	public static LinkedList<SA> getPendReg() {
 		LinkedList<SA> results = new LinkedList<SA>();
 		Connection db = DB.connect();
@@ -31,6 +42,12 @@ public class AdminPanelDAO {
 		return results;
 	}
 
+	/**
+	 * Changes the status of the given S.A.s to accepted.
+	 * 
+	 * @param ids
+	 *            A linked list with the ids of the S.A.s to accept.
+	 */
 	public static void acceptSAs(LinkedList<Integer> ids) {
 		Connection db = DB.connect();
 		try {
@@ -48,6 +65,12 @@ public class AdminPanelDAO {
 		return;
 	}
 
+	/**
+	 * Retrieves from the database the info for every accepted S.A..
+	 * 
+	 * @return Returns a linked list with the S.A. status and info.
+	 * 
+	 */
 	public static LinkedList<SAInfoStatus> getAcceptedSAInfo() {
 		LinkedList<SAInfoStatus> results = new LinkedList<SAInfoStatus>();
 		Connection db = DB.connect();
@@ -59,6 +82,7 @@ public class AdminPanelDAO {
 				
 				SAInfoStatus sa = new SAInfoStatus(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
 						rs.getString(5), rs.getString(6), rs.getString(7), rs.getBoolean(8),
+						// TODO ti sto peos pita? :P
 						true);
 				
 				sa.status = OnlineStatus.getInstance().isOnline(sa.unionHash);
@@ -73,6 +97,13 @@ public class AdminPanelDAO {
 		return results;
 	}
 
+	/**
+	 * Retrieves from database the periodic jobs for a specific S.A..
+	 * 
+	 * @param curSA
+	 *            The S.A. for which to retrieve the jobs.
+	 * @return A linked list of periodic jobs for the given S.A..
+	 */
 	public static LinkedList<JobPrev> getPeriodicJobsOfSA(String curSA) {
 		LinkedList<JobPrev> results = new LinkedList<JobPrev>();
 		Connection db = DB.connect();
@@ -93,6 +124,11 @@ public class AdminPanelDAO {
 		return results;
 	}
 
+	/**
+	 * Retrieves from the database all the info for only the online S.A.s.
+	 * 
+	 * @return A linked list the S.A. info.
+	 */
 	public static LinkedList<SAInfoStatus> getOnlineSAInfo() {
 		LinkedList<SAInfoStatus> temp = getAcceptedSAInfo();
 		LinkedList<SAInfoStatus> results = new LinkedList<SAInfoStatus>();
@@ -102,6 +138,11 @@ public class AdminPanelDAO {
 		return results;
 	}
 
+	/**
+	 * Retrieves a list with S.A.s which have some results in the database.
+	 * 
+	 * @return A linked list with the hashes of the S.A.s.
+	 */
 	public static LinkedList<String> geSAWithResults() {
 		LinkedList<String> results = new LinkedList<String>();
 		Connection db = DB.connect();
@@ -120,6 +161,22 @@ public class AdminPanelDAO {
 		return results;
 	}
 
+	/**
+	 * Retrieves from the database the jobs results of a specific S.A. or for
+	 * all the S.A.s for a specific time.
+	 * 
+	 * @param saHash
+	 *            The S.A. for which to retrieve the results. It will be
+	 *            disposed if the function is used for all the S.A.s.
+	 * @param sTime
+	 *            The starting time from which to retrieve the results.
+	 * @param eTime
+	 *            The ending time until which to retrieve the results.
+	 * @param forAll
+	 *            True to retrieve results for every S.A.. False for a specific
+	 *            S.A..
+	 * @return A linked list with the XMLs of the results.
+	 */
 	public static LinkedList<String> getResultsOfSABetweenTime(String saHash, long sTime, long eTime, boolean forAll) {
 		int saID = SADAO.hashToId(saHash);
 		LinkedList<String> results = new LinkedList<String>();

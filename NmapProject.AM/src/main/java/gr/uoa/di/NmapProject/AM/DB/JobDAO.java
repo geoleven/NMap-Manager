@@ -42,62 +42,67 @@ public class JobDAO {
 		return saJobs;
 	}
 	
-	public static boolean newJob(Job job){
+	public static boolean newJob(Job job) {
 		Connection db = DB.connect();
-		
-		try{
-			
+
+		try {
+
 			String query = " insert into jobs (parameters , time , periodic , status , sa_id)"
-				+ " values (? , ? , ? , ? , ?)";
-			
+					+ " values (? , ? , ? , ? , ?)";
+
 			PreparedStatement preparedStmt = db.prepareStatement(query);
-			
-			preparedStmt.setString (1, job.parameters);
-			preparedStmt.setInt (2, job.period);
-			preparedStmt.setBoolean (3, job.periodic);
-			preparedStmt.setString (4, job.status);
-			preparedStmt.setInt (5, job.saID);
-			
+
+			preparedStmt.setString(1, job.parameters);
+			preparedStmt.setInt(2, job.period);
+			preparedStmt.setBoolean(3, job.periodic);
+			preparedStmt.setString(4, job.status);
+			preparedStmt.setInt(5, job.saID);
+
 			preparedStmt.execute();
-			
+
 			db.close();
-			
+
 			return true;
-			
-		} catch (SQLException ex){
+
+		} catch (SQLException ex) {
 			DB.SQLError(ex);
 		}
-			
+
 		return false;
 	}
 	
-	public static boolean newJob( String params , boolean isPeriodic , int period , String saHash){
-		
+	public static boolean newJob(String params, boolean isPeriodic, int period, String saHash) {
+
 		int saID = SADAO.hashToId(saHash);
-		
-		return newJob( new Job(params , isPeriodic , period , saID, "Pending"));
+
+		return newJob(new Job(params, isPeriodic, period, saID, "Pending"));
 	}
 	
-	public static int sa( int id ){
-		
-		LinkedList<Job> saJobs = new LinkedList<Job>();
+	/**
+	 * Retrieves the S.A. of job.
+	 * 
+	 * @param id
+	 *            The job's id to search its S.A..
+	 * @return The S.A.'s id.
+	 */
+	public static int sa(int id) {
 		Connection db = DB.connect();
 		int saID = 0;
 
 		try {
-			String query = " SELECT sa_id FROM jobs WHERE id = "+id;
+			String query = " SELECT sa_id FROM jobs WHERE id = " + id;
 			Statement stmt = db.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
 				saID = rs.getInt(1);
 			}
-			
+
 			db.close();
 		} catch (SQLException ex) {
 			DB.SQLError(ex);
 		}
-		
+
 		return saID;
 	}
 

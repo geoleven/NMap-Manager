@@ -13,10 +13,18 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.MouseInputAdapter;
 
+/**
+ * The implementation of a list of check boxes.
+ * @author George
+ *
+ */
 @SuppressWarnings({ "serial", "rawtypes" })
 public class CheckBoxList extends JList {
 	protected static Border noFocusBorder = new EmptyBorder(1, 1, 1, 1);
 
+	/**
+	 * Creates and initializes a check box list.
+	 */
 	@SuppressWarnings("unchecked")
 	public CheckBoxList() {
 		setCellRenderer(new CellRenderer());

@@ -3,10 +3,21 @@ package gr.uoa.di.NmapProject.AM.GUI;
 import javax.swing.*;
 import javax.swing.text.*;
 
+/**
+ * A custom text pane with a custom editor kit that enables line wrap.
+ * 
+ * @author George
+ *
+ */
 public class CustomTextPane extends JTextPane {
 	private static final long serialVersionUID = 1337392502852341521L;
 	private boolean lineWrap;
 
+    /**
+     * Creates a custom text pane with line wrap support.
+     * 
+     * @param lineWrap If true it enables line wrap.
+     */
     public CustomTextPane(final boolean lineWrap) {
         this.lineWrap = lineWrap;
 

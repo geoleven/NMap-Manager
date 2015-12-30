@@ -9,12 +9,21 @@ import javax.swing.JOptionPane;
 import gr.uoa.di.NmapProject.AM.DB.AdminDAO;
 import gr.uoa.di.NmapProject.AM.Server.Server;
 
+/**
+ * The main application for the GUI of the A.M..
+ * 
+ * @author George
+ *
+ */
 public class App {
 	
 	private Server server;
 	private Login loginFrame;
 	private AdminPanel adminPanel;
 	
+	/**
+	 * Runs the main GUI application.
+	 */
 	public void run(){
 		startServer();
 		startLoginFrame();

@@ -36,7 +36,6 @@ import javax.swing.JSpinner.DateEditor;
 import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.BorderLayout;
-import java.awt.SystemColor;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -45,7 +44,11 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.awt.FlowLayout;
 
-
+/**
+ * Main GUI class. Holds all the tabs and styles for all the main window. 
+ * @author George
+ * @version 1.0.0
+ */
 public class AdminPanel extends JFrame {
 
 	private static final int numOfAssigns = 6;
@@ -57,7 +60,7 @@ public class AdminPanel extends JFrame {
 	LinkedList<JCheckBox> isPeriodic = new LinkedList<JCheckBox>();
 	LinkedList<JPanel> miniPanel = new LinkedList<JPanel>();
 	private CheckBoxList pendingRegistrationsList;
-	public StatusMonitorTab smt = null;
+	private StatusMonitorTab smt = null;
 	private String lastSASelectedToAssignJob = null;
 	private JComboBox<String> saDropDownList;
 	private int lastSetPeriod = -1;
@@ -81,7 +84,7 @@ public class AdminPanel extends JFrame {
 	private JFrame myFrame = (JFrame) this;
 	
 	/**
-	 * Create the frame.
+	 * Creates the main frame.
 	 */
 	public AdminPanel() {
 		setResizable(false);
@@ -343,7 +346,7 @@ public class AdminPanel extends JFrame {
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
 				if (lastSASelectedToDeleteJob != null) {
 					delList.removeAll();
-					JobDeletionTab.pupulateList(delList, lastSASelectedToDeleteJob);
+					JobDeletionTab.populateList(delList, lastSASelectedToDeleteJob);
 				}
 			}
 
@@ -572,7 +575,7 @@ public class AdminPanel extends JFrame {
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
 				if (lastSASelectedToDeleteJob != null) {
 					delList.removeAll();
-					JobDeletionTab.pupulateList(delList, lastSASelectedToDeleteJob);
+					JobDeletionTab.populateList(delList, lastSASelectedToDeleteJob);
 				}
 			}
 			@Override
@@ -611,6 +614,12 @@ public class AdminPanel extends JFrame {
 
 	}
 
+	/**
+	 * Getter for the pending registrations list.
+	 * 
+	 * @return Returns the pending registration list.
+	 * 
+	 */
 	public CheckBoxList getPendingRegistrationsList() {
 		return pendingRegistrationsList;
 	}

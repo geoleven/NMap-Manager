@@ -1,14 +1,27 @@
 package gr.uoa.di.NmapProject.AM.GUI;
 
+/**
+ * A class holding minimal job preview information.
+ * 
+ * @author George
+ *
+ */
 public class JobPrev {
-	public String params = null;
-	public String periodic = null;
-	public int period = -1;
-	public int id = -1;
+	private String params = null;
+//	private String periodic = null;
+	private int period = -1;
+	private int id = -1;
 
+	/**
+	 * Creates a new job preview.
+	 * @param i The job's id.
+	 * @param p The job's parameters.
+	 * @param per The job's period if periodic.
+//	 * @param ispr The job's periodic status.
+	 */
 	public JobPrev(int i, String p, int per, String ispr) {
 		params = p;
-		periodic = ispr;
+//		periodic = ispr;
 		period = per;
 		id = i;
 	}

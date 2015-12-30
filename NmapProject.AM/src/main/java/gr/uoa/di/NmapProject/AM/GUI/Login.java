@@ -7,16 +7,25 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+/**
+ * This class holds the GUI for the first mini-panel for the administrator log in.
+ * @author George
+ *
+ */
+@SuppressWarnings("javadoc")
 public class Login extends JFrame{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5759641117023243983L;
+	
 	public JTextField userText;
+	
 	public JButton loginButton;
+	
 	public JPasswordField passwordText;
 	
+	/**
+	 * Creates the login mini-panel.
+	 */
 	public Login() {
 		
 		setTitle("Admin Login");
