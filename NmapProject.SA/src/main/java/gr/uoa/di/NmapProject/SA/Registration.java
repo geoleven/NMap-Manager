@@ -61,7 +61,14 @@ public class Registration {
 			MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
 			messageDigest.update(union.getBytes("UTF-8"));
 			unionHash = String.format("%064x", new java.math.BigInteger(1, messageDigest.digest()));
-			Globals.saHash = unionHash; 
+			
+			//You do the cheating here
+			if(Globals.saHash != null){
+				unionHash = Globals.saHash; 
+			}else{
+				Globals.saHash = unionHash; 
+			}
+			
 		}catch(Exception ex){
 			System.err.println(ex.getMessage());
 			ex.printStackTrace();

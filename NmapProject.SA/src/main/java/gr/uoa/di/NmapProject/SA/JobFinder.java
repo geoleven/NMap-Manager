@@ -46,15 +46,17 @@ public class JobFinder implements Runnable {
 	private void requestJobs() throws Exception {
 		
 		LinkedList<NmapJob> jobs = serverSide.requestJobs();
-		for(NmapJob j : jobs){
-			System.out.println("New Job :");
-			j.print();
-			if (j.periodic) {
-				myPeriodicJobs.addToPeriodicJobs(j);
-			} else {
-				OneTimeJobsQueue.addJob(j);
-				synchronized (OneTimeJobsQueue) {
-					OneTimeJobsQueue.notify();
+		if(jobs != null){
+			for(NmapJob j : jobs){
+				System.out.println("New Job :");
+				j.print();
+				if (j.periodic) {
+					myPeriodicJobs.addToPeriodicJobs(j);
+				} else {
+					OneTimeJobsQueue.addJob(j);
+					synchronized (OneTimeJobsQueue) {
+						OneTimeJobsQueue.notify();
+					}
 				}
 			}
 		}

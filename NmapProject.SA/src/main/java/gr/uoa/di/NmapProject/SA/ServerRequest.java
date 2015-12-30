@@ -109,40 +109,44 @@ public class ServerRequest {
 	}
 	
 	public LinkedList<NmapJob> requestJobs() {
-		ArrayList<String> params = new ArrayList<String>();
-		params.add(Globals.saHash);
-		
-		ClientResponse response = get("job/get", params);
-		if (response.getStatus() == 200) {
-			String jsonString  = response.getEntity(String.class);
+		try{
+			ArrayList<String> params = new ArrayList<String>();
+			params.add(Globals.saHash);
 			
-			ObjectMapper mapper = new ObjectMapper();
-			
-			try{
-				LinkedList<LinkedHashMap> jobList = mapper.readValue(jsonString, LinkedList.class);
+			ClientResponse response = get("job/get", params);
+			if (response.getStatus() == 200) {
+				String jsonString  = response.getEntity(String.class);
 				
-				LinkedList<NmapJob> results = new LinkedList<NmapJob>(); 
-				for(LinkedHashMap e : jobList){
-					results.add( 
-						new NmapJob(
-							(int) e.get("id"),
-							(String) e.get("parameters"),
-							(Boolean) e.get("periodic"),
-							(int) e.get("period")
-						));
-				}
+				ObjectMapper mapper = new ObjectMapper();
 				
-				return results;
+				try{
+					LinkedList<LinkedHashMap> jobList = mapper.readValue(jsonString, LinkedList.class);
+					
+					LinkedList<NmapJob> results = new LinkedList<NmapJob>(); 
+					for(LinkedHashMap e : jobList){
+						results.add( 
+							new NmapJob(
+								(int) e.get("id"),
+								(String) e.get("parameters"),
+								(Boolean) e.get("periodic"),
+								(int) e.get("period")
+							));
+					}
+					
+					return results;
+					
+				}catch (Exception ex){
+		    		
+		    		System.out.println(ex.getMessage());
+		    		
+		    		return null;
+		    	}
 				
-			}catch (Exception ex){
-	    		
-	    		System.out.println(ex.getMessage());
-	    		
-	    		return null;
-	    	}
-			
-		}else{
-			System.out.println("Job Request Server Response : " + response.getStatus());
+			}else{
+				System.out.println("Job Request Server Response : " + response.getStatus());
+			}
+		} catch (Exception ex){
+			System.out.println("Server is not Responding");
 		}
 		
 		return null;

@@ -22,6 +22,7 @@ import gr.uoa.di.NmapProject.AM.DB.JobDAO;
 import gr.uoa.di.NmapProject.AM.DB.Result;
 import gr.uoa.di.NmapProject.AM.DB.ResultDAO;
 import gr.uoa.di.NmapProject.AM.DB.SADAO;
+import gr.uoa.di.NmapProject.AM.Server.OnlineStatus;
 
 /**
  * Root resource (exposed at "register" path)
@@ -40,9 +41,9 @@ public class JobRequest {
     @Produces("application/json")
     public Response getIt(@PathParam("hash") String curHash) {
     	
-    	System.out.println("Got request for jobs from : "+curHash);
-    	
     	JSONObject resp = new JSONObject();
+    	
+    	// Find SA
     	int saID = SADAO.hashToId(curHash);
     	
     	if (saID == 0) {
@@ -50,11 +51,20 @@ public class JobRequest {
     		return Response.status(200).entity(resp.toJSONString()).build();
     	}
     	
+    	// Update SAs Online Status
+    	OnlineStatus.getInstance().update(curHash);
+    	
+    	// Find jobs for SA
     	LinkedList<Job> jobsToSendToSa = JobDAO.getAllSAJobs(saID);
+    	
+    	if(jobsToSendToSa.size() > 0){
+    		System.out.println("Sending to SA "+curHash+" the following job(s) :");
+    	}
     	for (Job j : jobsToSendToSa) {
     		j.print();
     	}
     	
+    	// Create JSON and Sent
     	ObjectMapper mapper = new ObjectMapper();
     	
     	try{
@@ -85,6 +95,8 @@ public class JobRequest {
     	int jobID = (int) ((LinkedHashMap) res.get("job")).get("id");
     	int saID = JobDAO.sa(jobID);
     	String xml = (String) res.get("result");
+    	
+    	System.out.println("Got Results for Job : "+jobID);
     	
     	String status;
     	if(ResultDAO.insert(new Result(jobID , saID , xml))){

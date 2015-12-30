@@ -6,5 +6,5 @@ public class Globals {
 	public static int oneTimeJobThreadsNumber = 0;
 	public static String baseURL = "http://localhost:8080/am/";
 	public static boolean local = false;
-	public static String saHash;
+	public static String saHash = "cheat_SA_1";
 }

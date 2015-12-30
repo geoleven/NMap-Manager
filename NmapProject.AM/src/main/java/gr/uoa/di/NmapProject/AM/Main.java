@@ -1,6 +1,7 @@
 package gr.uoa.di.NmapProject.AM;
 
 import gr.uoa.di.NmapProject.AM.GUI.App;
+import gr.uoa.di.NmapProject.AM.Server.OnlineStatus;
 
 /**
  * Main class.
