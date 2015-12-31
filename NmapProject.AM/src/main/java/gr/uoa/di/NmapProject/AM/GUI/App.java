@@ -29,11 +29,16 @@ public class App {
 		startLoginFrame();
 	}
 	
+	/**
+	 * Starts the server
+	 */
 	private void startServer(){
 		server = new Server("http://localhost:8080/am/");
 		server.start();
 	}
-	
+	/**
+	 * Creates the login frame
+	 */
 	private void startLoginFrame(){
 		loginFrame = new Login();
 		
@@ -76,7 +81,9 @@ public class App {
 
 	}
 	
-	
+	/**
+	 * Creates the Admin Panel after loggin in
+	 */
 	private void startAdminPanel() {
 	adminPanel = new AdminPanel();
 	adminPanel.setVisible(true);
@@ -90,7 +97,9 @@ public class App {
 	});
 }
 	
-
+	/**
+	 * Stop the server and quits
+	 */
 	private void exit(){
 		server.stop();
 		System.exit(0);

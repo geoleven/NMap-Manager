@@ -7,9 +7,24 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
-
+/**
+ * Data Access Class for queries for jobs
+ * @author George
+ *
+ */
 public class JobDAO {
-
+	/**
+	 * 
+	 * Returns jobs for a specific sa
+	 * Jobs statuses are either
+	 * Pending for new jobs
+	 * or Delete to stop periodic jobs
+	 * 
+	 * @param saID
+	 * 		id of the sa
+	 * @return
+	 * 		list of jobs
+	 */
 	public static LinkedList<Job> getAllSAJobs(int saID) {
 		LinkedList<Job> saJobs = new LinkedList<Job>();
 		Connection db = DB.connect();
@@ -52,6 +67,12 @@ public class JobDAO {
 		return saJobs;
 	}
 	
+	/**
+	 * Insert a new job to db
+	 * @param job
+	 * @return
+	 * 		success or fail
+	 */
 	public static boolean newJob(Job job) {
 		Connection db = DB.connect();
 
@@ -116,6 +137,13 @@ public class JobDAO {
 		return saID;
 	}
 	
+	/**
+	 * 
+	 * Set the status of a periodic job to delete 
+	 * 
+	 * @param id
+	 * 		jobs id
+	 */
 	public static void setStatusToDelete(int id){
 		Connection db = DB.connect();
 

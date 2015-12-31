@@ -4,12 +4,24 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-
+/**
+ * 
+ * Responsible for the configuration of the SA 
+ * 
+ * @author George
+ *
+ */
 public class SAProperties {
-	
+	/**
+	 * Read the one time job thread number from specified path
+	 */
 	public void readThreadNum(){
 		readThreadNum(Globals.pathName + "properties");
 	}
+	/**
+	 * read thread number
+	 * @param filename
+	 */
 	public void readThreadNum(String filename) {
 		
 		File myPath = new File(filename);

@@ -25,15 +25,15 @@ import gr.uoa.di.NmapProject.AM.DB.SADAO;
 import gr.uoa.di.NmapProject.AM.Server.OnlineStatus;
 
 /**
- * Root resource (exposed at "register" path)
+ * Jobs web resource
  */
 @Path("job")
 public class JobRequest {
 	/**
-     * Method handling HTTP GET requests. The returned object will be sent
-     * to the client as "text/plain" media type.
      *
-     * @return String that will be returned as a text/plain response.
+     * Handling requests asking for jobs	
+     *
+     * @return json with a list of jobs of signal to exit
      */
     @SuppressWarnings("unchecked")
 	@GET
@@ -92,6 +92,11 @@ public class JobRequest {
     	}
     }
     
+    /**
+     * 
+     * Handling requests Sending results
+     * 
+     */
     @SuppressWarnings("unchecked")
 	@POST
 	@Path("result")

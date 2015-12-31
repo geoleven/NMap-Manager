@@ -9,15 +9,15 @@ import javax.ws.rs.core.Response;
 import org.json.simple.JSONObject;
 
 /**
- * Root resource (exposed at "register" path)
+ * Test web resource
  */
 @Path("gettest")
 public class GetTest {
 	/**
-     * Method handling HTTP GET requests. The returned object will be sent
-     * to the client as "text/plain" media type.
      *
-     * @return String that will be returned as a text/plain response.
+     * Handles Test request
+     *
+     * @return the params given 
      */
     @SuppressWarnings("unchecked")
 	@GET

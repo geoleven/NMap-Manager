@@ -14,16 +14,16 @@ import gr.uoa.di.NmapProject.AM.DB.SA;
 import gr.uoa.di.NmapProject.AM.DB.SADAO;
 
 /**
- * Root resource (exposed at "register" path)
+ * Register web Resource
  */
 @Path("register")
 public class Register {
 	
 	/**
-     * Method handling HTTP GET requests. The returned object will be sent
-     * to the client as "text/plain" media type.
+     *	
+     *	Handles Register requests
      *
-     * @return String that will be returned as a text/plain response.
+     * @return return status (ok if authentication is successful)
      */
 	
     @SuppressWarnings("unchecked")

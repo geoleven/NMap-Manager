@@ -1,7 +1,22 @@
 package gr.uoa.di.NmapProject.SA;
 
+/**
+ * 
+ * Main class of SA 
+ * 
+ * After registering successfully
+ * 
+ * Creates and starts all threads
+ * 
+ * @author George
+ *
+ */
 public class Main {
-
+	/**
+	 * main method
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		try {
 			

@@ -5,8 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+/**
+ * 
+ * Data Access Class for all the SA related queries
+ * 
+ * @author George
+ *
+ */
 public class SADAO {
+	/**
+	 * 
+	 * returns true if an SA exists in db with given hash
+	 * 		   false otherwise
+	 */
 	public static boolean exists(String hash) {
 		Connection db = DB.connect();
 		try {
@@ -24,7 +35,12 @@ public class SADAO {
 		}
 		return false;
 	}
-
+	/**
+	 * 
+	 * returns true if SA with given has is registered
+	 * false otherwise
+	 * 
+	 */
 	public static boolean isAccepted(String hash) {
 		Connection db = DB.connect();
 		try {
@@ -42,7 +58,12 @@ public class SADAO {
 		}
 		return false;
 	}
-
+	/**
+	 * 
+	 * adds an SA to db
+	 * 
+	 * @param sa
+	 */
 	public static void add(SA sa) {
 		Connection db = DB.connect();
 		try {
@@ -62,7 +83,11 @@ public class SADAO {
 			DB.SQLError(ex);
 		}
 	}
-
+	
+	/**
+	 * return the id of an SA given the hash
+	 * @param myHash
+	 */
 	public static int hashToId(String myHash) {
 		Connection db = DB.connect();
 		int found = 0;

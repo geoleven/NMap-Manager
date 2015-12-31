@@ -8,7 +8,13 @@ import java.util.Collections;
 import java.util.Enumeration;
 
 import org.json.simple.JSONObject;
-
+/**
+ * 
+ * Information required for registering to AM
+ * 
+ * @author George
+ *
+ */
 public class Registration {
 
 	String deviceName = null;
@@ -17,7 +23,10 @@ public class Registration {
 	String osVersion = null;
 	String nMapVersion = null;
 	String unionHash = null;
-
+	/**
+	 * Find the required information 
+	 * and produce a hash out of it
+	 */
 	public Registration(){
 		try{
 			InetAddress netAddrIp = null;
@@ -75,7 +84,17 @@ public class Registration {
 			System.exit(-1);
 		}
 	}
-
+	/**
+	 * 
+	 * Print Registration form
+	 * 
+	 * @param myDevice
+	 * @param myInterfaceIP
+	 * @param myMac
+	 * @param myOS
+	 * @param myNmap
+	 * @param myHash
+	 */
 	public void PrintRegistrationForm(String myDevice, InetAddress myInterfaceIP, String myMac, String myOS,
 			String myNmap, String myHash) {
 		System.out.println(myDevice);
@@ -85,7 +104,11 @@ public class Registration {
 		System.out.println(myNmap);
 		System.out.println(myHash);
 	}
-
+	
+	/**
+	 * Create a json registration form
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public JSONObject toJson() {
 		JSONObject json = new JSONObject();

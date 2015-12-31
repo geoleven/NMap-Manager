@@ -4,13 +4,23 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
-
+/**
+ * 
+ * Singleton Class foor tracking online SAs
+ * and SAs that need to exit
+ * 
+ * @author George
+ *
+ */
 public class OnlineStatus {
 	
 	private static OnlineStatus instance = new OnlineStatus();
 	
 	private OnlineStatus(){}
 	
+	/**
+	 * Returns the only instance of OnlineStatus
+	 */
 	public static OnlineStatus getInstance(){
 		return instance;
 	}
@@ -19,6 +29,14 @@ public class OnlineStatus {
 	
 	LinkedList<String> forExit = new LinkedList<String>();
 	
+	/**
+	 * 
+	 * Updates the time of the last request of an SA
+	 * 
+	 * @param saHash
+	 * 		SAs Hash
+	 * 	
+	 */
 	public void update( String saHash ){
 		 java.util.Date date= new java.util.Date();
 		 Timestamp curTime = new Timestamp(date.getTime());
@@ -39,7 +57,16 @@ public class OnlineStatus {
 			 saLastRequest.add(s);
 		 }
 	}
-	
+	/**
+	 * 
+	 * Online Status of SA
+	 * 
+	 * @param saHash
+	 * 		hash of the SA
+	 * @return
+	 * 		true if SA is online
+	 * 		false otherwise
+	 */
 	public boolean isOnline( String saHash ){
 		
 		for(Map<String, Object> s : saLastRequest){
@@ -62,7 +89,9 @@ public class OnlineStatus {
 		
 		return false;
 	}
-	
+	/**
+	 * print statuses for all SAs
+	 */
 	public void printStatuses(){
 		
 		System.out.println("SA statuses : ");
@@ -76,6 +105,13 @@ public class OnlineStatus {
 		
 	}
 	
+	/**
+	 * 
+	 * Set an SA as ready for exit
+	 * 
+	 * @param hash
+	 * 		hash of the SA
+	 */
 	public void setForExit( String hash ){
 		boolean contains = false;
 		for( String h : forExit){
@@ -87,7 +123,13 @@ public class OnlineStatus {
 			forExit.add(hash);
 		}
 	}
-	
+	/**
+	 * Return SA exit status
+	 * @param hash
+	 * 		hash of the SA
+	 * @return
+	 * 		true if ready else false
+	 */
 	public boolean isForExit( String hash ){
 		for( String h : forExit){
 			if(h.equals(hash)){
@@ -97,10 +139,17 @@ public class OnlineStatus {
 		return false;
 	}
 	
+	/**
+	 * After exiting remove SA from the list
+	 * @param hash
+	 * 		hash of the SA
+	 */
 	public void exited( String hash ){
 		forExit.remove(hash);
 	}
-	
+	/**
+	 * Print all SAs that are ready for exiting
+	 */
 	public void printExit(){
 		System.out.println("Set for Exit :");
 		

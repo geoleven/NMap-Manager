@@ -1,15 +1,26 @@
 package gr.uoa.di.NmapProject.SA;
-
+/**
+ * 
+ * Thread for sending results over to AM
+ * 
+ * @author George
+ *
+ */
 public class SenderThread implements Runnable {
 
 	ResultQueue resultQueue;
 	ServerRequest serverSide;
-
+	/**
+	 * Constructor
+	 * @param q
+	 */
 	public SenderThread(ResultQueue q) {
 		resultQueue = q;
 		serverSide = new ServerRequest(Globals.baseURL);
 	}
-
+	/**
+	 * Main loop
+	 */
 	public void run() {
 		try {
 			while (true) {
@@ -24,7 +35,12 @@ public class SenderThread implements Runnable {
 			System.err.println("Unexpected exception " + e.getMessage() + " @SenderThread.run");
 		}
 	}
-	
+	/**
+	 * Searches for results in queue
+	 * if it finds one it sends them to AM
+	 * @return
+	 * @throws Exception
+	 */
 	private boolean sendToServer() throws Exception {
 		Result res = resultQueue.getResult();
 		if (res != null) {
@@ -35,7 +51,11 @@ public class SenderThread implements Runnable {
 		}
 		return false;
 	}
-
+	/**
+	 * Print results ( Dont use this )
+	 * @return
+	 * @throws Exception
+	 */
 	private boolean printResult() throws Exception {
 		Result res = resultQueue.getResult();
 		if (res != null) {

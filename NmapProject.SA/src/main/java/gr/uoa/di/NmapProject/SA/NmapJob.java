@@ -3,14 +3,42 @@ package gr.uoa.di.NmapProject.SA;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
+/**
+ *
+ * Nmap job Class
+ * 
+ * @author George
+ *
+ */
 public class NmapJob {
+	/**
+	 * id of job
+	 */
 	public int id = 0;
+	/**
+	 * parameters of job
+	 */
 	public String parameters = "";
+	/**
+	 * is the job periodic or not ?
+	 */
 	public boolean periodic = false;
+	/**
+	 * period of job ( 0 or -1 if not periodic)
+	 */
 	public int period = 0;
+	/**
+	 * status of job (Delete or Pending)
+	 */
 	public String status = ""; 
-
+	
+	/**
+	 * Constructor without status
+	 * @param id
+	 * @param parameters
+	 * @param periodic
+	 * @param period
+	 */
 	public NmapJob(int id, String parameters, boolean periodic, int period) {
 		this.id = id;
 		this.parameters = parameters;
@@ -18,6 +46,14 @@ public class NmapJob {
 		this.period = period;
 	}
 	
+	/**
+	 * Constructor with status
+	 * @param id
+	 * @param parameters
+	 * @param periodic
+	 * @param period
+	 * @param status
+	 */
 	public NmapJob(int id, String parameters, boolean periodic, int period , String status) {
 		this.id = id;
 		this.parameters = parameters;
@@ -25,7 +61,11 @@ public class NmapJob {
 		this.period = period;
 		this.status = status;
 	}
-
+	
+	/**
+	 * Execute a Job 
+	 * @return
+	 */
 	public String runJob() {
 		String result = "";
 		try {
@@ -52,7 +92,10 @@ public class NmapJob {
 		}
 		return result;
 	}
-
+	
+	/**
+	 * Results of a job
+	 */
 	public void print() {
 		System.out.println("[ " + id + " | " + parameters + " | " + periodic + " | " + period + " ]");
 	}

@@ -3,9 +3,18 @@ package gr.uoa.di.NmapProject.AM.DB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
+/**
+ * 
+ * Data Access class for result related queries
+ * 
+ * @author George
+ *
+ */
 public class ResultDAO {
-	
+	/**
+	 * insert a new result to db
+	 * @param res
+	 */
 	public static boolean insert(Result res){
 		Connection db = DB.connect();
 		

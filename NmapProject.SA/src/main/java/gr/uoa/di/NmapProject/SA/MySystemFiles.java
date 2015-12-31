@@ -1,9 +1,18 @@
 package gr.uoa.di.NmapProject.SA;
 
 import java.io.File;
-
+/**
+ * 
+ * Class for file managment
+ * 
+ * @author George
+ *
+ */
 public class MySystemFiles {
-
+	/**
+	 * Check if a path exists
+	 * @return 
+	 */
 	public static boolean checkProgramPathExists(){
 		File path = new File(Globals.pathName);
 		if (path.exists() && path.isDirectory()) {
