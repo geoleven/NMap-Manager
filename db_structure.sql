@@ -16,14 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `nmapproject`
---
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `nmapproject` /*!40100 DEFAULT CHARACTER SET latin1 */;
-
-USE `nmapproject`;
-
---
 -- Table structure for table `admins`
 --
 
@@ -36,7 +28,7 @@ CREATE TABLE `admins` (
   `active` tinyint(1) DEFAULT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +37,7 @@ CREATE TABLE `admins` (
 
 LOCK TABLES `admins` WRITE;
 /*!40000 ALTER TABLE `admins` DISABLE KEYS */;
-INSERT INTO `admins` VALUES ('test','test',0,1),('test2','pass2',1,2),('test2','pass2',1,3);
+INSERT INTO `admins` VALUES ('admin','admin',1,1);
 /*!40000 ALTER TABLE `admins` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,8 +55,10 @@ CREATE TABLE `jobs` (
   `periodic` tinyint(4) DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL,
   `sa_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`),
+  KEY `fk_jobs_software_agents1_idx` (`sa_id`),
+  CONSTRAINT `fk_jobs_software_agents1` FOREIGN KEY (`sa_id`) REFERENCES `software_agents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -85,12 +79,16 @@ DROP TABLE IF EXISTS `results`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `results` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `xml` text,
-  `job_id` int(11) DEFAULT NULL,
+  `xml` longtext CHARACTER SET ascii COLLATE ascii_bin,
+  `jobs_id` int(11) NOT NULL,
+  `software_agents_id` int(11) NOT NULL,
+  `time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `fk_results_1_idx` (`job_id`),
-  CONSTRAINT `fk_results_1` FOREIGN KEY (`id`) REFERENCES `jobs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `fk_results_jobs1_idx` (`jobs_id`),
+  KEY `fk_results_software_agents1_idx` (`software_agents_id`),
+  CONSTRAINT `fk_results_jobs1` FOREIGN KEY (`jobs_id`) REFERENCES `jobs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_results_software_agents1` FOREIGN KEY (`software_agents_id`) REFERENCES `software_agents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,8 +115,9 @@ CREATE TABLE `software_agents` (
   `os_version` varchar(255) DEFAULT NULL,
   `nmap_version` varchar(255) DEFAULT NULL,
   `hash` varchar(255) DEFAULT NULL,
+  `is_accepted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,4 +138,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-13 20:11:58
+-- Dump completed on 2015-12-31 21:36:39
