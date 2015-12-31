@@ -2,6 +2,7 @@ package gr.uoa.di.NmapProject.AM.GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -26,6 +27,27 @@ public class App {
 	 */
 	public void run(){
 		startServer();
+		startOrExit();
+	}
+	
+	/**
+	 * Display continue dialog
+	 */
+	public void startOrExit(){
+		System.out.println("Type 'start' to open  Admin Panel or anything else to exit");
+		Scanner in = new Scanner(System.in);
+		String input = in.nextLine();
+		if(input.equals("start")){
+			startGUI();
+		}else{
+			exit();
+		}
+	}
+	
+	/**
+	 * Start GUI
+	 */
+	public void startGUI(){
 		startLoginFrame();
 	}
 	
@@ -72,7 +94,9 @@ public class App {
 		            "Are you sure to close this window?", "Really Closing?", 
 		            JOptionPane.YES_NO_OPTION,
 		            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-		            exit();
+		        	loginFrame.dispose();
+		        	loginFrame = null;
+		            startOrExit();
 		        }
 		    }
 		});
@@ -85,17 +109,19 @@ public class App {
 	 * Creates the Admin Panel after loggin in
 	 */
 	private void startAdminPanel() {
-	adminPanel = new AdminPanel();
-	adminPanel.setVisible(true);
-	
-	adminPanel.addWindowListener(new java.awt.event.WindowAdapter() {
-	    @Override
-	    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-	    	//closethreadstatus
-	        exit();
-	    }
-	});
-}
+		adminPanel = new AdminPanel();
+		adminPanel.setVisible(true);
+		
+		adminPanel.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		    	//closethreadstatus
+		    	adminPanel.dispose();
+		    	adminPanel = null;
+		    	startOrExit();
+		    }
+		});
+	}
 	
 	/**
 	 * Stop the server and quits
