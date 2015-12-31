@@ -21,6 +21,7 @@ public class App {
 	private Server server;
 	private Login loginFrame;
 	private AdminPanel adminPanel;
+	private Scanner in = new Scanner(System.in);
 	
 	/**
 	 * Runs the main GUI application.
@@ -35,7 +36,6 @@ public class App {
 	 */
 	public void startOrExit(){
 		System.out.println("Type 'start' to open  Admin Panel or anything else to exit");
-		Scanner in = new Scanner(System.in);
 		String input = in.nextLine();
 		if(input.equals("start")){
 			startGUI();
@@ -45,10 +45,24 @@ public class App {
 	}
 	
 	/**
+	 * Press Enter to close Server
+	 */
+	public void enterToExit(){
+		
+		System.out.println("Press Enter to close the Server");
+		String input = in.nextLine();
+		exit();
+	}
+	
+	/**
 	 * Start GUI
 	 */
 	public void startGUI(){
-		startLoginFrame();
+		try{
+			startLoginFrame();
+		} catch (Exception ex){
+			System.out.println(ex.getMessage());
+		}
 	}
 	
 	/**
@@ -61,7 +75,7 @@ public class App {
 	/**
 	 * Creates the login frame
 	 */
-	private void startLoginFrame(){
+	private void startLoginFrame() throws Exception{
 		loginFrame = new Login();
 		
 //		Client client = ClientBuilder.newClient();
@@ -77,7 +91,7 @@ public class App {
 				if(AdminDAO.authenticate(username, password)){
 					loginFrame.dispose();
 					loginFrame = null;
-					startAdminPanel();
+					enterToExit();
 				}
 				else{
 					JOptionPane.showMessageDialog(source , "Authentication Failed");
@@ -96,7 +110,7 @@ public class App {
 		            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
 		        	loginFrame.dispose();
 		        	loginFrame = null;
-		            startOrExit();
+		        	enterToExit();
 		        }
 		    }
 		});
