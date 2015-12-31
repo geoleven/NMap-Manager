@@ -30,3 +30,36 @@ predifened default number of 5 threads for one time jobs.
 The job files should be placed at any time inside the aforementioned path 
 "~/.myNmap/" and can have any possible name except that of the property file
 ("properties"). There may be one or more files.
+
+________________________________________________________________________________
+
+The second part of the project is complete and everything should be working as 
+expected (we tested it in the extent we could with the recourses we have). 
+It was programmed in eclipse IDE environment and run with the latest Java 1.8.
+
+The GUI is designed with Java Swing and a very few elements of awt. The Eclipse 
+window builder was used for the basic implementation of the main frame of the 
+gui but it was then programmed by hand so some more dynamic look and 
+functionality could be added, making the window builder to not able to render
+it fully (it should always be tested by running it properly). 
+
+The XML results are fully parsed and converted to HTML pages which are then 
+rendered within the GUI. The style-sheet used for the rendering is the default 
+that comes with the nmap installation and should always exist in 
+"/usr/share/nmap/nmap.xsl". We chose not to fetch the style-sheet from online 
+sources because of possible incompatibilities between the various versions of 
+NMap (especially considering the fact that it recently changed major version). 
+
+The connectivity is achieved with the preferred (within the notes of this 
+project) server, the Jersey server. We have used JSON object to send and receive 
+everything needed. 
+
+Minor changes were also done the SA module, so it could accomplish the new 
+functionality of requesting jobs from the A.M. and parse special termination 
+jobs, as well as ending specific periodic jobs, e.t.c..
+
+The refresh rate which applies to both the request rate and the online status
+refresh rate can be set to the Globals.java file in each project respectively. 
+
+The project now has complete javadoc documentation and we have as well extracted
+the online HTML form of it with a custom style-sheet for aesthetic purposes.
