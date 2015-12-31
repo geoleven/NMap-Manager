@@ -63,3 +63,5 @@ refresh rate can be set to the Globals.java file in each project respectively.
 
 The project now has complete javadoc documentation and we have as well extracted
 the online HTML form of it with a custom style-sheet for aesthetic purposes.
+
+
