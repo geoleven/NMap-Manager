@@ -9,12 +9,21 @@ public class NmapJob {
 	public String parameters = "";
 	public boolean periodic = false;
 	public int period = 0;
+	public String status = ""; 
 
 	public NmapJob(int id, String parameters, boolean periodic, int period) {
 		this.id = id;
 		this.parameters = parameters;
 		this.periodic = periodic;
 		this.period = period;
+	}
+	
+	public NmapJob(int id, String parameters, boolean periodic, int period , String status) {
+		this.id = id;
+		this.parameters = parameters;
+		this.periodic = periodic;
+		this.period = period;
+		this.status = status;
 	}
 
 	public String runJob() {
@@ -47,4 +56,5 @@ public class NmapJob {
 	public void print() {
 		System.out.println("[ " + id + " | " + parameters + " | " + periodic + " | " + period + " ]");
 	}
+	
 }

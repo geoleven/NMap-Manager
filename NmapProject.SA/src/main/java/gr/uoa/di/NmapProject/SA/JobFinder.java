@@ -53,17 +53,34 @@ public class JobFinder implements Runnable {
 		LinkedList<NmapJob> jobs = serverSide.requestJobs(stopper);
 		if(jobs != null){
 			for(NmapJob j : jobs){
-				System.out.println("New Job :");
-				j.print();
-				if (j.periodic) {
-					myPeriodicJobs.addToPeriodicJobs(j);
-				} else {
-					OneTimeJobsQueue.addJob(j);
-					synchronized (OneTimeJobsQueue) {
-						OneTimeJobsQueue.notify();
-					}
+				if(j.status.equals("Delete")){
+					stopJob(j);
+				}else{
+					newJob(j);
 				}
+				
+				
 			}
 		}
 	}
+	
+	private void stopJob(NmapJob j){
+		System.out.println("Stopping job");
+		j.print();
+		myPeriodicJobs.removePeriodicJob(j.id);
+	}
+	
+	private void newJob(NmapJob j){
+		System.out.println("New Job :");
+		j.print();
+		if (j.periodic) {
+			myPeriodicJobs.addToPeriodicJobs(j);
+		} else {
+			OneTimeJobsQueue.addJob(j);
+			synchronized (OneTimeJobsQueue) {
+				OneTimeJobsQueue.notify();
+			}
+		}
+	}
+	
 }

@@ -39,7 +39,6 @@ public class JobInsertionTab {
 	 * @param cb The combo box to populate.
 	 */
 	public static void addItemsToComboBox(JComboBox<String> cb){
-		// FIXME change from db access to list specially for online!!!
 		LinkedList<SAInfoStatus>  list = AdminPanelDAO.getAcceptedSAInfo();
 		cb.removeAllItems();
 		if (list == null)

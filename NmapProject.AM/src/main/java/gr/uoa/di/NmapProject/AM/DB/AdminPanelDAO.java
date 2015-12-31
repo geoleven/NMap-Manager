@@ -82,7 +82,6 @@ public class AdminPanelDAO {
 				
 				SAInfoStatus sa = new SAInfoStatus(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
 						rs.getString(5), rs.getString(6), rs.getString(7), rs.getBoolean(8),
-						// TODO ti sto peos pita? :P
 						true);
 				
 				sa.status = OnlineStatus.getInstance().isOnline(sa.unionHash);
@@ -109,7 +108,7 @@ public class AdminPanelDAO {
 		Connection db = DB.connect();
 		try {
 			String query = "SELECT j.id, j.parameters, j.time, j.periodic FROM jobs j, software_agents sa WHERE sa.hash = \""
-					+ curSA + "\" AND j.sa_id = sa.id";
+					+ curSA + "\" AND j.sa_id = sa.id AND status =\"Executing\" ";
 			Statement stmt = db.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {

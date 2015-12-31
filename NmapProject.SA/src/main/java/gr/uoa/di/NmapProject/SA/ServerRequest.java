@@ -139,7 +139,8 @@ public class ServerRequest {
 								(int) e.get("id"),
 								(String) e.get("parameters"),
 								(Boolean) e.get("periodic"),
-								(int) e.get("period")
+								(int) e.get("period"),
+								(String) e.get("status")
 							));
 					}
 					

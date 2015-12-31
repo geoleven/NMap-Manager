@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import gr.uoa.di.NmapProject.AM.DB.AdminPanelDAO;
+import gr.uoa.di.NmapProject.AM.DB.JobDAO;
 
 /**
  * The class holding all the needed functions for the job deletion tab.
@@ -30,13 +31,15 @@ public class JobDeletionTab {
 	}
 
 	/**
-	 * Does the actually job stopping of a job.
+	 * Changes jobs status too "Delete" in db.
 	 * 
 	 * @param jp
 	 *            The job to stop.
 	 */
 	public static void stopJobOfSA(JobPrev jp) {
-		// TODO Write the code to enqueue the stop job jp
 		System.out.println(jp.toString());
+		
+		JobDAO.setStatusToDelete(jp.id());
+		
 	}
 }

@@ -31,4 +31,8 @@ public class JobPrev {
 		return String.format("<html><pre>%s</pre></html>",
 				"ID: " + id + "\t Parameters: " + params + "\t Period: " + period);
 	}
+	
+	public int id(){
+		return id;
+	}
 }

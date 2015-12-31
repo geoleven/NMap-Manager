@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
+
 public class JobDAO {
 
 	public static LinkedList<Job> getAllSAJobs(int saID) {
@@ -15,7 +16,7 @@ public class JobDAO {
 		Job temp;
 
 		try {
-			String query = " SELECT * from jobs j WHERE j.sa_id = " + saID + " AND j.status = \"Pending\"";
+			String query = " SELECT * from jobs j WHERE j.sa_id = " + saID + " AND (j.status = \"Pending\" OR j.status = \"Delete\")";
 			Statement stmt = db.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
@@ -24,12 +25,21 @@ public class JobDAO {
 						rs.getString(5));
 				saJobs.add(temp);
 				
-				query = "UPDATE jobs SET status = ? WHERE id = ?";
+				query = "UPDATE jobs SET status = ? WHERE id = ? AND status= ?";
 					
 				PreparedStatement preparedStmt = db.prepareStatement(query);
 				
 				preparedStmt.setString (1, "Executing");
 				preparedStmt.setInt (2, rs.getInt(1));
+				preparedStmt.setString(3, "Pending");
+				
+				preparedStmt.execute();
+				
+				preparedStmt = db.prepareStatement(query);
+				
+				preparedStmt.setString (1, "Stopped");
+				preparedStmt.setInt (2, rs.getInt(1));
+				preparedStmt.setString(3, "Delete");
 				
 				preparedStmt.execute();
 				
@@ -104,6 +114,27 @@ public class JobDAO {
 		}
 
 		return saID;
+	}
+	
+	public static void setStatusToDelete(int id){
+		Connection db = DB.connect();
+
+		try {
+
+			String query = "UPDATE jobs SET status = ? WHERE id = ? ";
+
+			PreparedStatement preparedStmt = db.prepareStatement(query);
+
+			preparedStmt.setString(1, "Delete");
+			preparedStmt.setInt(2, id);
+			
+			preparedStmt.execute();
+
+			db.close();
+
+		} catch (SQLException ex) {
+			DB.SQLError(ex);
+		}
 	}
 
 }

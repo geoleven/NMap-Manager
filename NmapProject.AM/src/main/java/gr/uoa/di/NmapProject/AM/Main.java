@@ -15,11 +15,5 @@ public class Main {
 		Globals globals = new Globals();
 		App app = new App();
 		app.run();
-		
-		//TODO REMOVE THIS 
-//		while(true){
-//			Thread.sleep(1000);
-//			OnlineStatus.getInstance().printStatuses();
-//		}
 	}
 }
