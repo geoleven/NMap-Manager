@@ -12,7 +12,7 @@ public class Main {
 	 *            The arguments to give to the program. Not used.
 	 */
 	public static void main(String[] args) {
-		Globals globals = new Globals();
+//		Globals globals = new Globals();
 		App app = new App();
 		app.run();
 	}

@@ -5,7 +5,18 @@ import javax.swing.JCheckBox;
 import gr.uoa.di.NmapProject.AM.DB.AdminPanelDAO;
 import gr.uoa.di.NmapProject.AM.DB.SA;
 
+/**
+ * Class for the pending registration tab functions.
+ * 
+ * @author George
+ *
+ */
 public class PendingRegsTab {
+	/**
+	 * Fills the list of the pending registrations.
+	 * 
+	 * @param checkList The list element to populate.
+	 */
 	@SuppressWarnings("unchecked")
 	public static void populatePendingRegList(CheckBoxList checkList) {
 		LinkedList<SA> curList = AdminPanelDAO.getPendReg();
@@ -22,6 +33,11 @@ public class PendingRegsTab {
 		checkList.setListData(tempArray);
 	}
 	
+	/**
+	 * After user input it validates and accepts the selected S.A.s.
+	 * 
+	 * @param checkList
+	 */
 	public static void acceptSelectedSAs(CheckBoxList checkList) {
 		LinkedList<Integer> idsToBeAccepted = new LinkedList<Integer>();
 		JCheckBox cb = null;

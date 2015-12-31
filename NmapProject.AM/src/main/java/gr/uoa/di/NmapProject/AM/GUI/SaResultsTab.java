@@ -14,7 +14,18 @@ import javax.xml.transform.TransformerException;
 
 import gr.uoa.di.NmapProject.AM.DB.AdminPanelDAO;
 
+/**
+ * Class that handles the tabs for the preview of the S.A.s results.
+ * 
+ * @author George
+ *
+ */
 public class SaResultsTab {
+	/**
+	 * It populated the drop down list with S.A.s which have results.
+	 * 
+	 * @param cb The combo box element to populate.
+	 */
 	public static void populateSAWithResultsList(JComboBox<String> cb) {
 		LinkedList<String> curList = AdminPanelDAO.geSAWithResults();
 		cb.removeAllItems();
@@ -25,6 +36,14 @@ public class SaResultsTab {
 		}
 	}
 	
+	/**
+	 * It populates the result text area with the actual results after parsing them from xml.
+	 * @param ta The text area to use.
+	 * @param sa If showing results for only one S.A., the S.A. to show results for.
+	 * @param start The starting date from which the results should be shown.
+	 * @param end The ending date till which the results should be shown.
+	 * @param saSpecific A boolean showing if all S.A.s' results will be show or only for one S.A..
+	 */
 	public static void populateResultTextArea(JTextPane ta, String sa, Date start, Date end, boolean saSpecific) {
 		LinkedList<String> resList = AdminPanelDAO.getResultsOfSABetweenTime(sa, start.getTime(), end.getTime(), saSpecific);
 		LinkedList<String> parsedList = parseResultList(resList);

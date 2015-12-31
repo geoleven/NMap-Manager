@@ -56,6 +56,7 @@ public class SenderThread implements Runnable {
 	 * @return
 	 * @throws Exception
 	 */
+	@SuppressWarnings("unused")
 	private boolean printResult() throws Exception {
 		Result res = resultQueue.getResult();
 		if (res != null) {

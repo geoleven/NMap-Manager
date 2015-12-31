@@ -102,6 +102,14 @@ public class JobDAO {
 		return false;
 	}
 	
+	/**
+	 * It makes a general job class from the S.A.'s hash.
+	 * @param params Jobs parameters.
+	 * @param isPeriodic Boolean showing if job is periodic.
+	 * @param period The period of the job if periodic.
+	 * @param saHash The S.A.'s hash.
+	 * @return The new job that it created.
+	 */
 	public static boolean newJob(String params, boolean isPeriodic, int period, String saHash) {
 
 		int saID = SADAO.hashToId(saHash);

@@ -32,6 +32,10 @@ public class JobPrev {
 				"ID: " + id + "\t Parameters: " + params + "\t Period: " + period);
 	}
 	
+	/**
+	 * Getter of the JobPrev id.
+	 * @return The ID of the job.
+	 */
 	public int id(){
 		return id;
 	}

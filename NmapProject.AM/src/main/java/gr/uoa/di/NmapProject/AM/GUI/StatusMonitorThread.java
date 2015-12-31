@@ -9,9 +9,18 @@ import gr.uoa.di.NmapProject.AM.Globals;
 import gr.uoa.di.NmapProject.AM.DB.AdminPanelDAO;
 import gr.uoa.di.NmapProject.AM.DB.SAInfoStatus;
 
+/**
+ * This class implements the thread which supports the live feedback of the online status of the S.A.s.
+ * 
+ * @author George
+ *
+ */
 public class StatusMonitorThread implements Runnable {
 	
 	JTable table = null;
+	/**
+	 * The table collumNames content.
+	 */
 	public static String[] columnNames = {"Status",
 			"ID",
 			"Device Name",
@@ -21,9 +30,15 @@ public class StatusMonitorThread implements Runnable {
 			"NMap Version",
 			"Is accepted",
 			"Union Hash"};
-	public Object[][] data = null;
+	private Object[][] data = null;
 	MyTableModel tmdl = new MyTableModel(AdminPanelDAO.getAcceptedSAInfo());;
 	
+	
+	/**
+	 * It changes the contents of a JTable of its kind to the table given.
+	 * 
+	 * @param table The new table that should be put in the JTable.
+	 */
 	public void setTable(JTable table) {
 		this.table = table;
 	}
@@ -43,6 +58,9 @@ public class StatusMonitorThread implements Runnable {
 		}	
 	}
 	
+	/**
+	 * It populates the table in the class with the new data to be shown.
+	 */
 	public void populateData() {
 		LinkedList<SAInfoStatus> list = AdminPanelDAO.getAcceptedSAInfo();
 		data = new Object[list.size()][];
@@ -60,6 +78,9 @@ public class StatusMonitorThread implements Runnable {
 		}
 	}
 	
+	/**
+	 * The function that draws the table and sets its columns to their right width e.t.c..
+	 */
 	public void drawTable() {
 		populateData();
 		JTable tempTable = new JTable(data, columnNames);
