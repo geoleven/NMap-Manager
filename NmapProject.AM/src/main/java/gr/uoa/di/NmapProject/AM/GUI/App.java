@@ -124,6 +124,7 @@ public class App {
 	 * Creates the Admin Panel after loggin in
 	 */
 	private void startAdminPanel() {
+		System.out.println("IN");
 		adminPanel = new AdminPanel();
 		adminPanel.setVisible(true);
 		

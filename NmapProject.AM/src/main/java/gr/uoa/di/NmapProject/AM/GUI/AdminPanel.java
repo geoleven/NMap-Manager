@@ -87,6 +87,9 @@ public class AdminPanel extends JFrame {
 	 * Creates the main frame.
 	 */
 	public AdminPanel() {
+		
+		System.out.println("Admin panel constructor");
+		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Admin Panel");
