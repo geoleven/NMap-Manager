@@ -28,7 +28,11 @@ public class NetworkRequests {
 
         Log.d("LOGIN_REQUEST", String.valueOf(res));
 
-        return true;
+        if(res.get("status").equals("ok")){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }
