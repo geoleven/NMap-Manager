@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/sa_job_insertion">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SAILabel"
+        android:id="@+id/SAILabel"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="32dp" />
+
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SAIChooseSA"
+        android:id="@+id/SAIChooseSALabel"
+        android:layout_gravity="center_horizontal" />
+
+    <Spinner
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/SAIChooseSASpinner"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SAIWriteCom"
+        android:id="@+id/SAIWriteComLabel"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/SAIWriteComEditText"
+        android:layout_gravity="center_horizontal" />
+
+
+    <CheckBox
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SAIIsPeriodic"
+        android:id="@+id/SAIIsPeriodic"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SAIPeriod"
+        android:id="@+id/SAIPeriodLabel"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/SAIPeriodEditText"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/SAIInsertBtn"
+        android:id="@+id/SAIInsertBtn"
+        android:textAllCaps="false"
+        android:textSize="25dp" />
+</LinearLayout>
