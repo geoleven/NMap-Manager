@@ -12,24 +12,9 @@ public class Authenticate extends AsyncTask<String , Void , Boolean > {
     @Override
     protected Boolean doInBackground(String... params) {
 
-        Boolean ret = false;
-
         String email = params[0];
         String password = params[1];
 
-        JSONObject json = new JSONObject();
-
-        try {
-            json.put("email" , email);
-            json.put("password" , password);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        if(email.equals("a@h.c")){
-            ret = true;
-        }
-
-        return ret;
+        return NetworkRequests.loginRequest(email , password);
     }
 }

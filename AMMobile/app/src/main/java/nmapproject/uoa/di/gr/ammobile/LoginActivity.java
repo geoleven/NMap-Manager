@@ -103,12 +103,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginFailed() {
+
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
 
         loginBtn.setEnabled(true);
     }
 
     public void onLoginSuccess() {
+
         Toast.makeText(getBaseContext(), "Login Success", Toast.LENGTH_LONG).show();
 
         loginBtn.setEnabled(true);
