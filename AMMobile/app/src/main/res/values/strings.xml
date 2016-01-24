@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">AMMobile</string>
+    <string name="SMLabel">S.A. Status Monitor</string>
+    <string name="SAMRefresh">Refresh</string>
+    <string name="SAILabel">Insert job to S.A.</string>
+    <string name="SAIChooseSA">Please choose an active S.A.:</string>
+    <string name="SAIWriteCom">Please write the job's parameters:</string>
+    <string name="SAIIsPeriodic">Should the job be periodic.</string>
+    <string name="SAIPeriod">If periodic, please enter the period:</string>
+    <string name="SAIInsertBtn">Insert the job</string>
 </resources>
