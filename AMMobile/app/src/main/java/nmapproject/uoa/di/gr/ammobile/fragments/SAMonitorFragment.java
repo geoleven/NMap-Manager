@@ -22,8 +22,7 @@ public class SAMonitorFragment extends Fragment {
     private static final String mTag = "SAM";
     private ListView hashList;
 
-    public SAMonitorFragment() {
-    }
+    public SAMonitorFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

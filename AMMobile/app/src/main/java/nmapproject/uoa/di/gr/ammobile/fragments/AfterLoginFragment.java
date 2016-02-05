@@ -20,6 +20,7 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
     private Button saGenResultsBtn;
     private Button saTerminateBtn;
     private Button saJobDeletionBtn;
+    private Button logoutBtn;
 
     public AfterLoginFragment() {
 
@@ -49,6 +50,7 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
         saGenResultsBtn = (Button) view.findViewById(R.id.CVBtn4);
         saTerminateBtn = (Button) view.findViewById(R.id.CVBtn5);
         saJobDeletionBtn = (Button) view.findViewById(R.id.CVBtn6);
+        logoutBtn = (Button) view.findViewById(R.id.CVBtn7);
 
         saMonitorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
