@@ -7,62 +7,95 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/SAILabel"
-        android:id="@+id/SAILabel"
+        android:text="@string/SSARLbl"
+        android:id="@+id/SSARLbl"
         android:layout_gravity="center_horizontal"
         android:textStyle="bold"
         android:textSize="32dp" />
 
     <TextView
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/SAIChooseSA"
-        android:id="@+id/SAIChooseSALabel"
+        android:text="@string/SSARChoice"
+        android:id="@+id/SSARChoiceLbl"
         android:layout_gravity="center_horizontal" />
 
-    <Spinner
-        android:layout_weight="1"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_gravity="center_horizontal">
+
+            <Spinner
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/SASRChooseSASpinner"
+                android:layout_gravity="center_horizontal" />
+
+            <NumberPicker
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/ssarNumberPicker"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/SASRChooseSASpinner"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal">
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="center_horizontal" />
+        <Button
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/SALRefresh"
+            android:textAllCaps="false"
+            android:id="@+id/ssarRefBtn"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/ssarResBtn"
+            android:textAllCaps="false"
+            android:id="@+id/ssarResBtn"
+            android:layout_gravity="center_horizontal" />
+
+
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="5"
         android:layout_gravity="center_horizontal">
 
 
         <ScrollView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/scrollView"
-            android:layout_gravity="center_horizontal|top">
+            android:layout_gravity="center_horizontal|top"
+            android:fillViewport="true">
 
             <HorizontalScrollView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/horizontalScrollView"
-                android:layout_gravity="center_horizontal|top">
+                android:layout_height="match_parent">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Large Texsgsdfg nkjsdfbnfgvskad hnfksd bigvsdhbfgjbszd\n\n\n\nhjkfgbsdufgvbsdiuisdbfguwebfguihsdfhui\nsdsdfsdfsdfdsssssssssssssssssssssssssssss\nsdfsdfsdfsdfsdfsdf\nsdfsdfsd\nfsdfsdt\nasdfasd\nasdasd\nasdffadas\nadsasdasdasdasdas\ndassdasdasd\nadsdsadasd\ndasdasdas\n\ndasdsa"
-                    android:id="@+id/SASResultsArea"
-                    android:scrollHorizontally="true"
-
-                    android:gravity="left"
-                    android:layout_gravity="center_horizontal" />
+                    android:id="@+id/SASResultsArea" />
 
             </HorizontalScrollView>
+
         </ScrollView>
 
     </FrameLayout>

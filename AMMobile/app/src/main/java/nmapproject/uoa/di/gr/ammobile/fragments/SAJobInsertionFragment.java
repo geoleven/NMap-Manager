@@ -74,6 +74,21 @@ public class SAJobInsertionFragment extends Fragment {
             }
         });
 
+
+        saList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                Log.d("JI", "onItemSelected");
+                selectedSA = parentView.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                return;
+            }
+
+        });
+
         return view;
     }
 
@@ -91,20 +106,6 @@ public class SAJobInsertionFragment extends Fragment {
         }
 
         saList.setAdapter(spinnerArrayAdapter);
-
-        saList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                Log.d("JI", "onItemSelected");
-                selectedSA = parentView.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                return;
-            }
-
-        });
 
         insertBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

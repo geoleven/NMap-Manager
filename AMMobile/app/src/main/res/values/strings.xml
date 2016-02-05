@@ -41,7 +41,24 @@
     <string name="CVBtn6">S.A. Job Deletion</string>
 
 
+    <!-- S.A. Termination Strings -->
+    <string name="SATLabel">S.A. Termination</string>
+    <string name="SATChooseSA">Please choose an active S.A. to terminate:</string>.
+    <string name="satTermBtn">Terminate S.A.</string>
+
+    <!-- Single S.A. Results -->
+    <string name="SSARLbl">Results of single S.A.</string>
+    <string name="SSARChoice">Please choose an S.A. for which to show results and the number of results to show:</string>
+    <string name="ssarResBtn">Show results</string>
+    <string name="ssarSAHash">S.A. hash:</string>
+    <string name="ssarResNum">Number of results:</string>
+
+    <!-- All S.A. Results -->
+    <string name="ASARLbl">Results of all S.A.s</string>
+    <string name="ASARNum">Please choose the number of results to show:</string>
+    <string name="asarResBtn">Show results</string>
+
     <string name="Logout">Logout</string>
-    <string name="SAIRefresh">Refresh S.A. list</string>
+    <string name="SALRefresh">Refresh S.A. list</string>
 
 </resources>

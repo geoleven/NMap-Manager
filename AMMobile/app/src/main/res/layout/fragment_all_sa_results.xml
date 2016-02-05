@@ -1,6 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ASARLbl"
+        android:id="@+id/ASARLbl"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="32dp" />
+
+    <TextView
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ASARNum"
+        android:id="@+id/ASARChoiceLbl"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_gravity="center_horizontal">
+
+        <NumberPicker
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/asarNumberPicker"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal" />
+
+        <!--<EditText-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:inputType="number"-->
+            <!--android:ems="10"-->
+            <!--android:id="@+id/editText"-->
+            <!--android:layout_weight="1" />-->
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/asarResBtn"
+        android:id="@+id/asarResBtn"
+        android:textAllCaps="false"
+        android:layout_gravity="center_horizontal" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:layout_gravity="center_horizontal">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView"
+            android:layout_gravity="center_horizontal|top"
+            android:fillViewport="true">
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:id="@+id/ASAResultsArea" />
+
+            </HorizontalScrollView>
+
+        </ScrollView>
+
+    </FrameLayout>
 </LinearLayout>
