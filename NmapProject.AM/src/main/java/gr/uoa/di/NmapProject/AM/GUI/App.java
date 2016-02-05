@@ -69,7 +69,7 @@ public class App {
 	 * Starts the server
 	 */
 	private void startServer(){
-		server = new Server("http://localhost:8080/am/");
+		server = new Server("http://0.0.0.0:8080/am/");
 		server.start();
 	}
 	/**

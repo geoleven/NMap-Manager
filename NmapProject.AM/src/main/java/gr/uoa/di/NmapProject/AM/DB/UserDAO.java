@@ -75,4 +75,24 @@ public class UserDAO {
 		}
 		return false;
 	}
+	
+
+	public static boolean correctPass(String email , String pass){
+		Connection db = DB.connect();
+		try {
+			String query = " SELECT * from users WHERE email = '" + email + "' AND password = '"+pass+"'";
+			Statement stmt = db.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			boolean found = false;
+			if (rs.next()) {
+				found = true;
+			}
+			db.close();
+			return found;
+		} catch (SQLException ex) {
+			DB.SQLError(ex);
+		}
+		return false;
+	}
+	
 }

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:id="@+id/SAStatus">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SMLabel"
+        android:id="@+id/SMLabel"
+        android:layout_gravity="center_horizontal"
+        android:editable="false"
+        android:textStyle="bold"
+        android:textSize="32dp" />
+
+
+    <!--<FrameLayout-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="center_horizontal">-->
+
+        <!--<ScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal" >-->
+
+                <!--<ListView-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/OnlineHash"-->
+                    <!--android:layout_gravity="left|top" />-->
+
+                <!--<ListView-->
+                    <!--android:layout_weight="4"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/OnlineIndicator"-->
+                    <!--android:layout_gravity="right|top" />-->
+
+            <!--</LinearLayout>-->
+        <!--</ScrollView>-->
+
+
+    <!--</FrameLayout>-->
+
+
+    <ListView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/OnlineHashList"
+        android:layout_gravity="left|top"
+        android:choiceMode="singleChoice"
+        >
+    </ListView>
+
+    <Button
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="32dp"
+        android:text="@string/SAMRefresh"
+        android:id="@+id/RefreshSAM"
+        android:textAllCaps="false"
+        android:layout_gravity="center_horizontal" />
+
+
+</LinearLayout>

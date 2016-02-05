@@ -5,7 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map;
+
+import gr.uoa.di.NmapProject.AM.GUI.JobPrev;
 
 /**
  * Data Access Class for queries for jobs
@@ -171,6 +176,102 @@ public class JobDAO {
 		} catch (SQLException ex) {
 			DB.SQLError(ex);
 		}
+	}
+	
+	public static LinkedList<Map> getResults(String saHash , int number){
+		LinkedList<Map> results = new LinkedList<Map>();
+	
+		Connection db = DB.connect();
+		try {
+			
+			String query = "SELECT s.hash , j.parameters , j.time , j.periodic , r.xml , r.time_created "
+							+ "FROM results r , jobs j , software_agents s "
+							+ "WHERE j.id = r.jobs_id AND s.id = r.software_agents_id AND s.hash = ?"
+							+ "ORDER BY time_created DESC "
+							+ "LIMIT 0 , ?;";
+			
+			PreparedStatement stmt = db.prepareStatement(query);
+			stmt.setString(1, saHash);
+			stmt.setInt(2, number);
+			
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Map res = new HashMap();
+				res.put("hash", rs.getString("hash"));
+				res.put("parameters", rs.getString("parameters"));
+				res.put("time", rs.getInt("time"));
+				res.put("periodic", rs.getInt("periodic"));
+				res.put("xml", rs.getString("xml"));
+				res.put("time_created", rs.getString("time_created"));
+				results.add(res);
+			}
+			db.close();
+		} catch (SQLException ex) {
+			DB.SQLError(ex);
+		}
+		
+		return results;
+	}
+	
+	public static LinkedList<Map> getAllResults(int number){
+		LinkedList<Map> results = new LinkedList<Map>();
+	
+		Connection db = DB.connect();
+		try {
+			
+			String query = "SELECT s.hash , j.parameters , j.time , j.periodic , r.xml , r.time_created "
+							+ "FROM results r , jobs j , software_agents s "
+							+ "WHERE j.id = r.jobs_id AND s.id = r.software_agents_id "
+							+ "ORDER BY time_created DESC "
+							+ "LIMIT 0 , ?;";
+			
+			PreparedStatement stmt = db.prepareStatement(query);
+			stmt.setInt(1, number);
+			
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Map res = new HashMap();
+				res.put("hash", rs.getString("hash"));
+				res.put("parameters", rs.getString("parameters"));
+				res.put("time", rs.getInt("time"));
+				res.put("periodic", rs.getInt("periodic"));
+				res.put("xml", rs.getString("xml"));
+				res.put("time_created", rs.getString("time_created"));
+				results.add(res);
+			}
+			db.close();
+		} catch (SQLException ex) {
+			DB.SQLError(ex);
+		}
+		
+		return results;
+	}
+	
+	public static LinkedList<Map> getPeriodicJobsOfSA(String curSA) {
+		LinkedList<Map> results = new LinkedList<Map>();
+		Connection db = DB.connect();
+		try {
+			String query = "SELECT j.id, j.parameters, j.time, j.periodic FROM jobs j, software_agents sa WHERE sa.hash = \""
+					+ curSA + "\" AND j.sa_id = sa.id AND status =\"Executing\" ";
+			Statement stmt = db.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				
+				Map m = new LinkedHashMap();
+				
+				m.put("id", rs.getInt(1));
+				m.put("parameters", rs.getString(2));
+				m.put("time", rs.getInt(3));
+				m.put("periodic", rs.getInt(4));
+				
+				results.add(m);
+			}
+			;
+			db.close();
+		} catch (SQLException ex) {
+			DB.SQLError(ex);
+		}
+		return results;
 	}
 
 }

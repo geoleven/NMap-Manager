@@ -1,7 +1,7 @@
-package nmapproject.uoa.di.gr.ammobile;
+package nmapproject.uoa.di.gr.ammobile.activities;
 
-import android.app.ProgressDialog;
-import android.net.Uri;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -9,13 +9,15 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.concurrent.ExecutionException;
 
-/**
- * Created by fozzip on 1/20/16.
- */
+import nmapproject.uoa.di.gr.ammobile.R;
+import nmapproject.uoa.di.gr.ammobile.asynctasks.Authenticate;
+
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
@@ -24,41 +26,45 @@ public class LoginActivity extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private Button loginBtn;
-
+    private TextView regLink;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.content_login);
 
-        setContentView(R.layout.login_activity);
+        email = (EditText) findViewById(R.id.loginMailInp);
+        password = (EditText) findViewById(R.id.loginPassInp);
+        loginBtn = (Button) findViewById(R.id.loginButton);
+        regLink = ((TextView) findViewById(R.id.loginRegLink));
 
-        email = (EditText) findViewById(R.id.input_email);
-        password = (EditText) findViewById(R.id.input_password);
-        //TODO rememberMe
-
-        loginBtn = (Button) findViewById(R.id.btn_login);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    login();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    login();
+//                } catch (ExecutionException e) {
+//                    e.printStackTrace();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+                onLoginSuccess();
+            }
+        });
+
+        regLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                regLink.setTextColor(Color.MAGENTA);
+                Toast.makeText(getBaseContext(), "Registration process", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                regLink.setEnabled(true);
             }
         });
 
     }
 
     public void login() throws ExecutionException, InterruptedException {
-        final String emailText = email.getText().toString();
-        final String passwordText = password.getText().toString();
-
-        Log.d(TAG, emailText);
-        Log.d(TAG, passwordText);
-
         loginBtn.setEnabled(false);
 
         if (!validate()) {
@@ -69,12 +75,12 @@ public class LoginActivity extends AppCompatActivity {
         Authenticate a = new Authenticate();
         a.execute(email.getText().toString(), password.getText().toString());
 
-        Boolean authenticationResult = a.get();
+        String authenticationResult = a.get();
 
-        if (authenticationResult.equals(true)) {
+        if (authenticationResult.equals("ok")) {
             onLoginSuccess();
         } else {
-            onLoginFailed();
+            onLoginFailed(authenticationResult);
         }
 
     }
@@ -100,19 +106,22 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return valid;
+
     }
 
     public void onLoginFailed() {
-
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        loginBtn.setEnabled(true);
+    }
 
+    public void onLoginFailed(String message) {
+        Toast.makeText(getBaseContext(), "Login failed : "+message, Toast.LENGTH_LONG).show();
         loginBtn.setEnabled(true);
     }
 
     public void onLoginSuccess() {
-
         Toast.makeText(getBaseContext(), "Login Success", Toast.LENGTH_LONG).show();
-
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
         loginBtn.setEnabled(true);
     }
 }

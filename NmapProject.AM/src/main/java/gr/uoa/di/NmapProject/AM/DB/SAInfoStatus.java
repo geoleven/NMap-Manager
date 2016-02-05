@@ -69,5 +69,9 @@ public class SAInfoStatus {
     	unionHash = hash;
     	status = s;
     }
+    
+    public void print(){
+    	System.out.println("["+id+" , "+deviceName+" , "+interfaceIP+" , "+interfaceMacAddr+" , "+osVersion+" , "+nMapVersion+" , "+isAccepted+" , "+unionHash+" , "+status+"]");
+    }
 	
 }

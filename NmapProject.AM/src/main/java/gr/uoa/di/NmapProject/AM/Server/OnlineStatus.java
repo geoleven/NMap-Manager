@@ -159,5 +159,29 @@ public class OnlineStatus {
 		System.out.println();
 		
 	}
+	/**
+	 * 
+	 * Returns a list of all the online SAs
+	 * 
+	 */
+	public LinkedList<String> getOnline(){
+		
+		LinkedList<String> online = new LinkedList<String>();
+		
+		for(Map s : saLastRequest){
+			Long lastReq = ((Timestamp) s.get("time")).getTime();
+			
+			java.util.Date date= new java.util.Date();
+			Long curTime = (new Timestamp(date.getTime())).getTime();
+			 
+			Long secSinceLastReq = (curTime - lastReq) / 1000;
+			
+			if(secSinceLastReq <= 4){
+				online.push((String) s.get("hash"));
+			}
+		}
+		
+		return online;
+	}
 	
 }

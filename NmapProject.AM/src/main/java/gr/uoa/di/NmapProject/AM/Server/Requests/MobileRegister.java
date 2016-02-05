@@ -18,11 +18,11 @@ import gr.uoa.di.NmapProject.AM.DB.UserDAO;
 /**
  * Register web Resource
  */
-@Path("login")
-public class UserLogin {
+@Path("mobileregister")
+public class MobileRegister {
 	/**
      *	
-     *	Handles Login requests
+     *	Handles Register requests
      *
      * @return return status (ok if authentication is successful)
      */
@@ -35,13 +35,14 @@ public class UserLogin {
     	
     	User user = new User((JSONObject)(new JSONParser()).parse(req));
     	
-    	String status = "ok";
-    	if (!UserDAO.exists(user.email)){
-    		status = "Username does not exist";
-    	}else if(!UserDAO.isAccepted(user.email)){
-    		status = "Your acount is not authorised yet";
-    	}else if(!UserDAO.correctPass(user.email , user.password)){
-    		status = "Wrong password";
+    	String status;
+    	if(!UserDAO.exists(user.email)){
+    		System.out.println("Got new registration request: ");
+    		user.print();
+    		UserDAO.add(user);
+    		status = "Success";
+    	}else{
+    		status = "Email is already in use";
     	}
     	
     	JSONObject response = new JSONObject();

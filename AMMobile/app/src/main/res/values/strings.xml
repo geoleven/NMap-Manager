@@ -1,11 +1,44 @@
 <resources>
-    <string name="app_name">AMMobile</string>
+    <!-- Generals -->
+    <string name="app_name">NMapA</string>
+    <string name="email">E-mail</string>
+    <string name="pass">Password</string>
+
+    <!-- Login view strings -->
+    <string name="loginMainLbl">NMap</string>
+    <string name="loginCheckBox">Remember Me</string>
+    <string name="loginButton">Login</string>
+    <string name="loginLink">To register new account click here.</string>
+
+    <!-- Registration view strings -->
+    <string name="regMainLbl">Please register your credentials:</string>
+    <string name="regBtn">Register</string>
+    <string name="title_activity_register">Registration</string>
+    <string name="repPass">Repeat Password</string>
+
     <string name="SMLabel">S.A. Status Monitor</string>
     <string name="SAMRefresh">Refresh</string>
     <string name="SAILabel">Insert job to S.A.</string>
     <string name="SAIChooseSA">Please choose an active S.A.:</string>
-    <string name="SAIWriteCom">Please write the job's parameters:</string>
+    <string name="SAIWriteCom">Please write the job\'s parameters:</string>
     <string name="SAIIsPeriodic">Should the job be periodic.</string>
     <string name="SAIPeriod">If periodic, please enter the period:</string>
     <string name="SAIInsertBtn">Insert the job</string>
+    <string name="title_activity_after_login">Choose An Option</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+
+    <string name="CVBtn1">S.A. Status Monitor</string>
+    <string name="CVBtn2">S.A. Job Insertion</string>
+    <string name="CVBtn3">S.A. Specific Results</string>
+    <string name="CVBtn4">All S.A.s Results</string>
+    <string name="CVBtn5">S.A. Termination</string>
+    <string name="CVBtn6">S.A. Job Deletion</string>
+    <string name="Logout">Logout</string>
+
 </resources>
