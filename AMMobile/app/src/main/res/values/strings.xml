@@ -39,6 +39,9 @@
     <string name="CVBtn4">All S.A.s Results</string>
     <string name="CVBtn5">S.A. Termination</string>
     <string name="CVBtn6">S.A. Job Deletion</string>
+
+
     <string name="Logout">Logout</string>
+    <string name="SAIRefresh">Refresh S.A. list</string>
 
 </resources>

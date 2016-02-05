@@ -56,6 +56,11 @@ public class OnlineIndicator<T> extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void removeAll() {
+        mObjects = new ArrayList<T>();
+        mOnline = new ArrayList<Boolean>();
+    }
+
     public int getCount() {
         return mObjects.size();
     }

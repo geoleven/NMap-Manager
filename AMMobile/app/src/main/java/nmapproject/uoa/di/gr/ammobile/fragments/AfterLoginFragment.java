@@ -74,6 +74,58 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
             }
         });
 
+        saSpeResultsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment ssar = new SingleSAResultsFragment();
+                FragmentTransaction ssarTransaction = getFragmentManager().beginTransaction();
+                ssarTransaction.replace(R.id.fragment_container, ssar, ssar.getTag());
+                ssarTransaction.addToBackStack(null);
+                ssarTransaction.commit();
+            }
+        });
+
+        saGenResultsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment asar = new AllSAResultsFragment();
+                FragmentTransaction asarTransaction = getFragmentManager().beginTransaction();
+                asarTransaction.replace(R.id.fragment_container, asar, asar.getTag());
+                asarTransaction.addToBackStack(null);
+                asarTransaction.commit();
+            }
+        });
+
+        saTerminateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment sat = new SATerminationFragment();
+                FragmentTransaction satTransaction = getFragmentManager().beginTransaction();
+                satTransaction.replace(R.id.fragment_container, sat, sat.getTag());
+                satTransaction.addToBackStack(null);
+                satTransaction.commit();
+            }
+        });
+
+        saJobDeletionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment sajd = new JobDeletionFragment();
+                FragmentTransaction sajdTransaction = getFragmentManager().beginTransaction();
+                sajdTransaction.replace(R.id.fragment_container, sajd, sajd.getTag());
+                sajdTransaction.addToBackStack(null);
+                sajdTransaction.commit();
+            }
+        });
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO write logout code here
+            }
+        });
+
+
         return view;
     }
 
@@ -88,5 +140,38 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
 //    @Override
 //    public void onClick(View v) {
 //
+//        Fragment curFrag;
+//        FragmentTransaction Transaction = getFragmentManager().beginTransaction();
+//
+//        switch (v.getId()) {
+//            case R.id.CVBtn1:
+//                curFrag = new SAMonitorFragment();
+//                break;
+//            case R.id.CVBtn2:
+//                curFrag = new SAJobInsertionFragment();
+//                break;
+//            case R.id.CVBtn3:
+//                curFrag = new SingleSAResultsFragment();
+//                break;
+//            case R.id.CVBtn4:
+//                curFrag = new AllSAResultsFragment();
+//                break;
+//            case R.id.CVBtn5:
+//                curFrag = new SATerminationFragment();
+//                break;
+//            case R.id.CVBtn6:
+//                curFrag = new JobDeletionFragment();
+//                break;
+//            case R.id.CVBtn7:
+//                // TODO add logout code here
+//                Transaction.commit();
+//                return;
+//            default:
+//                Transaction.commit();
+//                return;
+//        }
+//        Transaction.replace(R.id.fragment_container, curFrag, curFrag.getTag());
+//        Transaction.addToBackStack(null);
+//        Transaction.commit();
 //    }
 }

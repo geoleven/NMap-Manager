@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.LinkedList;
@@ -21,6 +22,7 @@ public class SAMonitorFragment extends Fragment {
 
     private static final String mTag = "SAM";
     private ListView hashList;
+    private Button refreshSAM;
 
     public SAMonitorFragment() {}
 
@@ -30,6 +32,30 @@ public class SAMonitorFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sa_status, container, false);
 
         hashList = ((ListView) view.findViewById(R.id.OnlineHashList));
+        refreshSAM = ((Button) view.findViewById(R.id.RefreshSAM));
+
+        refreshSAM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                OnlineIndicator<String> prevAdapter;
+                if (hashList != null && (prevAdapter = (OnlineIndicator<String>) hashList.getAdapter()) != null) {
+                    SAInfo info = new SAInfo();
+                    info.execute();
+                    try {
+                        LinkedList<Map> myList = info.get();
+                        prevAdapter.removeAll();
+                        for (Map curMap : myList) {
+                            prevAdapter.add((String) curMap.get("unionHash"), (boolean) curMap.get("status"));
+                        }
+                        hashList.setAdapter(prevAdapter);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
         return view;
     }

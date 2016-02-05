@@ -17,8 +17,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import nmapproject.uoa.di.gr.ammobile.fragments.AfterLoginFragment;
+import nmapproject.uoa.di.gr.ammobile.fragments.AllSAResultsFragment;
+import nmapproject.uoa.di.gr.ammobile.fragments.JobDeletionFragment;
+import nmapproject.uoa.di.gr.ammobile.fragments.SAJobInsertionFragment;
 import nmapproject.uoa.di.gr.ammobile.fragments.SAMonitorFragment;
 import nmapproject.uoa.di.gr.ammobile.R;
+import nmapproject.uoa.di.gr.ammobile.fragments.SATerminationFragment;
+import nmapproject.uoa.di.gr.ammobile.fragments.SingleSAResultsFragment;
 import nmapproject.uoa.di.gr.ammobile.operations.NetworkThread;
 
 
@@ -85,6 +90,55 @@ public class MainActivity extends AppCompatActivity {
                             samTransaction.commit();
                         }
                         break;
+                    case 3:
+                        if(!(getFragmentManager().findFragmentById(R.id.fragment_container) instanceof SAJobInsertionFragment)) {
+                            Fragment  saji = new SAJobInsertionFragment();
+                            FragmentTransaction sajiTransaction = getFragmentManager().beginTransaction();
+                            sajiTransaction.replace(R.id.fragment_container, saji, saji.getTag());
+                            sajiTransaction.addToBackStack(null);
+                            sajiTransaction.commit();
+                        }
+                        break;
+                    case 4:
+                        if(!(getFragmentManager().findFragmentById(R.id.fragment_container) instanceof SingleSAResultsFragment)) {
+                            Fragment ssar = new SingleSAResultsFragment();
+                            FragmentTransaction ssarTransaction = getFragmentManager().beginTransaction();
+                            ssarTransaction.replace(R.id.fragment_container, ssar, ssar.getTag());
+                            ssarTransaction.addToBackStack(null);
+                            ssarTransaction.commit();
+                        }
+                        break;
+                    case 5:
+                        if(!(getFragmentManager().findFragmentById(R.id.fragment_container) instanceof AllSAResultsFragment)) {
+                            Fragment asar = new AllSAResultsFragment();
+                            FragmentTransaction asarTransaction = getFragmentManager().beginTransaction();
+                            asarTransaction.replace(R.id.fragment_container, asar, asar.getTag());
+                            asarTransaction.addToBackStack(null);
+                            asarTransaction.commit();
+                        }
+                        break;
+                    case 6:
+                        if(!(getFragmentManager().findFragmentById(R.id.fragment_container) instanceof SATerminationFragment)) {
+                            Fragment sat = new SATerminationFragment();
+                            FragmentTransaction satTransaction = getFragmentManager().beginTransaction();
+                            satTransaction.replace(R.id.fragment_container, sat, sat.getTag());
+                            satTransaction.addToBackStack(null);
+                            satTransaction.commit();
+                        }
+                        break;
+                    case 7:
+                        if(!(getFragmentManager().findFragmentById(R.id.fragment_container) instanceof SAMonitorFragment)) {
+                            Fragment sajd = new JobDeletionFragment();
+                            FragmentTransaction sajdTransaction = getFragmentManager().beginTransaction();
+                            sajdTransaction.replace(R.id.fragment_container, sajd, sajd.getTag());
+                            sajdTransaction.addToBackStack(null);
+                            sajdTransaction.commit();
+                        }
+                        break;
+                    case 9:
+                        // TODO write logout code here
+                        break;
+
                 }
                 mDrawerLayout.closeDrawer(GravityCompat.START);
             }
@@ -154,24 +208,8 @@ public class MainActivity extends AppCompatActivity {
 //    @Override
 //    public void onResume(){
 //        super.onResume();
-//        if (getIntent().getBooleanExtra("EXIT", false)){
-//            finish();
-//            moveTaskToBack(true);
-//            System.exit(0);
-//        }
 //
-//        Thread background = new Thread() {
-//            public void run() {
-//                try {
-//                    Intent intent = new Intent(getBaseContext(),LoginActivity.class);
-//                    startActivity(intent);
-//                } catch (Exception e) {
 //
-//                }
-//            }
-//        };
-//        // start thread
-//        background.start();
 //    }
 
 }
