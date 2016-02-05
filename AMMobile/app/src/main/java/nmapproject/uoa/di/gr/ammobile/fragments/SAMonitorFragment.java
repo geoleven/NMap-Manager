@@ -20,11 +20,9 @@ import nmapproject.uoa.di.gr.ammobile.asynctasks.SAInfo;
 public class SAMonitorFragment extends Fragment {
 
     private static final String mTag = "SAM";
-
     private ListView hashList;
 
     public SAMonitorFragment() {
-
     }
 
     @Override
@@ -45,37 +43,15 @@ public class SAMonitorFragment extends Fragment {
         info.execute();
 
         try {
-            LinkedList<Map> mylist = info.get();
-
-//            int size  = mylist.size();
-//            String[] hashArray = new String[size];
-//            Boolean[] indiArray = new Boolean[size];
-
-            Log.d("sas", String.valueOf(mylist));
-
+            LinkedList<Map> myList = info.get();
+            Log.d("sas", String.valueOf(myList));
             OnlineIndicator<String> hashAdapter = new OnlineIndicator<String>(getActivity(), R.layout.online_checklist, R.id.samListText, R.id.onlineListIcon);
 
-            for (Map curMap : mylist) {
-//                hashArray[counter] = (String) curMap.get("unionHash");
-//                indiArray[counter] = (boolean) curMap.get("status");
-
+            for (Map curMap : myList) {
                 hashAdapter.add((String) curMap.get("unionHash"), (boolean) curMap.get("status"));
             }
 
             hashList.setAdapter(hashAdapter);
-
-//            hashList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
-//            int counter = 0;
-//            for (Map curMap : mylist){
-////                hashList.setItemChecked(counter, (boolean) curMap.get("status"));
-//                hashList.setItemChecked(counter, true);
-//                ++counter;
-//            }
-
-//            ArrayAdapter<String> hashAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_checked, hashArray);
-
-//            hashList.setAdapter(hashAdapter);
 
         } catch (InterruptedException e) {
             e.printStackTrace();

@@ -15,6 +15,11 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
 
     private static final String mTag = "ALF";
     private Button saMonitorBtn;
+    private Button saInsertJobBtn;
+    private Button saSpeResultsBtn;
+    private Button saGenResultsBtn;
+    private Button saTerminateBtn;
+    private Button saJobDeletionBtn;
 
     public AfterLoginFragment() {
 
@@ -36,11 +41,14 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_after_login, container, false);
 
-        //Find the +1 button
         saMonitorBtn = (Button) view.findViewById(R.id.CVBtn1);
+        saInsertJobBtn = (Button) view.findViewById(R.id.CVBtn2);
+        saSpeResultsBtn = (Button) view.findViewById(R.id.CVBtn3);
+        saGenResultsBtn = (Button) view.findViewById(R.id.CVBtn4);
+        saTerminateBtn = (Button) view.findViewById(R.id.CVBtn5);
+        saJobDeletionBtn = (Button) view.findViewById(R.id.CVBtn6);
 
         saMonitorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +58,17 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
                 samTransaction.replace(R.id.fragment_container, sam, sam.getTag());
                 samTransaction.addToBackStack(null);
                 samTransaction.commit();
-//                samTransaction.replace(R.id.fragment_container, sam).addToBackStack(null).commit();
+            }
+        });
+
+        saInsertJobBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment  saji = new SAJobInsertionFragment();
+                FragmentTransaction sajiTransaction = getFragmentManager().beginTransaction();
+                sajiTransaction.replace(R.id.fragment_container, saji, saji.getTag());
+                sajiTransaction.addToBackStack(null);
+                sajiTransaction.commit();
             }
         });
 

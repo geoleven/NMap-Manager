@@ -28,7 +28,7 @@ public class OnlineIndicator<T> extends BaseAdapter {
     private Context mContext;
     private int mDropDownResource;
     private int mTextId = 0;
-    private int mImageId = 1;
+    @IdRes private int mImageId = 1;
 //    private ArrayList<T> mOriginalValues;
 
     public OnlineIndicator(Context context, @LayoutRes int resource, @IdRes int textViewResourceId,
