@@ -85,7 +85,6 @@ public class SingleSAResultsFragment extends Fragment {
 //                    res = sres + "\n\n\n";
 //                }
 //                saSResultsArea.setText(res);
-                refreshList();
             }
         });
 

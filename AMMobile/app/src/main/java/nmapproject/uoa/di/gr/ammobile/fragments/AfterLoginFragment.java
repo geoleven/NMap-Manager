@@ -26,10 +26,6 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
 
     }
 
-    public static AfterLoginFragment newInstance() {
-        AfterLoginFragment alf = new  AfterLoginFragment();
-        return alf;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -121,7 +117,7 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO write logout code here
+                //T T
             }
         });
 
