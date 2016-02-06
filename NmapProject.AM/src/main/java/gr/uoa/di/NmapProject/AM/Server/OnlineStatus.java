@@ -15,6 +15,8 @@ import java.util.Map;
 public class OnlineStatus {
 	
 	private static OnlineStatus instance = new OnlineStatus();
+	LinkedList<Map<String, Object>> saLastRequest = new LinkedList<Map<String, Object>>();
+	LinkedList<String> forExit = new LinkedList<String>();
 	
 	private OnlineStatus(){}
 	
@@ -24,10 +26,7 @@ public class OnlineStatus {
 	public static OnlineStatus getInstance(){
 		return instance;
 	}
-	
-	LinkedList<Map<String, Object>> saLastRequest = new LinkedList<Map<String, Object>>();
-	
-	LinkedList<String> forExit = new LinkedList<String>();
+
 	
 	/**
 	 * 

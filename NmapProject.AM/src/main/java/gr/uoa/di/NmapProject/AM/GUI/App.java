@@ -50,7 +50,7 @@ public class App {
 	public void enterToExit(){
 		
 		System.out.println("Press Enter to close the Server");
-		String input = in.nextLine();
+//		String input = in.nextLine();
 		exit();
 	}
 	
@@ -124,7 +124,6 @@ public class App {
 	 * Creates the Admin Panel after loggin in
 	 */
 	private void startAdminPanel() {
-		System.out.println("IN");
 		adminPanel = new AdminPanel();
 		adminPanel.setVisible(true);
 		
