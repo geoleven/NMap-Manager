@@ -20,9 +20,8 @@ public class PendingRegsTab {
 	@SuppressWarnings("unchecked")
 	public static void populatePendingRegList(CheckBoxList checkList) {
 		LinkedList<SA> curList = AdminPanelDAO.getPendReg();
-		JCheckBox[] tempArray = null;
+		JCheckBox[] tempArray = new JCheckBox[curList.size()];
 		if (curList.size() > 0) {
-			tempArray = new JCheckBox[curList.size()];
 			int counter = 0;
 			for (SA curSA : curList) {
 				tempArray[counter] = new JCheckBox(String.format("<html><pre>%s</pre></html>", curSA.id + "\t" + curSA.device_name + "\t\t" + curSA.ip + "\t"
