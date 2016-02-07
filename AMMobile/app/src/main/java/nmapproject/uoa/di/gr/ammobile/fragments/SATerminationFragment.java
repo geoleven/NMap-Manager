@@ -80,6 +80,9 @@ public class SATerminationFragment extends Fragment {
 
     public void refreshList() {
         LinkedList<String> online = NetworkStatus.getInstance().onlineSAs();
+        if(online == null){
+            online = new LinkedList<String>();
+        }
         String[] listElems = online.toArray(new String[online.size()]);
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

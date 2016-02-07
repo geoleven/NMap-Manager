@@ -1,5 +1,7 @@
 package gr.uoa.di.NmapProject.AM.Server.Requests;
 
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -10,6 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.transform.TransformerException;
 
 import org.json.simple.JSONObject;
 
@@ -51,11 +54,29 @@ public class SendResults {
     		results = JobDAO.getResults(saHash , number);
     	}
     	
+    	LinkedList<String> upRes = new LinkedList();
+    	
+    	for(Map r : results){
+    		upRes.add((String) r.get("xml"));  		
+    	}
+    	
+    	LinkedList<String> pRes = parseResultList(upRes);
+    	
+    	LinkedList<Map> send = new LinkedList();
+    	
+    	for(String s : pRes){
+    		Map m = new LinkedHashMap();
+    		
+    		m.put("xml", s);
+    		
+    		send.add(m);
+    	}
+    	
     	//System.out.println("Returning results : "+String.valueOf(results));
 
     	try{
     		
-    		String jsonInString = mapper.writeValueAsString(results);
+    		String jsonInString = mapper.writeValueAsString(send);
     		
     		return Response.status(200).entity(jsonInString).build();
     	
@@ -70,4 +91,28 @@ public class SendResults {
     	}
 		
     }
+    
+	private static LinkedList<String> parseResultList(LinkedList<String> unparsed) {
+		LinkedList<String> results = new LinkedList<String>();
+		if (unparsed != null) {
+			for(String s : unparsed) {
+				StringWriter temp = new StringWriter();
+				javax.xml.transform.TransformerFactory tFactory = 
+		                  javax.xml.transform.TransformerFactory.newInstance();
+				try {
+					javax.xml.transform.Transformer transformer = tFactory.newTransformer
+					        (new javax.xml.transform.stream.StreamSource("/usr/share/nmap/nmap.xsl"));
+//					(new javax.xml.transform.stream.StreamSource(new URL("http://nmap.org/svn/docs/nmap.xsl").openStream()));
+					transformer.transform
+				    (new javax.xml.transform.stream.StreamSource(new StringReader(s)), 
+				     new javax.xml.transform.stream.StreamResult(temp));
+				} catch (TransformerException e) {
+					e.printStackTrace();
+				}
+				String temps = temp.toString();
+				results.add(temps);
+			}
+		}
+		return results;
+	}
 }

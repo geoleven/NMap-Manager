@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import gr.uoa.di.NmapProject.AM.GUI.JobPrev;
 import gr.uoa.di.NmapProject.AM.Server.OnlineStatus;
@@ -17,6 +19,32 @@ import gr.uoa.di.NmapProject.AM.Server.OnlineStatus;
  * 
  */
 public class AdminPanelDAO {
+	
+	/**
+	 * Retrieves from database the users that are still pending for
+	 * their acceptance.
+	 * 
+	 * @return A map with all the user registrations at this time.
+	 */
+	public static Map<Integer, String> getAdminReg() {
+		Map<Integer, String> results = new LinkedHashMap<Integer, String>();
+		Connection db = DB.connect();
+		try {
+			String query = "SELECT id, email FROM users WHERE is_accepted = 0";
+			Statement stmt = db.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				results.put(rs.getInt("id"), rs.getString("email"));
+			}
+			;
+			db.close();
+		} catch (SQLException ex) {
+			DB.SQLError(ex);
+		}
+		return results;
+	}
+	
+	
 	/**
 	 * Retrieves from database the registrations that are still pending for
 	 * their acceptance.
@@ -52,6 +80,75 @@ public class AdminPanelDAO {
 		Connection db = DB.connect();
 		try {
 			String query = "UPDATE software_agents SET is_accepted = 1 WHERE id = ?";
+			PreparedStatement stmt = db.prepareStatement(query);
+			for (int id : ids) {
+				stmt.setInt(1, id);
+				stmt.executeUpdate();
+
+			}
+			db.close();
+		} catch (SQLException ex) {
+			DB.SQLError(ex);
+		}
+		return;
+	}
+	
+	/**
+	 * Changes the status of the given admins to accepted.
+	 * 
+	 * @param ids
+	 *            A linked list with the ids of the admins to accept.
+	 */
+	public static void acceptAdmins(LinkedList<Integer> ids) {
+		Connection db = DB.connect();
+		try {
+			String query = "UPDATE users SET is_accepted = 1 WHERE id = ?";
+			PreparedStatement stmt = db.prepareStatement(query);
+			for (int id : ids) {
+				stmt.setInt(1, id);
+				stmt.executeUpdate();
+
+			}
+			db.close();
+		} catch (SQLException ex) {
+			DB.SQLError(ex);
+		}
+		return;
+	}
+	
+	/**
+	 * Changes the status of the given S.A.s to rejected (deletes them).
+	 * 
+	 * @param ids
+	 *            A linked list with the ids of the S.A.s to accept.
+	 */
+	public static void rejectSAs(LinkedList<Integer> ids) {
+		Connection db = DB.connect();
+		try {
+			String query = "DELETE FROM software_agents WHERE id = ?";
+			PreparedStatement stmt = db.prepareStatement(query);
+			for (int id : ids) {
+				stmt.setInt(1, id);
+				stmt.executeUpdate();
+
+			}
+			db.close();
+		} catch (SQLException ex) {
+			DB.SQLError(ex);
+		}
+		return;
+	}
+	
+	/**
+	 * Changes the status of the given admins to rejected (deletes them).
+	 * 
+	 * @param ids
+	 *            A linked list with the ids of the admins to accept.
+	 */
+	public static void rejectAdmins(LinkedList<Integer> ids) {
+		Connection db = DB.connect();
+		try {
+			String query = "DELETE FROM users WHERE id = ?";
 			PreparedStatement stmt = db.prepareStatement(query);
 			for (int id : ids) {
 				stmt.setInt(1, id);

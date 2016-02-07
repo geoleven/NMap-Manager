@@ -1,6 +1,7 @@
 package nmapproject.uoa.di.gr.ammobile.activities;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -16,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import nmapproject.uoa.di.gr.ammobile.DB.DBHelper;
 import nmapproject.uoa.di.gr.ammobile.fragments.AfterLoginFragment;
 import nmapproject.uoa.di.gr.ammobile.fragments.AllSAResultsFragment;
 import nmapproject.uoa.di.gr.ammobile.fragments.JobDeletionFragment;
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
 
+    private Thread network;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +54,9 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        Thread network = new NetworkThread();
+        network = new NetworkThread(getApplicationContext());
         network.start();
+
 
         Fragment afl = new AfterLoginFragment();
         FragmentTransaction aflTransaction = getFragmentManager().beginTransaction();
@@ -136,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case 9:
-                        // TODO write logout code here
+                        logout();
                         break;
 
                 }
@@ -158,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(mActivityTitle);
+                getSupportActionBar().setTitle("Nmapa");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -211,5 +216,24 @@ public class MainActivity extends AppCompatActivity {
 //
 //
 //    }
+
+    @Override
+    public void onDestroy() {
+
+        super.onDestroy();
+
+        try {
+            network.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void logout(){
+        Toast.makeText(getApplicationContext() , "Logging out" , Toast.LENGTH_LONG).show();
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+
+    }
+
 
 }

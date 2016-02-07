@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.concurrent.ExecutionException;
 
+import nmapproject.uoa.di.gr.ammobile.DB.DBHelper;
 import nmapproject.uoa.di.gr.ammobile.R;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.Authenticate;
 
@@ -61,6 +62,9 @@ public class LoginActivity extends AppCompatActivity {
                 regLink.setEnabled(true);
             }
         });
+
+        DBHelper db = new DBHelper(getApplicationContext());
+        db.clearJobs();
 
     }
 

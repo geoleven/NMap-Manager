@@ -3,6 +3,7 @@ package nmapproject.uoa.di.gr.ammobile.operations;
 import android.util.Log;
 import android.view.View;
 
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,7 +16,7 @@ import nmapproject.uoa.di.gr.ammobile.DB.Job;
 
 public class NetworkRequests {
 
-    public static final String baseURI = "http://192.168.1.68:8080/am/";
+    public static final String baseURI = "http://10.0.2.2:8080/am/";
 
     public static String registerRequest(String email , String password){
         final String url = baseURI+"mobileregister";
@@ -50,6 +51,9 @@ public class NetworkRequests {
 
         try {
             RestTemplate restTemplate = new RestTemplate();
+
+
+
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             LinkedHashMap res = restTemplate.postForObject(url, send, LinkedHashMap.class);
 
@@ -136,6 +140,7 @@ public class NetworkRequests {
 
         try {
             RestTemplate restTemplate = new RestTemplate();
+
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             LinkedList<Map> res = restTemplate.postForObject(url, send, LinkedList.class);
 

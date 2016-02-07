@@ -60,6 +60,7 @@ public class AdminPanel extends JFrame {
 	LinkedList<JCheckBox> isPeriodic = new LinkedList<JCheckBox>();
 	LinkedList<JPanel> miniPanel = new LinkedList<JPanel>();
 	private CheckBoxList pendingRegistrationsList;
+	private CheckBoxList adminRegistrationsList;
 	private StatusMonitorTab smt = null;
 	private String lastSASelectedToAssignJob = null;
 	private JComboBox<String> saDropDownList;
@@ -129,7 +130,7 @@ public class AdminPanel extends JFrame {
 		PendingRegsTab.populatePendingRegList(getPendingRegistrationsList());
 
 		JButton refreshButton = new JButton("Refresh");
-		pendingRegistrationActions.setLayout(new GridLayout(0, 2, 50, 50));
+		pendingRegistrationActions.setLayout(new GridLayout(0, 3, 50, 50));
 		pendingRegistrationActions.add(refreshButton);
 		refreshButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -142,6 +143,15 @@ public class AdminPanel extends JFrame {
 		acceptButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PendingRegsTab.acceptSelectedSAs(getPendingRegistrationsList());
+				PendingRegsTab.populatePendingRegList(getPendingRegistrationsList());
+			}
+		});
+		
+		JButton rejectButton = new JButton("Reject Selected");
+		pendingRegistrationActions.add(rejectButton);
+		rejectButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PendingRegsTab.rejectSelectedSAs(getPendingRegistrationsList());
 				PendingRegsTab.populatePendingRegList(getPendingRegistrationsList());
 			}
 		});
@@ -599,6 +609,69 @@ public class AdminPanel extends JFrame {
 		lblTerminationresult.setBounds(0, 429, 427, 115);
 		lblTerminationresult.setHorizontalAlignment(SwingConstants.CENTER);
 		pm.add(lblTerminationresult);
+		
+		
+		
+		
+		
+		
+		JPanel adminRegistrationsTab = new JPanel();
+		adminRegistrationsTab.setBorder(null);
+		adminPanelTabs.addTab("Admin Registrations", null, adminRegistrationsTab, "");
+		adminRegistrationsTab.setLayout(null);
+
+		JPanel adminRegPnl = new JPanel();
+		adminRegPnl.setBounds(10, 11, 769, 450);
+		adminRegistrationsTab.add(adminRegPnl);
+		adminRegPnl.setLayout(new BorderLayout(0, 0));
+
+		JScrollPane adminRegScrollPane = new JScrollPane();
+		adminRegPnl.add(adminRegScrollPane);
+
+		adminRegistrationsList = new CheckBoxList();
+		adminRegistrationsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		adminRegScrollPane.setViewportView(adminRegistrationsList);
+		adminRegistrationsList.setVisibleRowCount(20);
+		adminRegistrationsList.setFixedCellHeight(30);
+
+		JPanel adminRegistrationActions = new JPanel();
+		adminRegistrationActions.setBounds(10, 472, 769, 50);
+		adminRegistrationsTab.add(adminRegistrationActions);
+		AdminRegsTab.populateAdminRegList(adminRegistrationsList);
+
+		JButton refreshAdminButton = new JButton("Refresh");
+		adminRegistrationActions.setLayout(new GridLayout(0, 3, 50, 50));
+		adminRegistrationActions.add(refreshAdminButton);
+		refreshAdminButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AdminRegsTab.populateAdminRegList(adminRegistrationsList);
+			}
+		});
+
+		JButton acceptAdminButton = new JButton("Accept Selected");
+		adminRegistrationActions.add(acceptAdminButton);
+		acceptAdminButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AdminRegsTab.acceptSelectedAdmins(adminRegistrationsList);
+				AdminRegsTab.populateAdminRegList(adminRegistrationsList);
+			}
+		});
+		
+		JButton rejectAdminButton = new JButton("Reject Selected");
+		adminRegistrationActions.add(rejectAdminButton);
+		rejectAdminButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AdminRegsTab.rejectSelectedAdmins(adminRegistrationsList);
+				AdminRegsTab.populateAdminRegList(adminRegistrationsList);
+			}
+		});
+		
+		
+		
+		
+		
+		
+		
 
 		adminPanelTabs.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
