@@ -51,7 +51,13 @@ public class JobDeletionFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        onlineCheck();
+
         LinkedList<String> online = NetworkStatus.getInstance().onlineSAs();
+
+        if(online == null){
+            online = new LinkedList<String>();
+        }
 
         String[] listElems = online.toArray(new String[online.size()]);
 
@@ -183,4 +189,11 @@ public class JobDeletionFragment extends Fragment {
         }
         return valid;
     }
+
+    private void onlineCheck(){
+        if(!NetworkStatus.getInstance().isOnline()){
+            Toast.makeText(getActivity() , "AM is offline!" , Toast.LENGTH_LONG).show();
+        }
+    }
+
 }

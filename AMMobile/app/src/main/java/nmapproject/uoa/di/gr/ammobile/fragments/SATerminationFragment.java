@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import java.util.LinkedList;
 import nmapproject.uoa.di.gr.ammobile.R;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.Terminate;
@@ -70,6 +72,9 @@ public class SATerminationFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        onlineCheck();
+
         refreshList();
     }
 
@@ -90,4 +95,10 @@ public class SATerminationFragment extends Fragment {
         saTerminationList.setAdapter(spinnerArrayAdapter);
         selectedSA = null;
     }
+    private void onlineCheck(){
+        if(!NetworkStatus.getInstance().isOnline()){
+            Toast.makeText(getActivity(), "AM is offline!", Toast.LENGTH_LONG).show();
+        }
+    }
+
 }

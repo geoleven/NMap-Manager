@@ -8,14 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+
 import nmapproject.uoa.di.gr.ammobile.DB.Job;
 import nmapproject.uoa.di.gr.ammobile.R;
+import nmapproject.uoa.di.gr.ammobile.asynctasks.RecentJobs;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.SendJobs;
 import nmapproject.uoa.di.gr.ammobile.operations.NetworkStatus;
 
@@ -25,7 +31,8 @@ public class SAJobInsertionFragment extends Fragment {
 
     Button insertBtn;
     Spinner saList;
-    EditText parameters;
+//    EditText parameters;
+    AutoCompleteTextView parameters;
     CheckBox periodicCheck;
     EditText period;
     Button salistref;
@@ -34,6 +41,8 @@ public class SAJobInsertionFragment extends Fragment {
     String parametersText = null;
     int periodic = 0;
     int periodTime = -1;
+    ArrayAdapter<String> autoCompAdapt;
+    List<Map> recent;
 
     public SAJobInsertionFragment() {
     }
@@ -47,7 +56,8 @@ public class SAJobInsertionFragment extends Fragment {
 
         insertBtn = ((Button) view.findViewById(R.id.SAIInsertBtn));
         saList = (Spinner) view.findViewById(R.id.SAIChooseSASpinner);
-        parameters = (EditText) view.findViewById(R.id.SAIWriteComEditText);
+//        parameters = (EditText) view.findViewById(R.id.SAIWriteComEditText);
+        parameters = (AutoCompleteTextView) view.findViewById(R.id.SAIWriteComEditText);
         periodicCheck = (CheckBox) view.findViewById(R.id.SAIIsPeriodic);
         period = (EditText) view.findViewById(R.id.SAIPeriodEditText);
         salistref = (Button) view.findViewById(R.id.SAIRefreshBtn);
@@ -79,6 +89,36 @@ public class SAJobInsertionFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 Log.d("JI", "onItemSelected");
                 selectedSA = parentView.getItemAtPosition(position).toString();
+
+
+                RecentJobs task = new RecentJobs(selectedSA);
+
+                task.execute();
+
+                try {
+                    recent = task.get();
+
+                    if(recent == null){
+                        recent = new LinkedList<Map>();
+                    }
+
+                    String[] recentStr = new String[recent.size()];
+
+                    int counter = 0;
+                    for(Map m : recent){
+                        recentStr[counter] = (String) m.get("parameters");
+                        counter++;
+                    }
+
+                    autoCompAdapt = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, recentStr);
+                    parameters.setAdapter(autoCompAdapt);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
@@ -94,6 +134,9 @@ public class SAJobInsertionFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        onlineCheck();
+
         LinkedList<String> online = NetworkStatus.getInstance().onlineSAs();
         if(online == null){
             online = new LinkedList<String>();
@@ -168,5 +211,12 @@ public class SAJobInsertionFragment extends Fragment {
 
         return valid;
     }
+
+    private void onlineCheck(){
+        if(!NetworkStatus.getInstance().isOnline()){
+            Toast.makeText(getActivity() , "AM is offline!" , Toast.LENGTH_LONG).show();
+        }
+    }
+
 }
 

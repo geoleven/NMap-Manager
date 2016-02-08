@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText password;
     private Button loginBtn;
     private TextView regLink;
+    private CheckBox saveCheck;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,19 +38,19 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.loginPassInp);
         loginBtn = (Button) findViewById(R.id.loginButton);
         regLink = ((TextView) findViewById(R.id.loginRegLink));
-
+        saveCheck = (CheckBox) findViewById(R.id.loginRememberChkBox);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                try {
-//                    login();
-//                } catch (ExecutionException e) {
-//                    e.printStackTrace();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-                onLoginSuccess();
+                try {
+                    login();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                //onLoginSuccess();
             }
         });
 
@@ -64,6 +66,23 @@ public class LoginActivity extends AppCompatActivity {
 
         DBHelper db = new DBHelper(getApplicationContext());
         db.clearJobs();
+
+        db.printCreds();
+
+        if(db.getCred("online") != null && db.getCred("online").equals("on")){
+            onLoginSuccess();
+        }
+
+        String value;
+        value = db.getCred("email");
+        if(value != null){
+            email.setText(value);
+        }
+        value = db.getCred("password");
+        if(value != null){
+            password.setText(value);
+            saveCheck.setChecked(true);
+        }
 
     }
 
@@ -123,6 +142,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginSuccess() {
+        DBHelper db = new DBHelper(getApplicationContext());
+        if(saveCheck.isChecked()){
+            db.insertCred("email",email.getText().toString());
+            db.insertCred("password", password.getText().toString());
+        }else{
+            db.clearCred("email");
+            db.clearCred("password");
+        }
+        db.insertCred("online" , "on");
+
         Toast.makeText(getBaseContext(), "Login Success", Toast.LENGTH_LONG).show();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
         loginBtn.setEnabled(true);

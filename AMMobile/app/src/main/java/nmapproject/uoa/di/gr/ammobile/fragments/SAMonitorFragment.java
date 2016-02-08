@@ -8,12 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import nmapproject.uoa.di.gr.ammobile.R;
 import nmapproject.uoa.di.gr.ammobile.adapters.OnlineIndicator;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.SAInfo;
+import nmapproject.uoa.di.gr.ammobile.operations.NetworkStatus;
 
 public class SAMonitorFragment extends Fragment {
 
@@ -68,6 +71,8 @@ public class SAMonitorFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        onlineCheck();
+
         SAInfo info = new SAInfo();
         info.execute();
 
@@ -91,6 +96,12 @@ public class SAMonitorFragment extends Fragment {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void onlineCheck(){
+        if(!NetworkStatus.getInstance().isOnline()){
+            Toast.makeText(getActivity() , "AM is offline!" , Toast.LENGTH_LONG).show();
         }
     }
 

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import nmapproject.uoa.di.gr.ammobile.DB.DBHelper;
 import nmapproject.uoa.di.gr.ammobile.R;
 import nmapproject.uoa.di.gr.ammobile.activities.LoginActivity;
+import nmapproject.uoa.di.gr.ammobile.operations.NetworkStatus;
 
 public class AfterLoginFragment extends Fragment /*implements View.OnClickListener*/ {
 
@@ -131,6 +132,8 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
     public void onResume() {
         super.onResume();
 
+        onlineCheck();
+
         // Refresh the state of the +1 button each time the activity receives focus.
         saMonitorBtn.setEnabled(true);
 
@@ -179,8 +182,17 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
 //    }
 
     private void logout(){
+        DBHelper db = new DBHelper(getActivity());
+        db.insertCred("online" , "off");
+
         Toast.makeText(getActivity(), "Logging out", Toast.LENGTH_LONG).show();
         startActivity(new Intent(getActivity(), LoginActivity.class));
 
     }
+    private void onlineCheck(){
+        if(!NetworkStatus.getInstance().isOnline()){
+            Toast.makeText(getActivity() , "AM is offline!" , Toast.LENGTH_LONG).show();
+        }
+    }
+
 }

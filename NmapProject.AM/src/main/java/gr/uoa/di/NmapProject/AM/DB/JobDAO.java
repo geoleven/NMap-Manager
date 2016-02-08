@@ -273,5 +273,58 @@ public class JobDAO {
 		}
 		return results;
 	}
+	
+	public static LinkedList<Map> getRecentJobs(){
+		LinkedList<Map> results = new LinkedList<Map>();
+		Connection db = DB.connect();
+		try {
+			String query = "SELECT j.id, j.parameters, j.time, j.periodic FROM jobs j ORDER BY j.id DESC LIMIT 0 , 10";
+			Statement stmt = db.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				
+				Map m = new LinkedHashMap();
+				
+				m.put("id", rs.getInt(1));
+				m.put("parameters", rs.getString(2));
+				m.put("time", rs.getInt(3));
+				m.put("periodic", rs.getInt(4));
+				
+				results.add(m);
+			}
+			;
+			db.close();
+		} catch (SQLException ex) {
+			DB.SQLError(ex);
+		}
+		return results;
+	}
+	
+	public static LinkedList<Map> getRecentJobs(String hash){
+		LinkedList<Map> results = new LinkedList<Map>();
+		Connection db = DB.connect();
+		try {
+			String query = "SELECT j.id, j.parameters, j.time, j.periodic FROM jobs j, software_agents sa WHERE sa.hash = \""
+					+ hash + "\" AND j.sa_id = sa.id ORDER BY j.id DESC LIMIT 0 , 10";
+			Statement stmt = db.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				
+				Map m = new LinkedHashMap();
+				
+				m.put("id", rs.getInt(1));
+				m.put("parameters", rs.getString(2));
+				m.put("time", rs.getInt(3));
+				m.put("periodic", rs.getInt(4));
+				
+				results.add(m);
+			}
+			;
+			db.close();
+		} catch (SQLException ex) {
+			DB.SQLError(ex);
+		}
+		return results;
+	}
 
 }

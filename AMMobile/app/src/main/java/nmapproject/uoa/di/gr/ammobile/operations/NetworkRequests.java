@@ -1,8 +1,13 @@
 package nmapproject.uoa.di.gr.ammobile.operations;
 
 import android.util.Log;
+import android.view.View;
+
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -11,7 +16,7 @@ import nmapproject.uoa.di.gr.ammobile.DB.Job;
 
 public class NetworkRequests {
 
-    public static final String baseURI = "http://192.168.1.68:8080/am/";
+    public static final String baseURI = "http://10.0.2.2:8080/am/";
 
     public static String registerRequest(String email , String password){
         final String url = baseURI+"mobileregister";
@@ -149,6 +154,26 @@ public class NetworkRequests {
     }
 
     public static LinkedList getPeriodicJobOfSA(String saHash){
+        final String url = baseURI+"recent";
+
+        Map send = new LinkedHashMap();
+
+        send.put("saHash" , saHash);
+
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            LinkedList<Map> res = restTemplate.postForObject(url, send, LinkedList.class);
+
+            return res;
+
+        }catch (Exception e) {
+
+            return null;
+        }
+    }
+
+    public static LinkedList getRecentJobs(String saHash){
         final String url = baseURI+"periodic";
 
         Map send = new LinkedHashMap();

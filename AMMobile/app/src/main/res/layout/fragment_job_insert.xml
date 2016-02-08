@@ -36,7 +36,7 @@
         android:id="@+id/SAIWriteComLabel"
         android:layout_gravity="center_horizontal" />
 
-    <EditText
+    <AutoCompleteTextView
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

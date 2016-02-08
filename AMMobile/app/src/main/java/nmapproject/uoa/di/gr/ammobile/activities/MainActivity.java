@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import nmapproject.uoa.di.gr.ammobile.DB.DBHelper;
 import nmapproject.uoa.di.gr.ammobile.fragments.AfterLoginFragment;
 import nmapproject.uoa.di.gr.ammobile.fragments.AllSAResultsFragment;
 import nmapproject.uoa.di.gr.ammobile.fragments.JobDeletionFragment;
@@ -221,6 +222,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void logout(){
+
+        DBHelper db = new DBHelper(getApplicationContext());
+        db.insertCred("online" , "off");
         Toast.makeText(getApplicationContext() , "Logging out" , Toast.LENGTH_LONG).show();
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 

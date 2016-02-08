@@ -78,6 +78,8 @@ public class SendResults {
     		
     		String jsonInString = mapper.writeValueAsString(send);
     		
+    		System.out.println(jsonInString);
+    		
     		return Response.status(200).entity(jsonInString).build();
     	
     	}catch (JsonProcessingException ex){

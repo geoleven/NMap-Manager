@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -104,6 +106,9 @@ public class SingleSAResultsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        onlineCheck();
+
         refreshList();
     }
 
@@ -124,6 +129,12 @@ public class SingleSAResultsFragment extends Fragment {
         saSRChooseSASpinner.setAdapter(spinnerArrayAdapter);
         selectedSA = null;
     }
+    private void onlineCheck(){
+        if(!NetworkStatus.getInstance().isOnline()){
+            Toast.makeText(getActivity(), "AM is offline!", Toast.LENGTH_LONG).show();
+        }
+    }
+
 
 
 }

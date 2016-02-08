@@ -2,17 +2,21 @@ package nmapproject.uoa.di.gr.ammobile.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.Toast;
+
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import nmapproject.uoa.di.gr.ammobile.R;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.GetResults;
+import nmapproject.uoa.di.gr.ammobile.operations.NetworkStatus;
 
 public class AllSAResultsFragment extends Fragment {
     private static final String mTag = "ASAR";
@@ -31,6 +35,8 @@ public class AllSAResultsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all_sa_results, container, false);
+
+        onlineCheck();
 
 //        aSAResultsArea = (TextView) view.findViewById(R.id.ASAResultsArea);
         aSAResultsArea = (WebView) view.findViewById(R.id.ASAResultsArea);
@@ -58,7 +64,7 @@ public class AllSAResultsFragment extends Fragment {
                     for (Map m : results) {
                         displayText += (String) m.get("xml") + "\n\n\n";
                     }
-
+                    Log.d(mTag , displayText);
 //                    aSAResultsArea.setText(Html.fromHtml(displayText));
                     aSAResultsArea.loadDataWithBaseURL("", displayText, "text/html", "UTF-8", "");
 
@@ -72,5 +78,11 @@ public class AllSAResultsFragment extends Fragment {
 
         return view;
     }
+    private void onlineCheck(){
+        if(!NetworkStatus.getInstance().isOnline()){
+            Toast.makeText(getActivity(), "AM is offline!", Toast.LENGTH_LONG).show();
+        }
+    }
+
 
 }
