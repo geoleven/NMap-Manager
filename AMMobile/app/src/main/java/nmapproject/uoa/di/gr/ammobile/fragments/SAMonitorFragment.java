@@ -43,11 +43,18 @@ public class SAMonitorFragment extends Fragment {
                     info.execute();
                     try {
                         LinkedList<Map> myList = info.get();
-                        prevAdapter.removeAll();
-                        for (Map curMap : myList) {
-                            prevAdapter.add((String) curMap.get("unionHash"), (boolean) curMap.get("status"));
+
+                        Log.d(mTag, String.valueOf(myList));
+
+                        if(myList != null){
+                            prevAdapter.removeAll();
+                            for (Map curMap : myList) {
+                                prevAdapter.add((String) curMap.get("unionHash"), (boolean) curMap.get("status"));
+                            }
+                            hashList.setAdapter(prevAdapter);
                         }
-                        hashList.setAdapter(prevAdapter);
+
+
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (ExecutionException e) {
@@ -70,6 +77,11 @@ public class SAMonitorFragment extends Fragment {
         try {
             LinkedList<Map> myList = info.get();
             Log.d("sas", String.valueOf(myList));
+
+            if(myList == null){
+                myList = new LinkedList<Map>();
+            }
+
             OnlineIndicator<String> hashAdapter = new OnlineIndicator<String>(getActivity(), R.layout.online_checklist, R.id.samListText, R.id.onlineListIcon);
 
             for (Map curMap : myList) {

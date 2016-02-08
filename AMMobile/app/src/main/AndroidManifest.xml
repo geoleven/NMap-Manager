@@ -28,7 +28,7 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:label="@string/title_activity_after_login"></activity>
+            android:label="@string/loginMainLbl"></activity>
     </application>
 
 </manifest>

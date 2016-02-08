@@ -2,14 +2,18 @@ package nmapproject.uoa.di.gr.ammobile.fragments;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 
+import nmapproject.uoa.di.gr.ammobile.DB.DBHelper;
 import nmapproject.uoa.di.gr.ammobile.R;
+import nmapproject.uoa.di.gr.ammobile.activities.LoginActivity;
 
 public class AfterLoginFragment extends Fragment /*implements View.OnClickListener*/ {
 
@@ -117,7 +121,7 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //T T
+                logout();
             }
         });
 
@@ -131,6 +135,11 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
 
         // Refresh the state of the +1 button each time the activity receives focus.
         saMonitorBtn.setEnabled(true);
+
+
+        DBHelper db = new DBHelper(getActivity());
+        db.printAllJobs();
+
     }
 
 //    @Override
@@ -170,4 +179,14 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
 //        Transaction.addToBackStack(null);
 //        Transaction.commit();
 //    }
+
+    private void logout(){
+        Toast.makeText(getActivity(), "Logging out", Toast.LENGTH_LONG).show();
+        startActivity(new Intent(getActivity(), LoginActivity.class));
+
+    }
+
+
 }
+
+

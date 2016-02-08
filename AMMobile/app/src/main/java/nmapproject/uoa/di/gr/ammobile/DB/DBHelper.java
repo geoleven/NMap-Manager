@@ -88,4 +88,30 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
     }
+
+    public LinkedList<Job> pendingJobs(){
+
+        LinkedList<Job> jobs = new LinkedList<Job>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM jobs" , null);
+
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+
+            jobs.add(
+                new Job(
+                    res.getString(res.getColumnIndex("parameters")),
+                    res.getInt(res.getColumnIndex("periodic")) ,
+                    res.getInt(res.getColumnIndex("time")),
+                    res.getString(res.getColumnIndex("sa_hash"))
+                )
+            );
+
+            res.moveToNext();
+        }
+
+        return jobs;
+    }
 }

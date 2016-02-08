@@ -60,6 +60,9 @@ public class SAJobInsertionFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 LinkedList<String> online = NetworkStatus.getInstance().onlineSAs();
+                if(online == null){
+                    online = new LinkedList<String>();
+                }
                 String[] listElems = online.toArray(new String[online.size()]);
                 ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item);
                 spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -96,6 +99,9 @@ public class SAJobInsertionFragment extends Fragment {
     public void onResume() {
         super.onResume();
         LinkedList<String> online = NetworkStatus.getInstance().onlineSAs();
+        if(online == null){
+            online = new LinkedList<String>();
+        }
         String[] listElems = online.toArray(new String[online.size()]);
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
