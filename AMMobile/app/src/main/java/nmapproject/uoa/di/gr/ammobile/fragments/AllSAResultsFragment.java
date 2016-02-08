@@ -8,7 +8,6 @@ import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
@@ -25,8 +24,7 @@ import nmapproject.uoa.di.gr.ammobile.asynctasks.GetResults;
 public class AllSAResultsFragment extends Fragment {
     private static final String mTag = "ASAR";
 
-//    private TextView aSAResultsArea;
-    private WebView aSAResultsArea;
+    private TextView aSAResultsArea;
     private Button asarResBtn;
     private NumberPicker asarNumberPicker;
 
@@ -39,8 +37,7 @@ public class AllSAResultsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all_sa_results, container, false);
 
-//        aSAResultsArea = (TextView) view.findViewById(R.id.ASAResultsArea);
-        aSAResultsArea = (WebView) view.findViewById(R.id.ASAResultsArea);
+        aSAResultsArea = (TextView) view.findViewById(R.id.ASAResultsArea);
         asarResBtn = (Button) view.findViewById(R.id.asarResBtn);
         asarNumberPicker = (NumberPicker) view.findViewById(R.id.asarNumberPicker);
 
@@ -66,8 +63,7 @@ public class AllSAResultsFragment extends Fragment {
                         displayText += (String) m.get("xml") + "\n\n\n";
                     }
 
-//                    aSAResultsArea.setText(Html.fromHtml(displayText));
-                    aSAResultsArea.loadDataWithBaseURL("", displayText, "text/html", "UTF-8", "");
+                    aSAResultsArea.setText(Html.fromHtml(displayText));
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();

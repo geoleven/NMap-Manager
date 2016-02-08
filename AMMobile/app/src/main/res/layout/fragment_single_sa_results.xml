@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
@@ -103,4 +104,111 @@
 
 
 
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    android:id="@+id/sa_specific_results">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SSARLbl"
+        android:id="@+id/SSARLbl"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="32dp" />
+
+    <TextView
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SSARChoice"
+        android:id="@+id/SSARChoiceLbl"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_gravity="center_horizontal">
+
+            <Spinner
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/SASRChooseSASpinner"
+                android:layout_gravity="center_horizontal" />
+
+            <NumberPicker
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/ssarNumberPicker"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/SALRefresh"
+            android:textAllCaps="false"
+            android:id="@+id/ssarRefBtn"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/ssarResBtn"
+            android:textAllCaps="false"
+            android:id="@+id/ssarResBtn"
+            android:layout_gravity="center_horizontal" />
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:layout_gravity="center_horizontal">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView"
+            android:layout_gravity="center_horizontal|top"
+            android:fillViewport="true">
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:id="@+id/SASResultsArea" />
+
+            </HorizontalScrollView>
+
+        </ScrollView>
+
+    </FrameLayout>
+
+
+
+
+>>>>>>> 0a90c022a89a0eca67bc431d66a0590b376552e8
 </LinearLayout>

@@ -30,5 +30,4 @@
             android:name=".activities.MainActivity"
             android:label="@string/loginMainLbl"></activity>
     </application>
-
 </manifest>

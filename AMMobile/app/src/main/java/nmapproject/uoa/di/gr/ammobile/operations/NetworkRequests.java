@@ -16,7 +16,7 @@ import nmapproject.uoa.di.gr.ammobile.DB.Job;
 
 public class NetworkRequests {
 
-    public static final String baseURI = "http://192.168.1.68:8080/am/";
+    public static final String baseURI = "http://10.0.2.2:8080/am/";
 
     public static String registerRequest(String email , String password){
         final String url = baseURI+"mobileregister";

@@ -185,8 +185,4 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
         startActivity(new Intent(getActivity(), LoginActivity.class));
 
     }
-
-
 }
-
-

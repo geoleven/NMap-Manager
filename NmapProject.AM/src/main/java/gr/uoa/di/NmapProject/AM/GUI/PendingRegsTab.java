@@ -49,4 +49,22 @@ public class PendingRegsTab {
 		}
 		AdminPanelDAO.acceptSAs(idsToBeAccepted);
 	}
+	
+	/**
+	 * After user input it validates and rejects/deletes the selected S.A.s.
+	 * 
+	 * @param checkList
+	 */
+	public static void rejectSelectedSAs(CheckBoxList checkList) {
+		LinkedList<Integer> idsToBeRejected = new LinkedList<Integer>();
+		JCheckBox cb = null;
+		for (int index = 0; index < checkList.getModel().getSize(); index++) {
+			cb = (JCheckBox) checkList.getModel().getElementAt(index);
+			if (cb.isSelected()) {
+				//System.out.println("Adding " + Integer.parseInt(cb.getText().substring(11, cb.getText().indexOf("\t"))) + ".");
+				idsToBeRejected.add(Integer.parseInt(cb.getText().substring(11, cb.getText().indexOf("\t"))));
+			}
+		}
+		AdminPanelDAO.rejectSAs(idsToBeRejected);
+	}
 }
