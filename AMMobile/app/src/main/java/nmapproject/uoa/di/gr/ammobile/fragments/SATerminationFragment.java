@@ -1,8 +1,6 @@
 package nmapproject.uoa.di.gr.ammobile.fragments;
 
-
 import android.app.Fragment;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +8,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Spinner;
-
 import java.util.LinkedList;
-
 import nmapproject.uoa.di.gr.ammobile.R;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.Terminate;
 import nmapproject.uoa.di.gr.ammobile.operations.NetworkStatus;

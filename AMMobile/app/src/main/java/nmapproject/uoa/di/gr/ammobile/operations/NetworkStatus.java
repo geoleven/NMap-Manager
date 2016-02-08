@@ -1,12 +1,7 @@
 package nmapproject.uoa.di.gr.ammobile.operations;
 
-
-import android.util.Log;
-
 import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
-
-import nmapproject.uoa.di.gr.ammobile.asynctasks.SAInfo;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.StatusUpdate;
 
 public class NetworkStatus {

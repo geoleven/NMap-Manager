@@ -1,13 +1,7 @@
 package nmapproject.uoa.di.gr.ammobile.operations;
 
-
 import android.content.Context;
-import android.support.v7.app.ActionBar;
-import android.util.Log;
-import android.widget.Toast;
-
 import java.util.LinkedList;
-
 import nmapproject.uoa.di.gr.ammobile.DB.DBHelper;
 import nmapproject.uoa.di.gr.ammobile.DB.Job;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.SendJobs;

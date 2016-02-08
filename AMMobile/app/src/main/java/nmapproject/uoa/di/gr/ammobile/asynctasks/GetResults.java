@@ -1,7 +1,6 @@
 package nmapproject.uoa.di.gr.ammobile.asynctasks;
 
 import android.os.AsyncTask;
-
 import java.util.LinkedList;
 import java.util.Map;
 

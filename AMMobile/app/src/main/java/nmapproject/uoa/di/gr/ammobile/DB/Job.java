@@ -2,9 +2,6 @@ package nmapproject.uoa.di.gr.ammobile.DB;
 
 import android.util.Log;
 
-/**
- * Created by fozzip on 2/2/16.
- */
 public class Job {
 
     public String parameters;

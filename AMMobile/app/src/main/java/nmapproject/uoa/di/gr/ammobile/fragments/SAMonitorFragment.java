@@ -6,14 +6,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-
 import nmapproject.uoa.di.gr.ammobile.R;
 import nmapproject.uoa.di.gr.ammobile.adapters.OnlineIndicator;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.SAInfo;

@@ -1,10 +1,7 @@
 package nmapproject.uoa.di.gr.ammobile.fragments;
 
-
 import android.app.Fragment;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +9,13 @@ import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
-import android.widget.TextView;
-
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-
 import nmapproject.uoa.di.gr.ammobile.R;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.GetResults;
-import nmapproject.uoa.di.gr.ammobile.asynctasks.Terminate;
 import nmapproject.uoa.di.gr.ammobile.operations.NetworkStatus;
 
 public class SingleSAResultsFragment extends Fragment {

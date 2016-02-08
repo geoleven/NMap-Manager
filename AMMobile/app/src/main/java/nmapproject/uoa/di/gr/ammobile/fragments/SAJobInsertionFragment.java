@@ -1,6 +1,5 @@
 package nmapproject.uoa.di.gr.ammobile.fragments;
 
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,10 +13,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-
 import java.util.LinkedList;
-
 import nmapproject.uoa.di.gr.ammobile.DB.Job;
 import nmapproject.uoa.di.gr.ammobile.R;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.SendJobs;

@@ -1,6 +1,5 @@
 package nmapproject.uoa.di.gr.ammobile.fragments;
 
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,12 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-
 import nmapproject.uoa.di.gr.ammobile.R;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.DeleteJobs;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.GetPeriodicJobOfSA;

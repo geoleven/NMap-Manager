@@ -1,12 +1,8 @@
 package nmapproject.uoa.di.gr.ammobile.asynctasks;
 
 import android.os.AsyncTask;
-
 import nmapproject.uoa.di.gr.ammobile.operations.NetworkRequests;
 
-/**
- * Created by fozzip on 2/4/16.
- */
 public class Register extends AsyncTask<String , Void , String>{
 
     @Override
