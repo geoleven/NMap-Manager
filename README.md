@@ -64,4 +64,28 @@ refresh rate can be set to the Globals.java file in each project respectively.
 The project now has complete javadoc documentation and we have as well extracted
 the online HTML form of it with a custom style-sheet for aesthetic purposes.
 
+________________________________________________________________________________
+
+The third part of the project is complete and everything should be working as 
+expected (we tested it in the extent we could with the recourses we have). It 
+was programmed in Android Studio and run with the latest Java 1.8. For emulators
+we used Nexus 5 and Nexus 4 with Google API 22 and 23.
+
+The GUI interface is designed as asked with 3 activities for the login view, 
+the register view and the rest of the view. Every other view uses fragments as 
+asked and because of the better performance. 
+
+While at the main activity, there is also a drawer menu for easier navigation to
+ the app. It can be used by sliding from the left part of the screen. 
+
+The fragments are all working and sending the correct commands to the server 
+which was altered to also work with the app. The server was also altered to 
+enable the user registration process.
+
+The connectivity of the web service is still using the Jersy server with JSON 
+object to send and receive whatever is needed.
+
+
+
+
 
