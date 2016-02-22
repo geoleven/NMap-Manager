@@ -16,6 +16,9 @@ import nmapproject.uoa.di.gr.ammobile.R;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.Authenticate;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.Register;
 
+/**
+ * The register activity
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
@@ -25,6 +28,10 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText repPass;
     private Button regBtn;
 
+    /**
+     * Manages what happens when the view is created
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +58,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * A function to register a user to the AM.
+     * @throws ExecutionException ExecutionException
+     * @throws InterruptedException InterruptedException
+     */
     private void register() throws ExecutionException, InterruptedException{
         regBtn.setEnabled(false);
 
@@ -74,6 +86,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * A function that validates the credentials given by the user
+     * @return true or false
+     */
     public boolean validate() {
         boolean valid = true;
 
@@ -106,6 +122,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Manages what happen if register fails
+     * @param message message
+     */
     public void onRegisterFailed(String message) {
 
         Toast.makeText(getBaseContext(), "Register failed : "+message, Toast.LENGTH_LONG).show();
@@ -113,6 +133,9 @@ public class RegisterActivity extends AppCompatActivity {
         regBtn.setEnabled(true);
     }
 
+    /**
+     * Manages what happen if register fails
+     */
     public void onRegisterFailed() {
 
         Toast.makeText(getBaseContext(), "Register failed", Toast.LENGTH_LONG).show();
@@ -120,6 +143,9 @@ public class RegisterActivity extends AppCompatActivity {
         regBtn.setEnabled(true);
     }
 
+    /**
+     * Manages what happen if register succeeds
+     */
     public void onRegisterSuccess() {
         Toast.makeText(getBaseContext(), "Register Success", Toast.LENGTH_LONG).show();
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));

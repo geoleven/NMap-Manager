@@ -27,7 +27,9 @@ import nmapproject.uoa.di.gr.ammobile.fragments.SATerminationFragment;
 import nmapproject.uoa.di.gr.ammobile.fragments.SingleSAResultsFragment;
 import nmapproject.uoa.di.gr.ammobile.operations.NetworkThread;
 
-
+/**
+ * The main activity of the application
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ListView mDrawerList;
@@ -38,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
     private Thread network;
 
+    /**
+     * Manages what happens when the view is created
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Creates the side drawer of the main activity which will be visible from everywhere
+     */
     private void addDrawerItems() {
         String[] actionArray = {"Activity chooser", "", getString(R.string.CVBtn1), getString(R.string.CVBtn2),
                 getString(R.string.CVBtn3), getString(R.string.CVBtn4),
@@ -149,6 +158,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Setups and initialized the drawer
+     */
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
 
@@ -172,6 +184,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Sets what happens when an item of the drawer is selected
+     * @param item the item clicked
+     * @return true or false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
@@ -186,6 +203,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Manages what happens afer creating the view
+     * @param savedInstanceState
+     */
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -193,12 +214,19 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle.syncState();
     }
 
+    /**
+     * Manages what happens if configuration changes
+     * @param newConfig newConfig
+     */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    /**
+     * Manages what happens when the user presses the back button (fragments back stack)
+     */
     @Override
     public void onBackPressed() {
         if(getFragmentManager().getBackStackEntryCount() != 0) {
@@ -209,6 +237,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Manages what happens when the view is destroyed
+     */
     @Override
     public void onDestroy() {
 
@@ -221,6 +252,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * A function to manage the logout process.
+     */
     private void logout(){
 
         DBHelper db = new DBHelper(getApplicationContext());

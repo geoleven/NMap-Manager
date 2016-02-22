@@ -25,6 +25,9 @@ import nmapproject.uoa.di.gr.ammobile.asynctasks.RecentJobs;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.SendJobs;
 import nmapproject.uoa.di.gr.ammobile.operations.NetworkStatus;
 
+/**
+ * The fragment that inserts a job to an S.A..
+ */
 public class SAJobInsertionFragment extends Fragment {
 
     private static final String mTag = "SAJI";
@@ -44,9 +47,18 @@ public class SAJobInsertionFragment extends Fragment {
     ArrayAdapter<String> autoCompAdapt;
     List<Map> recent;
 
-    public SAJobInsertionFragment() {
-    }
+    /**
+     * Creates the fragment
+     */
+    public SAJobInsertionFragment() {}
 
+    /**
+     * Manages what happens when the view is created
+     * @param inflater inflater
+     * @param container container
+     * @param savedInstanceState savedInstanceState
+     * @return The view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -131,6 +143,9 @@ public class SAJobInsertionFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Manages what happens when the view is resumed
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -160,6 +175,9 @@ public class SAJobInsertionFragment extends Fragment {
     }
 
 
+    /**
+     * Creates a new job on an S.A.
+     */
     private void onNewJob() {
 
         insertBtn.setEnabled(false);
@@ -187,6 +205,10 @@ public class SAJobInsertionFragment extends Fragment {
         insertBtn.setEnabled(true);
     }
 
+    /**
+     * A function that validates it the job to be inserted is valid
+     * @return
+     */
     private boolean validate() {
 
         String errorMsg = "";
@@ -212,6 +234,9 @@ public class SAJobInsertionFragment extends Fragment {
         return valid;
     }
 
+    /**
+     * The function to check if the AM is online.
+     */
     private void onlineCheck(){
         if(!NetworkStatus.getInstance().isOnline()){
             Toast.makeText(getActivity() , "AM is offline!" , Toast.LENGTH_LONG).show();

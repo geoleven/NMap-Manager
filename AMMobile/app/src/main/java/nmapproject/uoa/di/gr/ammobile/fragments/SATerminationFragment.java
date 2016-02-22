@@ -16,6 +16,9 @@ import nmapproject.uoa.di.gr.ammobile.R;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.Terminate;
 import nmapproject.uoa.di.gr.ammobile.operations.NetworkStatus;
 
+/**
+ * The fragment that can terminate an S.A..
+ */
 public class SATerminationFragment extends Fragment {
     private static final String mTag = "SAT";
 
@@ -25,8 +28,18 @@ public class SATerminationFragment extends Fragment {
     private String selectedSA = null;
     private View prevSelectedView = null;
 
+    /**
+     * Creates the fragment
+     */
     public SATerminationFragment() {}
 
+    /**
+     * Manages what happens when the view is created
+     * @param inflater inflater
+     * @param container container
+     * @param savedInstanceState savedInstanceState
+     * @return The view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,6 +82,9 @@ public class SATerminationFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Manages what happens when the view is resumed
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -78,6 +94,9 @@ public class SATerminationFragment extends Fragment {
         refreshList();
     }
 
+    /**
+     * The function that refreshes the list of the S.A.s
+     */
     public void refreshList() {
         LinkedList<String> online = NetworkStatus.getInstance().onlineSAs();
         if(online == null){
@@ -95,6 +114,10 @@ public class SATerminationFragment extends Fragment {
         saTerminationList.setAdapter(spinnerArrayAdapter);
         selectedSA = null;
     }
+
+    /**
+     * The function to check if the AM is online.
+     */
     private void onlineCheck(){
         if(!NetworkStatus.getInstance().isOnline()){
             Toast.makeText(getActivity(), "AM is offline!", Toast.LENGTH_LONG).show();

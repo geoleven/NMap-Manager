@@ -18,6 +18,9 @@ import nmapproject.uoa.di.gr.ammobile.R;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.GetResults;
 import nmapproject.uoa.di.gr.ammobile.operations.NetworkStatus;
 
+/**
+ * The fragment that show results for all S.A.s.
+ */
 public class AllSAResultsFragment extends Fragment {
     private static final String mTag = "ASAR";
 
@@ -29,8 +32,18 @@ public class AllSAResultsFragment extends Fragment {
 
     String selectedSA = null;
 
+    /**
+     * Creates the fragment
+     */
     public AllSAResultsFragment() {}
 
+    /**
+     * Manages what happens when the view is created
+     * @param inflater inflater
+     * @param container container
+     * @param savedInstanceState savedInstanceState
+     * @return The view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,6 +91,10 @@ public class AllSAResultsFragment extends Fragment {
 
         return view;
     }
+
+    /**
+     * The function to check if the AM is online.
+     */
     private void onlineCheck(){
         if(!NetworkStatus.getInstance().isOnline()){
             Toast.makeText(getActivity(), "AM is offline!", Toast.LENGTH_LONG).show();

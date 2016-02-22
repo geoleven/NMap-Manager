@@ -18,14 +18,27 @@ import nmapproject.uoa.di.gr.ammobile.adapters.OnlineIndicator;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.SAInfo;
 import nmapproject.uoa.di.gr.ammobile.operations.NetworkStatus;
 
+/**
+ * The fragment that show the online status of the S.A.s.
+ */
 public class SAMonitorFragment extends Fragment {
 
     private static final String mTag = "SAM";
     private ListView hashList;
     private Button refreshSAM;
 
+    /**
+     * Creates the fragment
+     */
     public SAMonitorFragment() {}
 
+    /**
+     * Manages what happens when the view is created
+     * @param inflater inflater
+     * @param container container
+     * @param savedInstanceState savedInstanceState
+     * @return The view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,6 +80,9 @@ public class SAMonitorFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Manages what happens when the view is resumed
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -99,6 +115,9 @@ public class SAMonitorFragment extends Fragment {
         }
     }
 
+    /**
+     * The function to check if the AM is online.
+     */
     private void onlineCheck(){
         if(!NetworkStatus.getInstance().isOnline()){
             Toast.makeText(getActivity() , "AM is offline!" , Toast.LENGTH_LONG).show();

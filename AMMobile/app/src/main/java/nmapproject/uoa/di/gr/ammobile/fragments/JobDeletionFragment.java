@@ -20,6 +20,9 @@ import nmapproject.uoa.di.gr.ammobile.asynctasks.DeleteJobs;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.GetPeriodicJobOfSA;
 import nmapproject.uoa.di.gr.ammobile.operations.NetworkStatus;
 
+/**
+ * The fragment deletes a job from an S.A..
+ */
 public class JobDeletionFragment extends Fragment {
     private static final String mTag = "SAJD";
 
@@ -31,8 +34,18 @@ public class JobDeletionFragment extends Fragment {
     LinkedList<Map> jobList = new LinkedList();
     int selectedJob = -1;
 
+    /**
+     * Creates the fragment
+     */
     public JobDeletionFragment() {}
 
+    /**
+     * Manages what happens when the view is created
+     * @param inflater inflater
+     * @param container container
+     * @param savedInstanceState savedInstanceState
+     * @return The view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,6 +60,9 @@ public class JobDeletionFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Manages what happens when the view is resumed
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -95,6 +111,9 @@ public class JobDeletionFragment extends Fragment {
 
     }
 
+    /**
+     * Populates the list of jobs that can be deleted
+     */
     private void populateJobList(){
 
         GetPeriodicJobOfSA task = new GetPeriodicJobOfSA();
@@ -150,6 +169,9 @@ public class JobDeletionFragment extends Fragment {
 
     }
 
+    /**
+     * A function that deletes a job from an S.A.
+     */
     private void onDeleteJob(){
 
         deleteBtn.setEnabled(false);
@@ -174,6 +196,10 @@ public class JobDeletionFragment extends Fragment {
 
     }
 
+    /**
+     * A function that validates if the job to be deleted is a good one
+     * @return true or false
+     */
     private boolean validate(){
 
         boolean valid = true;
@@ -190,6 +216,9 @@ public class JobDeletionFragment extends Fragment {
         return valid;
     }
 
+    /**
+     * The function to check if the AM is online.
+     */
     private void onlineCheck(){
         if(!NetworkStatus.getInstance().isOnline()){
             Toast.makeText(getActivity() , "AM is offline!" , Toast.LENGTH_LONG).show();

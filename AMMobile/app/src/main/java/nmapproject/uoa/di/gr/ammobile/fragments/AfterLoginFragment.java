@@ -14,6 +14,9 @@ import nmapproject.uoa.di.gr.ammobile.R;
 import nmapproject.uoa.di.gr.ammobile.activities.LoginActivity;
 import nmapproject.uoa.di.gr.ammobile.operations.NetworkStatus;
 
+/**
+ * The fragment that is opened after login (choose operation)
+ */
 public class AfterLoginFragment extends Fragment /*implements View.OnClickListener*/ {
 
     private static final String mTag = "ALF";
@@ -25,19 +28,26 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
     private Button saJobDeletionBtn;
     private Button logoutBtn;
 
-    public AfterLoginFragment() {
+    /**
+     * Creates the fragment
+     */
+    public AfterLoginFragment() {}
 
-    }
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        if (getArguments() != null) {
+//            //fill the parameters here
+//        }
+//    }
 
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            //fill the parameters here
-        }
-    }
-
+    /**
+     * Manages what happens when the view is created
+     * @param inflater inflater
+     * @param container container
+     * @param savedInstanceState savedInstanceState
+     * @return The view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -128,6 +138,9 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
         return view;
     }
 
+    /**
+     * Manages what happens when the view is resumed
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -181,14 +194,20 @@ public class AfterLoginFragment extends Fragment /*implements View.OnClickListen
 //        Transaction.commit();
 //    }
 
+    /**
+     * The function to manage the logout
+     */
     private void logout(){
         DBHelper db = new DBHelper(getActivity());
         db.insertCred("online" , "off");
 
         Toast.makeText(getActivity(), "Logging out", Toast.LENGTH_LONG).show();
         startActivity(new Intent(getActivity(), LoginActivity.class));
-
     }
+
+    /**
+     * The function to check if the AM is online.
+     */
     private void onlineCheck(){
         if(!NetworkStatus.getInstance().isOnline()){
             Toast.makeText(getActivity() , "AM is offline!" , Toast.LENGTH_LONG).show();

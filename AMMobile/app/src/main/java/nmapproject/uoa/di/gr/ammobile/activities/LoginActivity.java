@@ -19,6 +19,9 @@ import nmapproject.uoa.di.gr.ammobile.R;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.Authenticate;
 
 
+/**
+ * The login activity
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
@@ -30,6 +33,10 @@ public class LoginActivity extends AppCompatActivity {
     private TextView regLink;
     private CheckBox saveCheck;
 
+    /**
+     * Manages what happens when the view is created
+     * @param savedInstanceState savedInstanceState
+     */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_login);
@@ -86,6 +93,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * A function that handles the login process
+     * @throws ExecutionException ExecutionException
+     * @throws InterruptedException InterruptedException
+     */
     public void login() throws ExecutionException, InterruptedException {
         loginBtn.setEnabled(false);
 
@@ -107,6 +119,10 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * A function that validates the user credentials
+     * @return True or false if the credentials are correct
+     */
     public boolean validate() {
         boolean valid = true;
 
@@ -131,16 +147,25 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Manages what happens when login fails.
+     */
     public void onLoginFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
         loginBtn.setEnabled(true);
     }
 
+    /**
+     * Manages what happens when login fails.
+     */
     public void onLoginFailed(String message) {
         Toast.makeText(getBaseContext(), "Login failed : "+message, Toast.LENGTH_LONG).show();
         loginBtn.setEnabled(true);
     }
 
+    /**
+     * Manages what happens when login succeeds.
+     */
     public void onLoginSuccess() {
         DBHelper db = new DBHelper(getApplicationContext());
         if(saveCheck.isChecked()){

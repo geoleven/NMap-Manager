@@ -20,6 +20,9 @@ import nmapproject.uoa.di.gr.ammobile.R;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.GetResults;
 import nmapproject.uoa.di.gr.ammobile.operations.NetworkStatus;
 
+/**
+ * The fragment that show results for an S.A..
+ */
 public class SingleSAResultsFragment extends Fragment {
     private static final String mTag = "SSAR";
 
@@ -32,8 +35,18 @@ public class SingleSAResultsFragment extends Fragment {
 
     String selectedSA = null;
 
+    /**
+     * Creates the fragment
+     */
     public SingleSAResultsFragment() {}
 
+    /**
+     * Manages what happens when the view is created
+     * @param inflater inflater
+     * @param container container
+     * @param savedInstanceState savedInstanceState
+     * @return The view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -102,7 +115,9 @@ public class SingleSAResultsFragment extends Fragment {
         return view;
     }
 
-
+    /**
+     * Manages what happens when the view is resumed
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -112,6 +127,9 @@ public class SingleSAResultsFragment extends Fragment {
         refreshList();
     }
 
+    /**
+     * The function that refreshes the list of the S.A.s
+     */
     public void refreshList() {
         LinkedList<String> online = NetworkStatus.getInstance().onlineSAs();
         if(online == null){
@@ -129,6 +147,10 @@ public class SingleSAResultsFragment extends Fragment {
         saSRChooseSASpinner.setAdapter(spinnerArrayAdapter);
         selectedSA = null;
     }
+
+    /**
+     * The function to check if the AM is online.
+     */
     private void onlineCheck(){
         if(!NetworkStatus.getInstance().isOnline()){
             Toast.makeText(getActivity(), "AM is offline!", Toast.LENGTH_LONG).show();
