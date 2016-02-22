@@ -6,17 +6,33 @@ import nmapproject.uoa.di.gr.ammobile.DB.DBHelper;
 import nmapproject.uoa.di.gr.ammobile.DB.Job;
 import nmapproject.uoa.di.gr.ammobile.asynctasks.SendJobs;
 
+/**
+ * Thread for keeping NetworkStatus up to date at all times
+ */
 public class NetworkThread extends Thread {
+    /**
+     * Tag foe debugging
+     */
     private static final String TAG = "NetworkStatus";
+    /**
+     * sec between updates
+     */
     private static final int Delaytime = 3;
-
+    /**
+     * context
+     */
     private Context context;
 
-
+    /**
+     * Constructor
+     */
     public NetworkThread(Context c){
         context = c;
     }
 
+    /**
+     * update status every delaytime seconds
+     */
     @Override
     public void run(){
 

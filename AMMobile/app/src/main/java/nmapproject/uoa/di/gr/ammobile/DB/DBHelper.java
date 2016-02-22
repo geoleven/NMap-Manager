@@ -10,16 +10,31 @@ import android.util.Log;
 
 import java.util.LinkedList;
 
+/**
+ * handles the db
+ */
 public class DBHelper extends SQLiteOpenHelper {
-
+    /**
+     * name of the db
+     */
     public static final String DATABASE_NAME = "nmap.db";
-
+    /**
+     * verison of the db
+     */
     public static final int version = 2;
 
+    /**
+     * Constructor
+     *
+     */
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, version);
     }
 
+    /**
+     * on Create event
+     *
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(
@@ -37,6 +52,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * on upgrade event
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS jobs");
@@ -44,21 +62,37 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * clears jobs table
+     */
     public void clearJobs(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from jobs");
     }
 
+    /**
+     * clears cred table
+     */
     public void clearCreds(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from cred");
     }
 
+    /**
+     * deletes a key from creds table
+     * @param key
+     * the key
+     */
     public void clearCred(String key){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from cred where key = \'"+key+"\'");
     }
 
+    /**
+     * creates a new job record given all the info
+     * @return
+     *  true
+     */
     public boolean insertJob(String parameters , int time , int periodic , String sa_hash) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -70,6 +104,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     * creates a new cred record given all the info
+     * @return
+     *  true
+     */
     public boolean insertCred(String key, String value) {
 
         clearCred(key);
@@ -83,12 +122,20 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     * inserts jobs to the db from a list
+     * @param jobList
+     *  the list
+     */
     public void storeJobs(LinkedList<Job> jobList){
         for(Job j : jobList){
             insertJob(j.parameters , j.time , j.periodic , j.saHash);
         }
     }
 
+    /**
+     * prints all jobs
+     */
     public void printAllJobs(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("SELECT * FROM jobs" , null);
@@ -116,6 +163,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * prints all creds
+     */
     public void printCreds(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("SELECT * FROM cred" , null);
@@ -140,6 +190,11 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * returns all list of all the pending jobs
+     * @return
+     *  a list of jobs
+     */
     public LinkedList<Job> pendingJobs(){
 
         LinkedList<Job> jobs = new LinkedList<Job>();

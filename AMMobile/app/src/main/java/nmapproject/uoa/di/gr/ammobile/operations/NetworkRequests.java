@@ -14,10 +14,18 @@ import java.util.Map;
 
 import nmapproject.uoa.di.gr.ammobile.DB.Job;
 
+/**
+ * class for executing network requests
+ */
 public class NetworkRequests {
-
+    /**
+     * the base URI
+     */
     public static final String baseURI = "http://10.0.2.2:8080/am/";
 
+    /**
+     * handles register request
+     */
     public static String registerRequest(String email , String password){
         final String url = baseURI+"mobileregister";
 
@@ -41,6 +49,9 @@ public class NetworkRequests {
 
     }
 
+    /**
+     * handles login request
+     */
     public static String loginRequest(String email , String password){
         final String url = baseURI+"login";
 
@@ -66,6 +77,9 @@ public class NetworkRequests {
         }
     }
 
+    /**
+     * handles request for new jobs
+     */
     public static boolean sendJobs(LinkedList<Job> jobList){
         final String url = baseURI+"newjob";
 
@@ -94,6 +108,9 @@ public class NetworkRequests {
         }
     }
 
+    /**
+     * handles request for sa info
+     */
     public static LinkedList SAInfo(){
         final String url = baseURI+"sa";
 
@@ -112,6 +129,9 @@ public class NetworkRequests {
 
     }
 
+    /**
+     * handles request for status update
+     */
     public static LinkedList statusUpdate() {
         final String url = baseURI+"status";
 
@@ -128,6 +148,9 @@ public class NetworkRequests {
         }
     }
 
+    /**
+     * handles request for results
+     */
     public static LinkedList getResults(String saHash , int number){
 
         final String url = baseURI+"results";
@@ -153,6 +176,9 @@ public class NetworkRequests {
 
     }
 
+    /**
+     * handles the request foor periodic jobs
+     */
     public static LinkedList getPeriodicJobOfSA(String saHash){
         final String url = baseURI+"recent";
 
@@ -173,6 +199,9 @@ public class NetworkRequests {
         }
     }
 
+    /**
+     * handles the request for recent jobs
+     */
     public static LinkedList getRecentJobs(String saHash){
         final String url = baseURI+"periodic";
 
@@ -193,6 +222,9 @@ public class NetworkRequests {
         }
     }
 
+    /**
+     * handles the request for deleting jobs
+     */
     public static void deleteJobs(LinkedList<Map> jobs){
 
         String url = baseURI+"delete";
@@ -214,6 +246,9 @@ public class NetworkRequests {
         }
     }
 
+    /**
+     * handles the request for sa termination
+     */
     public static void terminate(String hash){
         final String url = baseURI+"terminate";
 
