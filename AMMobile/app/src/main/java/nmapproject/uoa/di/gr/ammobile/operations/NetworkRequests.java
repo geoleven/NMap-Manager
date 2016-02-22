@@ -21,7 +21,7 @@ public class NetworkRequests {
     /**
      * the base URI
      */
-    public static final String baseURI = "http://10.0.2.2:8080/am/";
+    public static final String baseURI = "http://192.168.1.68:8080/am/";
 
     /**
      * handles register request
